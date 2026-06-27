@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiniela Mundial 2026</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="header-stripe"></div>
+<header>
+  <div class="update-bar">🕐 ÚLTIMA ACTUALIZACIÓN: <span id="fecha-update"></span></div>
+  <div class="trophy-wrap">
+    <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#f5d060"/><stop offset="50%" stop-color="#F0C030"/><stop offset="100%" stop-color="#b8860b"/>
+      </linearGradient></defs>
+      <path d="M35 10 Q30 30 25 45 Q18 65 30 78 Q38 87 50 89 Q62 87 70 78 Q82 65 75 45 Q70 30 65 10 Z" fill="url(#tg)" opacity=".95"/>
+      <path d="M35 20 Q18 22 17 38 Q17 50 28 52" stroke="url(#tg)" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M65 20 Q82 22 83 38 Q83 50 72 52" stroke="url(#tg)" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <rect x="36" y="89" width="28" height="8" rx="2" fill="url(#tg)"/>
+      <rect x="28" y="97" width="44" height="7" rx="3" fill="url(#tg)" opacity=".85"/>
+      <rect x="22" y="104" width="56" height="8" rx="3" fill="url(#tg)" opacity=".7"/>
+      <path d="M42 18 Q44 40 43 60" stroke="rgba(255,255,255,0.3)" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="header-badge">🌎 USA · CANADA · MÉXICO</div>
+  <h1>QUINIELA <em>MUNDIAL</em> 2026</h1>
+  <div class="header-sedes">
+    <div class="sede"><div class="sede-dot" style="background:#C8102E"></div>ESTADOS UNIDOS</div>
+    <div class="sede"><div class="sede-dot" style="background:#FF0000"></div>CANADÁ</div>
+    <div class="sede"><div class="sede-dot" style="background:#006847"></div>MÉXICO</div>
+  </div>
+  <div class="header-bottom-line"></div>
+</header>
+
+<main>
+  <div class="section-title">CLASIFICACIÓN GENERAL</div>
+  <div style="font-size:11px;color:var(--gris);margin-bottom:10px;margin-top:-8px">
+    💡 Haz clic en una columna de etapa para ver el desglose de esa ronda
+  </div>
+  <div class="tabla-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th style="text-align:left">Participante</th>
+          <th class="col-total">TOTAL</th>
+          <th>Grupos</th>
+          <th class="th-etapa" id="th-d16"   onclick="togglePanel('d16')"  style="color:#2ecc71">16vos<span class="ind">▼ detalle</span></th>
+          <th class="th-etapa" id="th-d8"    onclick="togglePanel('d8')"   style="color:#f39c12">8vos<span class="ind">▼ detalle</span></th>
+          <th class="th-etapa" id="th-d4"    onclick="togglePanel('d4')"   style="color:#e74c3c">4tos<span class="ind">▼ detalle</span></th>
+          <th class="th-etapa" id="th-semi"  onclick="togglePanel('semi')" style="color:#9b59b6">Semis<span class="ind">▼ detalle</span></th>
+          <th class="th-etapa" id="th-final" onclick="togglePanel('final')" style="color:#F0C030">Final<span class="ind">▼ detalle</span></th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <div id="panel-d16"   class="panel-etapa"></div>
+  <div id="panel-d8"    class="panel-etapa"></div>
+  <div id="panel-d4"    class="panel-etapa"></div>
+  <div id="panel-semi"  class="panel-etapa"></div>
+  <div id="panel-final" class="panel-etapa"></div>
+
+  <div class="grafica-row" style="margin-top:32px">
+    <div class="section-title" style="margin-bottom:0;flex:1">PUNTOS POR FASE</div>
+    <button id="btn-grafica" class="btn-toggle-grafica" type="button" onclick="toggleGrafica()">⚡ OCULTAR GRÁFICA</button>
+  </div>
+  <div class="grafica-wrapper" id="grafica-wrapper">
+    <!-- Botones filtro por fase -->
+    <div class="filtros-fases" id="filtros-fases">
+      <button class="btn-fase activo" data-fase="grupos" style="--fc:#3a7bd5" onclick="toggleFase('grupos',this)">⚽ Grupos</button>
+      <button class="btn-fase activo" data-fase="d16"    style="--fc:#2ecc71" onclick="toggleFase('d16',this)">🔟 16vos</button>
+      <button class="btn-fase activo" data-fase="d8"     style="--fc:#f39c12" onclick="toggleFase('d8',this)">⚡ 8vos</button>
+      <button class="btn-fase activo" data-fase="d4"     style="--fc:#e74c3c" onclick="toggleFase('d4',this)">🔥 4tos</button>
+      <button class="btn-fase activo" data-fase="semi"   style="--fc:#9b59b6" onclick="toggleFase('semi',this)">🌟 Semis</button>
+      <button class="btn-fase activo" data-fase="final"  style="--fc:#F0C030" onclick="toggleFase('final',this)">👑 Final</button>
+    </div>
+    <div class="bars-container" id="bars"></div>
+  </div>
+</main>
+<footer>⚽ FIFA WORLD CUP 2026 — QUINIELA PRIVADA</footer>
+
+<script src="data/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
