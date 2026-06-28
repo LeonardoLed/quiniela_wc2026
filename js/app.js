@@ -86,6 +86,58 @@ function pasaTexto(valor, info){
   return ` · pasa ${esc(equipo)}`;
 }
 
+function equipoNombre(info, lado){
+  if(!info) return lado === 'L' ? 'Local' : 'Visitante';
+  return lado === 'L' ? (info.local || 'Local') : (info.visita || 'Visitante');
+}
+function equipoFlag(info, lado){
+  if(!info) return '';
+  return lado === 'L' ? (info.flagL || '') : (info.flagV || '');
+}
+function clasificadoHtml(valor, info, etiqueta){
+  const c = clasificado(valor);
+  if(!c) return '';
+  const nombre = equipoNombre(info, c);
+  const flag = flagImg(equipoFlag(info, c));
+  return `<div class="clasifica-line"><span>${esc(etiqueta)}</span><strong>${flag}${esc(nombre)}</strong></div>`;
+}
+function scoreDisplay(valor){
+  const m = marcadorDe(valor);
+  return m ? `${m[0]} <span>:</span> ${m[1]}` : `— <span>:</span> —`;
+}
+function puntosLabel(pts){
+  if(pts === reglas.exacto) return `+${reglas.exacto}`;
+  if(pts === reglas.resultado) return `+${reglas.resultado}`;
+  return '0';
+}
+function puntosClass(pts){
+  if(pts === reglas.exacto) return 'b3';
+  if(pts === reglas.resultado) return 'b1';
+  return 'b0';
+}
+function matchCard({info, real, pron, pts, chipCls, badgeCls, compact=false}){
+  const infoOk = info && info.local && info.local !== 'Por definir';
+  if(!infoOk) return `<div class="match-card match-pending"><div class="match-empty">Por definir</div></div>`;
+  const mostrarPts = !!real;
+  return `<div class="match-card ${chipCls}">
+    ${fechaPartido(info)}
+    <div class="match-teams">
+      <div class="match-team">${flagImg(info.flagL)}<span>${esc(info.local)}</span></div>
+      <div class="match-vs">VS</div>
+      <div class="match-team">${flagImg(info.flagV)}<span>${esc(info.visita)}</span></div>
+    </div>
+    <div class="match-scores">
+      <div class="score-line"><span class="score-label">Real</span><strong>${scoreDisplay(real)}</strong></div>
+      <div class="score-line"><span class="score-label">Pron</span><strong>${scoreDisplay(pron)}</strong></div>
+    </div>
+    <div class="match-classifica">
+      ${clasificadoHtml(real, info, 'Clasificó')}
+      ${clasificadoHtml(pron, info, 'Pronosticó')}
+    </div>
+    ${mostrarPts ? `<div class="match-points ${badgeCls}">${puntosLabel(pts)}</div>` : ''}
+  </div>`;
+}
+
 function iniciales(nombre){
   return nombre.split(/\s+/).filter(Boolean).slice(0,2).map(x => x[0]).join('').toUpperCase();
 }
@@ -151,17 +203,10 @@ function buildTooltipUsuario(p) {
       const real = resultados[et.id][k];
       const pron = pronosticos[p.i][et.id][k];
       const info = partidos[et.id][k];
-      // Oculta en pantalla los partidos sin resultado y sin pronóstico, pero siguen en config.js para editarlos después.
-      if (!real && !pron) return;
       const pts = calcPts(real, pron);
-      const chipCls = pts===reglas.exacto?'chip-p3':pts===reglas.resultado?'chip-p1':'chip-p0';
-      const badgeCls = pts===reglas.exacto?'b3':pts===reglas.resultado?'b1':'b0';
-      const realStr = real ? scoreStr(real) : '?-?';
-      const pronStr = pron ? scoreStr(pron) : '—';
-      const realPasa = real ? pasaTexto(real, info) : '';
-      const pronPasa = pron ? pasaTexto(pron, info) : '';
-      const ptsLabel = real ? (pts===reglas.exacto?`+${reglas.exacto}`:pts===reglas.resultado?`+${reglas.resultado}`:'0') : '';
-      chips += `<div class="tip-chip ${chipCls}">${fechaPartido(info)}<div class="tip-partido">${labelPartido(info)}</div><div class="tip-scores"><span class="tip-real">Real: ${realStr}${realPasa}</span><span class="tip-pron">Pron: ${pronStr}${pronPasa}</span><span class="tip-badge ${badgeCls}">${ptsLabel}</span></div></div>`;
+      const chipCls = real ? (pts===reglas.exacto?'chip-p3':pts===reglas.resultado?'chip-p1':'chip-p0') : '';
+      const badgeCls = puntosClass(pts);
+      chips += matchCard({info, real, pron, pts, chipCls, badgeCls, compact:true});
     });
     if (!chips) chips = `<span style="color:var(--gris);font-size:11px">Sin partidos visibles aún</span>`;
     html += `<div class="tip-fase-bloque"><div class="tip-fase-titulo" style="color:${et.color}">▸ ${esc(et.label.toUpperCase())}</div><div class="tip-chips">${chips}</div></div>`;
@@ -246,16 +291,10 @@ function renderPaneles(){
         const real=resultados[et.id][k];
         const pron=pronosticos[p.i][et.id][k];
         const info=partidos[et.id][k];
-        if(!real && !pron) return;
         const pts=calcPts(real,pron);
-        const chipCls=pts===reglas.exacto?'chip-p3':pts===reglas.resultado?'chip-p1':'chip-p0';
-        const badgeCls=pts===reglas.exacto?'b3':pts===reglas.resultado?'b1':'b0';
-        const realStr=real?scoreStr(real):'?-?';
-        const pronStr=pron?scoreStr(pron):'—';
-        const realPasa=real?pasaTexto(real, info):'';
-        const pronPasa=pron?pasaTexto(pron, info):'';
-        const ptsLabel=real?(pts===reglas.exacto?`+${reglas.exacto}`:pts===reglas.resultado?`+${reglas.resultado}`:'0'):'';
-        chips+=`<div class="pchip ${chipCls}">${fechaPartido(info)}<div class="pchip-partido">${labelPartido(info)}</div><div class="pchip-scores"><span class="pchip-real">Real: ${realStr}${realPasa}</span><span class="pchip-pron">Pronós: ${pronStr}${pronPasa}</span><span class="pchip-badge ${badgeCls}">${ptsLabel}</span></div></div>`;
+        const chipCls=real ? (pts===reglas.exacto?'chip-p3':pts===reglas.resultado?'chip-p1':'chip-p0') : '';
+        const badgeCls=puntosClass(pts);
+        chips+=matchCard({info, real, pron, pts, chipCls, badgeCls});
       });
       if(!chips) chips=`<span style="color:var(--gris);font-size:12px">Sin partidos visibles aún</span>`;
       html+=`<div class="panel-jugador"><div class="pj-nombre">${avatar(p.nombre)}<span>${esc(p.nombre)}</span><span class="pj-pts ${ptsClass2}">${totalEt} pts</span></div><div class="partidos-chips">${chips}</div></div>`;
