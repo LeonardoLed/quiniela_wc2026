@@ -3,18 +3,8 @@
   Edita este archivo para actualizar resultados, pronósticos, fechas y participantes.
   Formato de fecha sugerido para cada partido: "DD/MM hh:mm". Ejemplo: "14/06 20:00".
   Sin resultado todavía: null. Ejemplo: p03: null
-
-  Empates en eliminatoria:
-  - Si NO hay empate, puedes seguir usando [2, 1].
-  - Si hay empate y quieres indicar quién pasa, usa:
-      p01: { marcador:[1, 1], pasa:'L' }  // pasa el local
-      p02: { marcador:[2, 2], pasa:'V' }  // pasa el visitante
-  Esta misma regla aplica para resultados reales y pronósticos.
-
-  Puntuación:
-  - Marcador exacto + clasificado correcto si hubo empate = 3 pts
-  - Solo clasificado/ganador correcto = 1 pt
-  - Error = 0 pts
+  En eliminatorias, si hay empate indica quién pasa:
+  p01: { marcador: [1,1], pasa: "L" }  // L = local, V = visitante
 
   Estructura corregida:
   - 16vos: 16 partidos
@@ -33,49 +23,40 @@ const CONFIG = {
   },
   "participantes": [
     {
-      "nombre": "Carlos",
-      "emoji": "🦁",
-      "grupos": 18
+      "nombre": "Jose Galicia",
+      "grupos": 58
     },
     {
-      "nombre": "Sofía",
-      "emoji": "🐯",
-      "grupos": 22
+      "nombre": "Estebana de la Torre",
+      "grupos": 50
     },
     {
-      "nombre": "Miguel",
-      "emoji": "🦅",
-      "grupos": 15
+      "nombre": "Rubén Medina",
+      "grupos": 49
     },
     {
-      "nombre": "Valentina",
-      "emoji": "🌺",
-      "grupos": 20
+      "nombre": "Christian Zugaide",
+      "grupos": 48
     },
     {
-      "nombre": "Javier",
-      "emoji": "🐆",
-      "grupos": 12
+      "nombre": "Eduardo Sandoval",
+      "grupos": 48
     },
     {
-      "nombre": "Lucía",
-      "emoji": "🦊",
+      "nombre": "Leonardo Ledesma",
       "grupos": 25
     },
     {
-      "nombre": "Roberto",
-      "emoji": "🐻",
-      "grupos": 10
+      "nombre": "Erik Degante",
+      "grupos": 42
     },
     {
-      "nombre": "Andrea",
-      "emoji": "🦋",
-      "grupos": 17
+      "nombre": "Ricardo Cortés",
+      "grupos": 42
     },
     {
-      "nombre": "Fernando",
-      "emoji": "🐬",
-      "grupos": 8
+      "nombre": "Mario Morales",
+      "grupos": 36
     }
   ],
   "resultados": {

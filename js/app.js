@@ -26,55 +26,63 @@ const fasesDef = [
 ];
 
 const esc = (s='') => String(s).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-
-// Acepta dos formatos para marcadores:
-// 1) Formato simple: [2, 1]
-// 2) Formato con desempate: { marcador:[1, 1], pasa:'L' } o { marcador:[1, 1], pasa:'V' }
-//    Usa 'L' si pasa el equipo local y 'V' si pasa el visitante.
-function normalizarMarcador(m){
+function marcadorDe(valor){
+  if(!valor) return null;
+  return Array.isArray(valor) ? valor : valor.marcador;
+}
+function pasaDe(valor){
+  return valor && !Array.isArray(valor) ? valor.pasa : null;
+}
+function ganadorMarcador(m){
   if(!m) return null;
-  if(Array.isArray(m)) return { goles:[Number(m[0]), Number(m[1])], pasa:null };
-  if(Array.isArray(m.marcador)) return { goles:[Number(m.marcador[0]), Number(m.marcador[1])], pasa:m.pasa || null };
-  return null;
+  if(m[0] > m[1]) return 'L';
+  if(m[1] > m[0]) return 'V';
+  return 'E';
 }
-
-function ganador(m){
-  const x = normalizarMarcador(m);
-  if(!x) return null;
-  const [l,v] = x.goles;
-  if(l > v) return 'L';
-  if(v > l) return 'V';
-  return x.pasa || null;
+function clasificado(valor){
+  const m = marcadorDe(valor);
+  if(!m) return null;
+  const g = ganadorMarcador(m);
+  // Si el marcador queda empatado, el clasificado debe indicarse con pasa: "L" o pasa: "V".
+  return g === 'E' ? pasaDe(valor) : g;
 }
-
-function marcadorExactoConDesempate(real, pron){
-  const r = normalizarMarcador(real);
-  const p = normalizarMarcador(pron);
-  if(!r || !p) return false;
-  const mismoMarcador = r.goles[0] === p.goles[0] && r.goles[1] === p.goles[1];
-  if(!mismoMarcador) return false;
-
-  // Si el marcador real queda empatado, también debe coincidir quién pasa.
-  const huboEmpate = r.goles[0] === r.goles[1];
-  if(huboEmpate) return Boolean(r.pasa) && r.pasa === p.pasa;
-
-  return true;
+function marcadorExacto(real, pron){
+  const r = marcadorDe(real);
+  const p = marcadorDe(pron);
+  return !!(r && p && r[0] === p[0] && r[1] === p[1]);
 }
-
 function calcPts(real, pron){
   if(!real || !pron) return 0;
-  if(marcadorExactoConDesempate(real, pron)) return reglas.exacto;
-  const gr = ganador(real);
-  const gp = ganador(pron);
-  if(gr && gp && gr === gp) return reglas.resultado;
-  return reglas.error;
-}
 
-function marcadorTexto(m){
-  const x = normalizarMarcador(m);
-  if(!x) return '—';
-  const base = `${x.goles[0]}-${x.goles[1]}`;
-  return x.pasa ? `${base} · pasa ${x.pasa === 'L' ? 'local' : 'visita'}` : base;
+  const r = marcadorDe(real);
+  const p = marcadorDe(pron);
+  if(!r || !p) return 0;
+
+  const exacto = marcadorExacto(real, pron);
+  const realEmpate = ganadorMarcador(r) === 'E';
+  const pronEmpate = ganadorMarcador(p) === 'E';
+
+  // Marcador exacto: si hubo empate, también debe coincidir quién pasa.
+  if(exacto){
+    if(realEmpate || pronEmpate){
+      return clasificado(real) && clasificado(real) === clasificado(pron) ? reglas.exacto : reglas.error;
+    }
+    return reglas.exacto;
+  }
+
+  // Un punto por acertar quién pasa / ganador.
+  return clasificado(real) && clasificado(real) === clasificado(pron) ? reglas.resultado : reglas.error;
+}
+function scoreStr(valor){
+  const m = marcadorDe(valor);
+  return m ? `${m[0]}-${m[1]}` : null;
+}
+function pasaTexto(valor, info){
+  const m = marcadorDe(valor);
+  const pasa = pasaDe(valor);
+  if(!m || ganadorMarcador(m) !== 'E' || !pasa) return '';
+  const equipo = pasa === 'L' ? (info?.local || 'Local') : (info?.visita || 'Visitante');
+  return ` · pasa ${esc(equipo)}`;
 }
 
 function iniciales(nombre){
@@ -120,6 +128,7 @@ let sortState = { campo:'rank', asc:true };
 const maxTotal = Math.max(...jugadores.map(j=>j.total),1);
 document.getElementById('fecha-update').textContent = fechaUpdate;
 
+
 function medalla(i){ const c=['med-1','med-2','med-3'][i]||'med-n'; return `<span class="medalla ${c}">${i+1}</span>`; }
 function ptsClass(i){ return ['pts-total pts-1','pts-total pts-2','pts-total pts-3'][i]||'pts-total pts-n'; }
 function badge(v,etId){
@@ -146,10 +155,12 @@ function buildTooltipUsuario(p) {
       const pts = calcPts(real, pron);
       const chipCls = pts===reglas.exacto?'chip-p3':pts===reglas.resultado?'chip-p1':'chip-p0';
       const badgeCls = pts===reglas.exacto?'b3':pts===reglas.resultado?'b1':'b0';
-      const realStr = real ? marcadorTexto(real) : '?-?';
-      const pronStr = pron ? marcadorTexto(pron) : '—';
+      const realStr = real ? scoreStr(real) : '?-?';
+      const pronStr = pron ? scoreStr(pron) : '—';
+      const realPasa = real ? pasaTexto(real, info) : '';
+      const pronPasa = pron ? pasaTexto(pron, info) : '';
       const ptsLabel = real ? (pts===reglas.exacto?`+${reglas.exacto}`:pts===reglas.resultado?`+${reglas.resultado}`:'0') : '';
-      chips += `<div class="tip-chip ${chipCls}">${fechaPartido(info)}<div class="tip-partido">${labelPartido(info)}</div><div class="tip-scores"><span class="tip-real">Real: ${realStr}</span><span class="tip-pron">Pron: ${pronStr}</span><span class="tip-badge ${badgeCls}">${ptsLabel}</span></div></div>`;
+      chips += `<div class="tip-chip ${chipCls}">${fechaPartido(info)}<div class="tip-partido">${labelPartido(info)}</div><div class="tip-scores"><span class="tip-real">Real: ${realStr}${realPasa}</span><span class="tip-pron">Pron: ${pronStr}${pronPasa}</span><span class="tip-badge ${badgeCls}">${ptsLabel}</span></div></div>`;
     });
     if (!chips) chips = `<span style="color:var(--gris);font-size:11px">Sin partidos visibles aún</span>`;
     html += `<div class="tip-fase-bloque"><div class="tip-fase-titulo" style="color:${et.color}">▸ ${esc(et.label.toUpperCase())}</div><div class="tip-chips">${chips}</div></div>`;
@@ -238,10 +249,12 @@ function renderPaneles(){
         const pts=calcPts(real,pron);
         const chipCls=pts===reglas.exacto?'chip-p3':pts===reglas.resultado?'chip-p1':'chip-p0';
         const badgeCls=pts===reglas.exacto?'b3':pts===reglas.resultado?'b1':'b0';
-        const realStr=real?marcadorTexto(real):'?-?';
-        const pronStr=pron?marcadorTexto(pron):'—';
+        const realStr=real?scoreStr(real):'?-?';
+        const pronStr=pron?scoreStr(pron):'—';
+        const realPasa=real?pasaTexto(real, info):'';
+        const pronPasa=pron?pasaTexto(pron, info):'';
         const ptsLabel=real?(pts===reglas.exacto?`+${reglas.exacto}`:pts===reglas.resultado?`+${reglas.resultado}`:'0'):'';
-        chips+=`<div class="pchip ${chipCls}">${fechaPartido(info)}<div class="pchip-partido">${labelPartido(info)}</div><div class="pchip-scores"><span class="pchip-real">Real: ${realStr}</span><span class="pchip-pron">Pronós: ${pronStr}</span><span class="pchip-badge ${badgeCls}">${ptsLabel}</span></div></div>`;
+        chips+=`<div class="pchip ${chipCls}">${fechaPartido(info)}<div class="pchip-partido">${labelPartido(info)}</div><div class="pchip-scores"><span class="pchip-real">Real: ${realStr}${realPasa}</span><span class="pchip-pron">Pronós: ${pronStr}${pronPasa}</span><span class="pchip-badge ${badgeCls}">${ptsLabel}</span></div></div>`;
       });
       if(!chips) chips=`<span style="color:var(--gris);font-size:12px">Sin partidos visibles aún</span>`;
       html+=`<div class="panel-jugador"><div class="pj-nombre">${avatar(p.nombre)}<span>${esc(p.nombre)}</span><span class="pj-pts ${ptsClass2}">${totalEt} pts</span></div><div class="partidos-chips">${chips}</div></div>`;
