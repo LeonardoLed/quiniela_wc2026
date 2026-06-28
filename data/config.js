@@ -11,10 +11,12 @@
 
   L = pasa el equipo local
   V = pasa el equipo visitante
+
+  La fecha y hora de última actualización se toman automáticamente
+  del último commit de GitHub Pages.
 */
 
 const CONFIG = {
-  "fechaUpdate": "27 / JUN / 2026",
   "reglas": {
     "exacto": 3,
     "resultado": 1,
@@ -98,7 +100,8 @@ const CONFIG = {
       "p02": null
     },
     "final": {
-      "p01": null
+      "p01": null,
+      "p02": null
     }
   },
   "pronosticos": [
@@ -142,7 +145,8 @@ const CONFIG = {
         "p02": null
       },
       "final": {
-        "p01": null
+        "p01": null,
+        "p02": null
       }
     },
     {
@@ -185,7 +189,8 @@ const CONFIG = {
         "p02": null
       },
       "final": {
-        "p01": null
+        "p01": null,
+        "p02": null
       }
     },
     {
@@ -228,7 +233,8 @@ const CONFIG = {
         "p02": null
       },
       "final": {
-        "p01": null
+        "p01": null,
+        "p02": null
       }
     },
     {
@@ -271,7 +277,8 @@ const CONFIG = {
         "p02": null
       },
       "final": {
-        "p01": null
+        "p01": null,
+        "p02": null
       }
     },
     {
@@ -314,7 +321,8 @@ const CONFIG = {
         "p02": null
       },
       "final": {
-        "p01": null
+        "p01": null,
+        "p02": null
       }
     },
     {
@@ -357,7 +365,8 @@ const CONFIG = {
         "p02": null
       },
       "final": {
-        "p01": null
+        "p01": null,
+        "p02": null
       }
     },
     {
@@ -400,7 +409,8 @@ const CONFIG = {
         "p02": null
       },
       "final": {
-        "p01": null
+        "p01": null,
+        "p02": null
       }
     },
     {
@@ -443,7 +453,8 @@ const CONFIG = {
         "p02": null
       },
       "final": {
-        "p01": null
+        "p01": null,
+        "p02": null
       }
     },
     {
@@ -486,7 +497,8 @@ const CONFIG = {
         "p02": null
       },
       "final": {
-        "p01": null
+        "p01": null,
+        "p02": null
       }
     }
   ],
@@ -715,7 +727,16 @@ const CONFIG = {
         "flagL": "",
         "visita": "Por definir",
         "flagV": "",
-        "fecha": ""
+        "fecha": "",
+        "nota": "Gran final"
+      },
+      "p02": {
+        "local": "Por definir",
+        "flagL": "",
+        "visita": "Por definir",
+        "flagV": "",
+        "fecha": "",
+        "nota": "Partido por tercer lugar"
       }
     }
   }

@@ -428,3 +428,79 @@ main { max-width:1180px; }
 @media(max-width:1050px){ .tip-chips,.partidos-chips{grid-template-columns:repeat(3,minmax(0,1fr));} }
 @media(max-width:820px){ .tip-chips,.partidos-chips{grid-template-columns:repeat(2,minmax(0,1fr));} main{padding-left:10px;padding-right:10px;} }
 @media(max-width:560px){ .tip-chips,.partidos-chips{grid-template-columns:1fr;} .bar-label{width:135px;min-width:135px;font-size:11px;} .match-card{min-height:170px;} }
+
+
+/* Ajustes: fases contraíbles en desglose de jugador */
+.tip-fase-bloque.user-fase {
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+  overflow:hidden;
+  background:rgba(255,255,255,.025);
+}
+.tip-fase-header {
+  width:100%;
+  border:0;
+  cursor:pointer;
+  padding:10px 12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  background:rgba(255,255,255,.035);
+  color:var(--texto);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:12px;
+  letter-spacing:2px;
+  text-align:left;
+  border-left:3px solid var(--fase-color, var(--borde));
+}
+.tip-fase-header:hover { background:rgba(255,255,255,.065); }
+.tip-fase-header strong {
+  color:var(--dorado);
+  font-size:15px;
+  letter-spacing:1px;
+  white-space:nowrap;
+}
+.tip-fase-content { display:none; padding:12px; }
+.user-fase.open .tip-fase-content { display:block; }
+.user-fase:not(.open) .tip-fase-header span::before { content:'▶ '; color:var(--fase-color, var(--gris)); }
+.user-fase.open .tip-fase-header span::before { content:'▼ '; color:var(--fase-color, var(--gris)); }
+.grupo-score-card {
+  min-height:110px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(58,123,213,.28);
+  border-radius:12px;
+  background:linear-gradient(180deg, rgba(58,123,213,.13), rgba(255,255,255,.025));
+  text-align:center;
+}
+.grupo-score-label {
+  color:var(--gris);
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+.grupo-score-value {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:46px;
+  line-height:1;
+  color:var(--dorado);
+  text-shadow:0 0 18px rgba(240,192,48,.2);
+}
+.grupo-score-unit {
+  color:#7aaaff;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+.fase-note,
+.panel-nota { color:var(--gris); font-size:11px; letter-spacing:.3px; }
+.fase-note { padding:8px 12px 0; }
+.panel-nota { margin-top:3px; }
+@media(max-width:560px){
+  .tip-fase-header { font-size:11px; padding:9px 10px; }
+  .grupo-score-value { font-size:38px; }
+}

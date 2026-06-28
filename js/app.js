@@ -1,16 +1,16 @@
 
 // LÓGICA AUTOMÁTICA — no necesitas editar este archivo para actualizar marcadores.
-const { fechaUpdate, reglas, participantes, resultados, pronosticos, partidos } = CONFIG;
+const { reglas, participantes, resultados, pronosticos, partidos } = CONFIG;
 
 const ETAPAS = [
   { id:'d16',   label:'16avos de Final', color:'#2ecc71' },
   { id:'d8',    label:'Octavos de Final',color:'#f39c12' },
   { id:'d4',    label:'Cuartos de Final',color:'#e74c3c' },
   { id:'semi',  label:'Semifinales',     color:'#9b59b6' },
-  { id:'final', label:'Gran Final',      color:'#F0C030' },
+  { id:'final', label:'Finales',          color:'#F0C030', nota:'Incluye la gran final y el partido por tercer lugar' },
 ];
 
-const ROUND_LIMITS = { d16:16, d8:8, d4:4, semi:2, final:1 };
+const ROUND_LIMITS = { d16:16, d8:8, d4:4, semi:2, final:2 };
 
 function keysEtapa(etId){
   return Object.keys(resultados[etId] || {}).sort().slice(0, ROUND_LIMITS[etId] || Infinity);
@@ -156,7 +156,10 @@ function labelPartido(info){
   return `${flagImg(info.flagL)}<span>${esc(info.local)}</span><span style="color:var(--gris);margin:0 2px">vs</span>${flagImg(info.flagV)}<span>${esc(info.visita)}</span>`;
 }
 function fechaPartido(info){
-  return info && info.fecha ? `<div class="fecha-partido">🗓 ${esc(info.fecha)}</div>` : '';
+  const fecha = info && info.fecha ? `🗓 ${esc(info.fecha)}` : '';
+  const nota = info && info.nota ? esc(info.nota) : '';
+  if(!fecha && !nota) return '';
+  return `<div class="fecha-partido">${fecha}${fecha && nota ? ' · ' : ''}${nota}</div>`;
 }
 
 function etapaPtsPorJugador(etId){
@@ -179,8 +182,65 @@ let tablaOrden = [...jugadores];
 let sortState = { campo:'rank', asc:true };
 
 const maxTotal = Math.max(...jugadores.map(j=>j.total),1);
-document.getElementById('fecha-update').textContent = fechaUpdate;
 
+function obtenerRepoGitHub(){
+  const host = window.location.hostname;
+  const pathRepo = window.location.pathname.split('/').filter(Boolean)[0];
+
+  // En GitHub Pages de proyecto: usuario.github.io/repositorio/
+  if(host.endsWith('.github.io')){
+    const user = host.replace('.github.io', '');
+    const repo = pathRepo || `${user}.github.io`;
+    return { user, repo };
+  }
+
+  // Fallback opcional para pruebas locales o dominio personalizado:
+  // github: { user: "TU_USUARIO", repo: "TU_REPO" } en CONFIG.
+  if(CONFIG.github && CONFIG.github.user && CONFIG.github.repo){
+    return { user: CONFIG.github.user, repo: CONFIG.github.repo };
+  }
+
+  return null;
+}
+
+async function cargarUltimaActualizacion(){
+  const el = document.getElementById('fecha-update');
+  if(!el) return;
+
+  el.textContent = 'Consultando...';
+
+  const repoInfo = obtenerRepoGitHub();
+  if(!repoInfo){
+    el.textContent = 'No disponible';
+    return;
+  }
+
+  try{
+    const res = await fetch(`https://api.github.com/repos/${repoInfo.user}/${repoInfo.repo}/commits?per_page=1`, {
+      headers: { 'Accept': 'application/vnd.github+json' }
+    });
+
+    if(!res.ok) throw new Error('No se pudo consultar GitHub');
+
+    const data = await res.json();
+    const fechaISO = data?.[0]?.commit?.committer?.date || data?.[0]?.commit?.author?.date;
+    if(!fechaISO) throw new Error('Fecha no disponible');
+
+    const fecha = new Date(fechaISO);
+    const fechaTxt = fecha.toLocaleDateString('es-MX', {
+      day:'2-digit', month:'2-digit', year:'numeric'
+    });
+    const horaTxt = fecha.toLocaleTimeString('es-MX', {
+      hour:'2-digit', minute:'2-digit'
+    });
+
+    el.textContent = `${fechaTxt} · ${horaTxt} h`;
+  }catch(e){
+    el.textContent = 'No disponible';
+  }
+}
+
+cargarUltimaActualizacion();
 
 function medalla(i){ const c=['med-1','med-2','med-3'][i]||'med-n'; return `<span class="medalla ${c}">${i+1}</span>`; }
 function ptsClass(i){ return ['pts-total pts-1','pts-total pts-2','pts-total pts-3'][i]||'pts-total pts-n'; }
@@ -191,9 +251,18 @@ function badge(v,etId){
 function buildTooltipUsuario(p) {
   let html = `<div class="tooltip-inner"><h4 style="color:var(--dorado)">${avatar(p.nombre)} ${esc(p.nombre.toUpperCase())} — DESGLOSE COMPLETO</h4>`;
 
-  html += `<div class="tip-fase-bloque">
-    <div class="tip-fase-titulo" style="color:var(--c-grupos)">▸ FASE DE GRUPOS</div>
-    <div class="tip-chips"><div class="tip-chip chip-p3"><div class="tip-partido">Puntos de grupos</div><div class="tip-scores"><span class="tip-pron">${p.grupos} pts</span></div></div></div>
+  html += `<div class="tip-fase-bloque user-fase open">
+    <button class="tip-fase-header" type="button" onclick="toggleUserFase(this)" style="--fase-color:var(--c-grupos)">
+      <span>FASE DE GRUPOS</span>
+      <strong>${p.grupos || 0} pts</strong>
+    </button>
+    <div class="tip-fase-content">
+      <div class="grupo-score-card">
+        <div class="grupo-score-label">Puntos de grupos</div>
+        <div class="grupo-score-value">${p.grupos || 0}</div>
+        <div class="grupo-score-unit">pts</div>
+      </div>
+    </div>
   </div>`;
 
   ETAPAS.forEach(et => {
@@ -209,12 +278,20 @@ function buildTooltipUsuario(p) {
       chips += matchCard({info, real, pron, pts, chipCls, badgeCls, compact:true});
     });
     if (!chips) chips = `<span style="color:var(--gris);font-size:11px">Sin partidos visibles aún</span>`;
-    html += `<div class="tip-fase-bloque"><div class="tip-fase-titulo" style="color:${et.color}">▸ ${esc(et.label.toUpperCase())}</div><div class="tip-chips">${chips}</div></div>`;
+    const totalEt = p[et.id] || 0;
+    const nota = et.nota ? `<div class="fase-note">${esc(et.nota)}</div>` : '';
+    html += `<div class="tip-fase-bloque user-fase open">
+      <button class="tip-fase-header" type="button" onclick="toggleUserFase(this)" style="--fase-color:${et.color}">
+        <span>${esc(et.label.toUpperCase())}</span>
+        <strong>${totalEt} pts</strong>
+      </button>
+      ${nota}
+      <div class="tip-fase-content"><div class="tip-chips">${chips}</div></div>
+    </div>`;
   });
 
   return html + '</div>';
 }
-
 
 function valorOrden(j, campo){
   if(campo === 'rank') return j.rankOriginal;
@@ -281,7 +358,7 @@ function renderPaneles(){
     const keys  = keysEtapa(et.id);
     const rankEtapa = [...jugadores].sort((a,b)=>etPts[b.i]-etPts[a.i] || a.nombre.localeCompare(b.nombre));
 
-    let html=`<div class="panel-header"><div class="panel-titulo" style="color:${et.color}">⚽ ${esc(et.label.toUpperCase())}</div><button class="panel-cerrar" onclick="togglePanel('${et.id}')">✕ cerrar</button></div><div class="panel-jugadores">`;
+    let html=`<div class="panel-header"><div><div class="panel-titulo" style="color:${et.color}">⚽ ${esc(et.label.toUpperCase())}</div>${et.nota ? `<div class="panel-nota">${esc(et.nota)}</div>` : ''}</div><button class="panel-cerrar" onclick="togglePanel('${et.id}')">✕ cerrar</button></div><div class="panel-jugadores">`;
 
     rankEtapa.forEach(p=>{
       const totalEt=etPts[p.i];
@@ -316,6 +393,12 @@ function togglePanel(etId){
     document.querySelectorAll(`[data-et="${etId}"]`).forEach(c=>c.classList.add('highlight'));
     panel.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
+}
+
+function toggleUserFase(btn){
+  const bloque = btn.closest('.user-fase');
+  if(!bloque) return;
+  bloque.classList.toggle('open');
 }
 
 function renderGrafica(){
@@ -374,6 +457,7 @@ window.togglePanel = togglePanel;
 window.toggleFase = toggleFase;
 window.toggleGrafica = toggleGrafica;
 window.sortTable = sortTable;
+window.toggleUserFase = toggleUserFase;
 
 actualizarFlechasOrden();
 renderTabla();

@@ -42,3 +42,20 @@ p01: { marcador: [1, 1], pasa: "V" } // pasa visitante
 ## GitHub Pages
 
 Sube `index.html`, `css/`, `js/`, `data/` y este README a la raíz del repositorio.
+
+
+## Ajustes recientes
+- El desglose por jugador ahora tiene fases contraíbles.
+- La sección **Finales** incluye la gran final y el partido por tercer lugar.
+- Los puntos de fase de grupos se muestran centrados.
+
+
+## Última actualización automática
+
+La leyenda de **Última actualización** se obtiene automáticamente del último commit del repositorio en GitHub Pages. No necesitas editar fecha ni hora manualmente.
+
+Si pruebas el proyecto en tu computadora local, puede aparecer como `No disponible`; en GitHub Pages se mostrará con el formato:
+
+```text
+DD/MM/AAAA · HH:mm h
+```
