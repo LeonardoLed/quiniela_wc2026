@@ -10,6 +10,12 @@ const ETAPAS = [
   { id:'final', label:'Gran Final',      color:'#F0C030' },
 ];
 
+const ROUND_LIMITS = { d16:16, d8:8, d4:4, semi:2, final:1 };
+
+function keysEtapa(etId){
+  return Object.keys(resultados[etId] || {}).sort().slice(0, ROUND_LIMITS[etId] || Infinity);
+}
+
 const fasesDef = [
   { key:'grupos', cls:'seg-grupos' },
   { key:'d16',   cls:'seg-16'    },
@@ -37,9 +43,10 @@ function avatar(nombre){
 }
 function flagImg(code){
   if(!code) return '';
-  const c = code.toLowerCase();
-  // Banderas planas de FlagCDN. No usa emoji ni efecto ondulado.
-  return `<span class="flag-frame"><img class="team-flag" src="https://flagcdn.com/h40/${c}.png" width="32" height="24" loading="lazy" onerror="this.closest('.flag-frame').style.display='none'" alt="${esc(code)}"></span>`;
+  const c = String(code).toLowerCase().trim();
+  // Banderas planas oficiales por país desde FlagCDN en SVG.
+  // No son emoji, por eso no se ven onduladas.
+  return `<span class="flag-square" aria-hidden="true"><img class="team-flag" src="https://flagcdn.com/${c}.svg" loading="lazy" onerror="this.closest('.flag-square').style.display='none'" alt="${esc(code)}"></span>`;
 }
 function labelPartido(info){
   if(!info || !info.local || info.local === 'Por definir') return '<span style="color:var(--gris)">Por definir</span>';
@@ -50,7 +57,7 @@ function fechaPartido(info){
 }
 
 function etapaPtsPorJugador(etId){
-  const keys = Object.keys(resultados[etId]);
+  const keys = keysEtapa(etId);
   return participantes.map((_,pi)=>
     keys.reduce((s,k)=> s + calcPts(resultados[etId][k], pronosticos[pi][etId][k]), 0)
   );
@@ -112,7 +119,7 @@ function buildTooltipUsuario(p) {
   </div>`;
 
   ETAPAS.forEach(et => {
-    const keys = Object.keys(resultados[et.id]);
+    const keys = keysEtapa(et.id);
     let chips = '';
     keys.forEach(k => {
       const real = resultados[et.id][k];
@@ -198,7 +205,7 @@ function renderPaneles(){
   ETAPAS.forEach(et=>{
     const panel = document.getElementById(`panel-${et.id}`);
     const etPts = ptsEtapas[et.id];
-    const keys  = Object.keys(resultados[et.id]);
+    const keys  = keysEtapa(et.id);
     const rankEtapa = [...jugadores].sort((a,b)=>etPts[b.i]-etPts[a.i] || a.nombre.localeCompare(b.nombre));
 
     let html=`<div class="panel-header"><div class="panel-titulo" style="color:${et.color}">⚽ ${esc(et.label.toUpperCase())}</div><button class="panel-cerrar" onclick="togglePanel('${et.id}')">✕ cerrar</button></div><div class="panel-jugadores">`;
