@@ -4,6 +4,18 @@
   Formato de fecha sugerido para cada partido: "DD/MM hh:mm". Ejemplo: "14/06 20:00".
   Sin resultado todavía: null. Ejemplo: p03: null
 
+  Empates en eliminatoria:
+  - Si NO hay empate, puedes seguir usando [2, 1].
+  - Si hay empate y quieres indicar quién pasa, usa:
+      p01: { marcador:[1, 1], pasa:'L' }  // pasa el local
+      p02: { marcador:[2, 2], pasa:'V' }  // pasa el visitante
+  Esta misma regla aplica para resultados reales y pronósticos.
+
+  Puntuación:
+  - Marcador exacto + clasificado correcto si hubo empate = 3 pts
+  - Solo clasificado/ganador correcto = 1 pt
+  - Error = 0 pts
+
   Estructura corregida:
   - 16vos: 16 partidos
   - 8vos: 8 partidos

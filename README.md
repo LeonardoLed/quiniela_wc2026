@@ -1,73 +1,34 @@
 # Quiniela Mundial 2026
 
-Sitio estático para publicar una quiniela en **GitHub Pages**. No usa base de datos ni backend.
+Proyecto estático para GitHub Pages.
 
-## Archivos importantes
+## Qué editar
 
-- `index.html`: estructura de la página.
-- `css/style.css`: estilos visuales.
-- `js/app.js`: lógica automática de puntos, ranking, paneles y gráfica.
-- `data/config.js`: único archivo que normalmente debes editar.
+Edita solo `data/config.js` para cambiar participantes, resultados, pronósticos, fechas y reglas.
 
-## Cómo actualizar resultados
+## Empates en eliminatoria
 
-Abre `data/config.js` y modifica:
+Puedes seguir usando el formato simple cuando no hay empate:
 
 ```js
-resultados: {
-  d16: {
-    p01: [2, 0],
-    p02: null
-  }
-}
+p01: [2, 1]
 ```
 
-- Resultado jugado: `[golesLocal, golesVisitante]`
-- Sin resultado: `null`
-
-Los puntos se calculan automáticamente con:
-
-- Marcador exacto: 3 puntos
-- Ganador/empate correcto: 1 punto
-- Error: 0 puntos
-
-## Fechas manuales de partidos
-
-En `partidos`, puedes llenar la fecha con formato `DD/MM hh:mm`:
+Si el partido queda empatado y quieres indicar quién pasa:
 
 ```js
-p01: {
-  local: "Argentina",
-  flagL: "ar",
-  visita: "Australia",
-  flagV: "au",
-  fecha: "14/06 20:00"
-}
+p01: { marcador: [1, 1], pasa: 'L' } // pasa el local
+p02: { marcador: [2, 2], pasa: 'V' } // pasa el visitante
 ```
 
-Si `fecha` está vacía, no se muestra.
+La misma regla aplica en `resultados` y en `pronosticos`.
 
-## Ranking animado
+## Reglas de puntos
 
-En `data/config.js` puedes llenar `rankingAnterior` con el orden de la actualización previa:
+- Marcador exacto + clasificado correcto si hubo empate: 3 pts
+- Solo ganador/clasificado correcto: 1 pt
+- Error: 0 pts
 
-```js
-rankingAnterior: ["Carlos", "Sofía", "Lucía"]
-```
+## Publicación
 
-La tabla mostrará flechas de subida/bajada. Si lo dejas vacío, el navegador intentará comparar con el último ranking guardado en `localStorage`.
-
-## Banderas
-
-Se usan banderas de `flagcdn.com` mediante código ISO de dos letras. Ejemplo: México = `mx`, Argentina = `ar`.
-
-## Publicar en GitHub Pages
-
-1. Crea un repositorio en GitHub.
-2. Sube todos los archivos de esta carpeta.
-3. En GitHub ve a **Settings → Pages**.
-4. En **Build and deployment**, elige **Deploy from a branch**.
-5. Selecciona la rama `main` y la carpeta `/root`.
-6. Guarda los cambios.
-
-GitHub te dará una URL pública para compartir la quiniela.
+Sube `index.html`, `css/`, `js/`, `data/` y `README.md` a la raíz de tu repositorio y activa GitHub Pages desde `Settings > Pages`.
