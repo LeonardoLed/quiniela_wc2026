@@ -31,7 +31,6 @@ const CONFIG = {
     "resultado": 1,
     "error": 0
   },
-  "rankingAnterior": [],
   "participantes": [
     {
       "nombre": "Carlos",

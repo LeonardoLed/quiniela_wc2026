@@ -1,6 +1,6 @@
 
 // LÓGICA AUTOMÁTICA — no necesitas editar este archivo para actualizar marcadores.
-const { fechaUpdate, reglas, participantes, resultados, pronosticos, partidos, rankingAnterior } = CONFIG;
+const { fechaUpdate, reglas, participantes, resultados, pronosticos, partidos } = CONFIG;
 
 const ETAPAS = [
   { id:'d16',   label:'16avos de Final', color:'#2ecc71' },
@@ -120,32 +120,6 @@ let sortState = { campo:'rank', asc:true };
 const maxTotal = Math.max(...jugadores.map(j=>j.total),1);
 document.getElementById('fecha-update').textContent = fechaUpdate;
 
-function rankingPrevioMap(){
-  if(Array.isArray(rankingAnterior) && rankingAnterior.length){
-    return new Map(rankingAnterior.map((nombre,idx)=>[nombre, idx+1]));
-  }
-  try {
-    const guardado = JSON.parse(localStorage.getItem('quiniela-ranking-anterior') || '[]');
-    return new Map(guardado.map((nombre,idx)=>[nombre, idx+1]));
-  } catch (_) { return new Map(); }
-}
-const rankPrev = rankingPrevioMap();
-function rankBadge(nombre, rankActual){
-  const prev = rankPrev.get(nombre);
-  if(!prev) return '<span class="rank-move rank-same">nuevo</span>';
-  const diff = prev - rankActual;
-  if(diff > 0) return `<span class="rank-move rank-up">↑ ${diff}</span>`;
-  if(diff < 0) return `<span class="rank-move rank-down">↓ ${Math.abs(diff)}</span>`;
-  return '<span class="rank-move rank-same">—</span>';
-}
-function rankRowClass(nombre, rankActual){
-  const prev = rankPrev.get(nombre);
-  if(!prev) return '';
-  if(prev > rankActual) return ' rank-up-row';
-  if(prev < rankActual) return ' rank-down-row';
-  return '';
-}
-
 function medalla(i){ const c=['med-1','med-2','med-3'][i]||'med-n'; return `<span class="medalla ${c}">${i+1}</span>`; }
 function ptsClass(i){ return ['pts-total pts-1','pts-total pts-2','pts-total pts-3'][i]||'pts-total pts-n'; }
 function badge(v,etId){
@@ -218,10 +192,10 @@ function renderTabla(){
   tbody.innerHTML = '';
   tablaOrden.forEach((p,rank)=>{
     const tr = document.createElement('tr');
-    tr.className = 'fila-jugador' + rankRowClass(p.nombre, rank+1);
+    tr.className = 'fila-jugador';
     tr.innerHTML = `
       <td>${medalla(rank)}</td>
-      <td>${avatar(p.nombre)}<span class="nombre">${esc(p.nombre)}</span>${rankBadge(p.nombre, rank+1)}<span class="hint-clic">▼ ver detalle</span></td>
+      <td>${avatar(p.nombre)}<span class="nombre">${esc(p.nombre)}</span><span class="hint-clic">▼ ver detalle</span></td>
       <td class="col-total"><span class="${ptsClass(rank)}">${p.total}</span></td>
       <td><span class="badge-fase${p.grupos===0?' zero':''}">${p.grupos===0?'—':p.grupos}</span></td>
       ${badge(p.d16,'d16')}${badge(p.d8,'d8')}${badge(p.d4,'d4')}${badge(p.semi,'semi')}${badge(p.final,'final')}`;
