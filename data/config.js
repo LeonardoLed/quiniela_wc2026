@@ -56,7 +56,7 @@ const CONFIG = {
     },
     {
       "nombre": "Christian Zugaide",
-      "grupos": 48
+      "grupos": 47
     },
     {
       "nombre": "Eduardo Sandoval",
@@ -81,20 +81,8 @@ const CONFIG = {
   ],
   "resultados": {
     "d16": {
-      "p01": {
-        "marcador": [
-          2,
-          0
-        ],
-        "pasa": null
-      },
-      "p02": {
-        "marcador": [
-          3,
-          1
-        ],
-        "pasa": null
-      },
+      "p01": null,
+      "p02": null,
       "p03": null,
       "p04": null,
       "p05": null,
@@ -1390,116 +1378,116 @@ const CONFIG = {
   "partidos": {
     "d16": {
       "p01": {
-        "local": "Argentina",
-        "flagL": "ar",
-        "visita": "Australia",
-        "flagV": "au",
-        "fecha": ""
+        "local": "Alemania",
+        "flagL": "de",
+        "visita": "Paraguay",
+        "flagV": "py",
+        "fecha": "29/06 — Boston"
       },
       "p02": {
         "local": "Francia",
         "flagL": "fr",
-        "visita": "Polonia",
-        "flagV": "pl",
-        "fecha": ""
+        "visita": "Suecia",
+        "flagV": "se",
+        "fecha": "30/06 — Nueva York/Nueva Jersey"
       },
       "p03": {
-        "local": "Brasil",
-        "flagL": "br",
-        "visita": "Japón",
-        "flagV": "jp",
-        "fecha": ""
+        "local": "Sudáfrica",
+        "flagL": "za",
+        "visita": "Canadá",
+        "flagV": "ca",
+        "fecha": "28/06 — Los Ángeles"
       },
       "p04": {
-        "local": "España",
-        "flagL": "es",
+        "local": "Países Bajos",
+        "flagL": "nl",
         "visita": "Marruecos",
         "flagV": "ma",
-        "fecha": ""
+        "fecha": "29/06 — Monterrey"
       },
       "p05": {
         "local": "Portugal",
         "flagL": "pt",
-        "visita": "Uruguay",
-        "flagV": "uy",
-        "fecha": ""
-      },
-      "p06": {
-        "local": "Alemania",
-        "flagL": "de",
-        "visita": "Dinamarca",
-        "flagV": "dk",
-        "fecha": ""
-      },
-      "p07": {
-        "local": "Inglaterra",
-        "flagL": "gb-eng",
-        "visita": "Senegal",
-        "flagV": "sn",
-        "fecha": ""
-      },
-      "p08": {
-        "local": "Países Bajos",
-        "flagL": "nl",
-        "visita": "EE.UU.",
-        "flagV": "us",
-        "fecha": ""
-      },
-      "p09": {
-        "local": "Bélgica",
-        "flagL": "be",
         "visita": "Croacia",
         "flagV": "hr",
-        "fecha": ""
+        "fecha": "02/07 — Toronto"
+      },
+      "p06": {
+        "local": "España",
+        "flagL": "es",
+        "visita": "Austria",
+        "flagV": "at",
+        "fecha": "02/07 — Los Ángeles"
+      },
+      "p07": {
+        "local": "Estados Unidos",
+        "flagL": "us",
+        "visita": "Bosnia y Herzegovina",
+        "flagV": "ba",
+        "fecha": "01/07 — San Francisco"
+      },
+      "p08": {
+        "local": "Bélgica",
+        "flagL": "be",
+        "visita": "Senegal",
+        "flagV": "sn",
+        "fecha": "01/07 — Seattle"
+      },
+      "p09": {
+        "local": "Brasil",
+        "flagL": "br",
+        "visita": "Japón",
+        "flagV": "jp",
+        "fecha": "29/06 — Houston"
       },
       "p10": {
-        "local": "México",
-        "flagL": "mx",
-        "visita": "Suiza",
-        "flagV": "ch",
-        "fecha": ""
+        "local": "Costa de Marfil",
+        "flagL": "ci",
+        "visita": "Noruega",
+        "flagV": "no",
+        "fecha": "30/06 — Dallas"
       },
       "p11": {
-        "local": "Colombia",
-        "flagL": "co",
-        "visita": "Camerún",
-        "flagV": "cm",
-        "fecha": ""
+        "local": "México",
+        "flagL": "mx",
+        "visita": "Ecuador",
+        "flagV": "ec",
+        "fecha": "30/06 — Ciudad de México"
       },
       "p12": {
-        "local": "Ecuador",
-        "flagL": "ec",
-        "visita": "P. Bajos B",
-        "flagV": "nl",
-        "fecha": ""
+        "local": "Inglaterra",
+        "flagL": "gb-eng",
+        "visita": "R. D. del Congo",
+        "flagV": "cd",
+        "fecha": "01/07 — Atlanta"
       },
       "p13": {
-        "local": "Corea del Sur",
-        "flagL": "kr",
-        "visita": "Ghana",
-        "flagV": "gh",
-        "fecha": ""
+        "local": "Argentina",
+        "flagL": "ar",
+        "visita": "Cabo Verde",
+        "flagV": "cv",
+        "fecha": "03/07 — Miami"
       },
       "p14": {
-        "local": "Japón",
-        "flagL": "jp",
-        "visita": "Serbia",
-        "flagV": "rs",
-        "fecha": ""
-      },
-      "p15": {
-        "local": "Marruecos",
-        "flagL": "ma",
-        "visita": "Polonia B",
-        "flagV": "pl",
-        "fecha": ""
-      },
-      "p16": {
         "local": "Australia",
         "flagL": "au",
-        "visita": "Túnez",
-        "flagV": "tn",
-        "fecha": ""
+        "visita": "Egipto",
+        "flagV": "eg",
+        "fecha": "03/07 — Dallas"
+      },
+      "p15": {
+        "local": "Suiza",
+        "flagL": "ch",
+        "visita": "Argelia",
+        "flagV": "dz",
+        "fecha": "02/07 — Vancouver"
+      },
+      "p16": {
+        "local": "Colombia",
+        "flagL": "co",
+        "visita": "Ghana",
+        "flagV": "gh",
+        "fecha": "03/07 — Kansas City"
       }
     },
     "d8": {
