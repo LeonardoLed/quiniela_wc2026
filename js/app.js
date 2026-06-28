@@ -38,7 +38,8 @@ function avatar(nombre){
 function flagImg(code){
   if(!code) return '';
   const c = code.toLowerCase();
-  return `<img class="team-flag" src="https://flagcdn.com/w80/${c}.png" width="34" height="34" loading="lazy" onerror="this.style.display='none'" alt="${esc(code)}">`;
+  // Banderas planas de FlagCDN. No usa emoji ni efecto ondulado.
+  return `<span class="flag-frame"><img class="team-flag" src="https://flagcdn.com/h40/${c}.png" width="32" height="24" loading="lazy" onerror="this.closest('.flag-frame').style.display='none'" alt="${esc(code)}"></span>`;
 }
 function labelPartido(info){
   if(!info || !info.local || info.local === 'Por definir') return '<span style="color:var(--gris)">Por definir</span>';
