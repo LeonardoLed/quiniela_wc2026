@@ -3,6 +3,13 @@
   Edita este archivo para actualizar resultados, pronósticos, fechas y participantes.
   Formato de fecha sugerido para cada partido: "DD/MM hh:mm". Ejemplo: "14/06 20:00".
   Sin resultado todavía: null. Ejemplo: p03: null
+
+  Estructura corregida:
+  - 16vos: 16 partidos
+  - 8vos: 8 partidos
+  - 4tos: 4 partidos
+  - Semifinales: 2 partidos
+  - Final: 1 partido
 */
 
 const CONFIG = {
@@ -83,23 +90,7 @@ const CONFIG = {
       "p13": null,
       "p14": null,
       "p15": null,
-      "p16": null,
-      "p17": null,
-      "p18": null,
-      "p19": null,
-      "p20": null,
-      "p21": null,
-      "p22": null,
-      "p23": null,
-      "p24": null,
-      "p25": null,
-      "p26": null,
-      "p27": null,
-      "p28": null,
-      "p29": null,
-      "p30": null,
-      "p31": null,
-      "p32": null
+      "p16": null
     },
     "d8": {
       "p01": null,
@@ -109,31 +100,17 @@ const CONFIG = {
       "p05": null,
       "p06": null,
       "p07": null,
-      "p08": null,
-      "p09": null,
-      "p10": null,
-      "p11": null,
-      "p12": null,
-      "p13": null,
-      "p14": null,
-      "p15": null,
-      "p16": null
+      "p08": null
     },
     "d4": {
       "p01": null,
       "p02": null,
       "p03": null,
-      "p04": null,
-      "p05": null,
-      "p06": null,
-      "p07": null,
-      "p08": null
+      "p04": null
     },
     "semi": {
       "p01": null,
-      "p02": null,
-      "p03": null,
-      "p04": null
+      "p02": null
     },
     "final": {
       "p01": null
@@ -205,70 +182,6 @@ const CONFIG = {
         "p16": [
           2,
           0
-        ],
-        "p17": [
-          1,
-          0
-        ],
-        "p18": [
-          2,
-          0
-        ],
-        "p19": [
-          1,
-          0
-        ],
-        "p20": [
-          2,
-          1
-        ],
-        "p21": [
-          1,
-          0
-        ],
-        "p22": [
-          2,
-          0
-        ],
-        "p23": [
-          1,
-          1
-        ],
-        "p24": [
-          2,
-          0
-        ],
-        "p25": [
-          1,
-          0
-        ],
-        "p26": [
-          2,
-          1
-        ],
-        "p27": [
-          1,
-          0
-        ],
-        "p28": [
-          2,
-          0
-        ],
-        "p29": [
-          1,
-          0
-        ],
-        "p30": [
-          2,
-          1
-        ],
-        "p31": [
-          1,
-          0
-        ],
-        "p32": [
-          2,
-          0
         ]
       },
       "d8": {
@@ -279,31 +192,17 @@ const CONFIG = {
         "p05": null,
         "p06": null,
         "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p08": null
       },
       "d4": {
         "p01": null,
         "p02": null,
         "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null
+        "p04": null
       },
       "semi": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": null
       },
       "final": {
         "p01": null
@@ -374,70 +273,6 @@ const CONFIG = {
         "p16": [
           1,
           0
-        ],
-        "p17": [
-          2,
-          0
-        ],
-        "p18": [
-          1,
-          1
-        ],
-        "p19": [
-          2,
-          0
-        ],
-        "p20": [
-          1,
-          0
-        ],
-        "p21": [
-          2,
-          1
-        ],
-        "p22": [
-          1,
-          0
-        ],
-        "p23": [
-          2,
-          0
-        ],
-        "p24": [
-          1,
-          1
-        ],
-        "p25": [
-          2,
-          0
-        ],
-        "p26": [
-          1,
-          0
-        ],
-        "p27": [
-          2,
-          1
-        ],
-        "p28": [
-          1,
-          0
-        ],
-        "p29": [
-          2,
-          0
-        ],
-        "p30": [
-          1,
-          1
-        ],
-        "p31": [
-          2,
-          0
-        ],
-        "p32": [
-          1,
-          0
         ]
       },
       "d8": {
@@ -448,31 +283,17 @@ const CONFIG = {
         "p05": null,
         "p06": null,
         "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p08": null
       },
       "d4": {
         "p01": null,
         "p02": null,
         "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null
+        "p04": null
       },
       "semi": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": null
       },
       "final": {
         "p01": null
@@ -543,70 +364,6 @@ const CONFIG = {
         "p16": [
           2,
           0
-        ],
-        "p17": [
-          1,
-          1
-        ],
-        "p18": [
-          2,
-          0
-        ],
-        "p19": [
-          1,
-          0
-        ],
-        "p20": [
-          2,
-          1
-        ],
-        "p21": [
-          1,
-          0
-        ],
-        "p22": [
-          2,
-          0
-        ],
-        "p23": [
-          1,
-          1
-        ],
-        "p24": [
-          2,
-          0
-        ],
-        "p25": [
-          1,
-          0
-        ],
-        "p26": [
-          2,
-          1
-        ],
-        "p27": [
-          1,
-          0
-        ],
-        "p28": [
-          2,
-          0
-        ],
-        "p29": [
-          1,
-          0
-        ],
-        "p30": [
-          2,
-          1
-        ],
-        "p31": [
-          1,
-          0
-        ],
-        "p32": [
-          2,
-          0
         ]
       },
       "d8": {
@@ -617,31 +374,17 @@ const CONFIG = {
         "p05": null,
         "p06": null,
         "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p08": null
       },
       "d4": {
         "p01": null,
         "p02": null,
         "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null
+        "p04": null
       },
       "semi": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": null
       },
       "final": {
         "p01": null
@@ -712,70 +455,6 @@ const CONFIG = {
         "p16": [
           1,
           1
-        ],
-        "p17": [
-          2,
-          0
-        ],
-        "p18": [
-          1,
-          0
-        ],
-        "p19": [
-          2,
-          1
-        ],
-        "p20": [
-          1,
-          0
-        ],
-        "p21": [
-          2,
-          0
-        ],
-        "p22": [
-          1,
-          1
-        ],
-        "p23": [
-          2,
-          0
-        ],
-        "p24": [
-          1,
-          0
-        ],
-        "p25": [
-          2,
-          1
-        ],
-        "p26": [
-          1,
-          0
-        ],
-        "p27": [
-          2,
-          0
-        ],
-        "p28": [
-          1,
-          1
-        ],
-        "p29": [
-          2,
-          0
-        ],
-        "p30": [
-          1,
-          0
-        ],
-        "p31": [
-          2,
-          1
-        ],
-        "p32": [
-          1,
-          0
         ]
       },
       "d8": {
@@ -786,31 +465,17 @@ const CONFIG = {
         "p05": null,
         "p06": null,
         "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p08": null
       },
       "d4": {
         "p01": null,
         "p02": null,
         "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null
+        "p04": null
       },
       "semi": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": null
       },
       "final": {
         "p01": null
@@ -881,70 +546,6 @@ const CONFIG = {
         "p16": [
           1,
           0
-        ],
-        "p17": [
-          2,
-          0
-        ],
-        "p18": [
-          1,
-          1
-        ],
-        "p19": [
-          2,
-          0
-        ],
-        "p20": [
-          1,
-          0
-        ],
-        "p21": [
-          2,
-          1
-        ],
-        "p22": [
-          1,
-          0
-        ],
-        "p23": [
-          2,
-          0
-        ],
-        "p24": [
-          1,
-          1
-        ],
-        "p25": [
-          2,
-          0
-        ],
-        "p26": [
-          1,
-          0
-        ],
-        "p27": [
-          2,
-          1
-        ],
-        "p28": [
-          1,
-          0
-        ],
-        "p29": [
-          2,
-          0
-        ],
-        "p30": [
-          1,
-          1
-        ],
-        "p31": [
-          2,
-          0
-        ],
-        "p32": [
-          1,
-          0
         ]
       },
       "d8": {
@@ -955,31 +556,17 @@ const CONFIG = {
         "p05": null,
         "p06": null,
         "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p08": null
       },
       "d4": {
         "p01": null,
         "p02": null,
         "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null
+        "p04": null
       },
       "semi": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": null
       },
       "final": {
         "p01": null
@@ -1050,70 +637,6 @@ const CONFIG = {
         "p16": [
           2,
           0
-        ],
-        "p17": [
-          1,
-          1
-        ],
-        "p18": [
-          2,
-          0
-        ],
-        "p19": [
-          1,
-          0
-        ],
-        "p20": [
-          2,
-          1
-        ],
-        "p21": [
-          1,
-          0
-        ],
-        "p22": [
-          2,
-          0
-        ],
-        "p23": [
-          1,
-          1
-        ],
-        "p24": [
-          2,
-          0
-        ],
-        "p25": [
-          1,
-          0
-        ],
-        "p26": [
-          2,
-          1
-        ],
-        "p27": [
-          1,
-          0
-        ],
-        "p28": [
-          2,
-          0
-        ],
-        "p29": [
-          1,
-          0
-        ],
-        "p30": [
-          2,
-          1
-        ],
-        "p31": [
-          1,
-          0
-        ],
-        "p32": [
-          2,
-          0
         ]
       },
       "d8": {
@@ -1124,31 +647,17 @@ const CONFIG = {
         "p05": null,
         "p06": null,
         "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p08": null
       },
       "d4": {
         "p01": null,
         "p02": null,
         "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null
+        "p04": null
       },
       "semi": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": null
       },
       "final": {
         "p01": null
@@ -1219,70 +728,6 @@ const CONFIG = {
         "p16": [
           1,
           0
-        ],
-        "p17": [
-          2,
-          0
-        ],
-        "p18": [
-          1,
-          1
-        ],
-        "p19": [
-          2,
-          0
-        ],
-        "p20": [
-          1,
-          0
-        ],
-        "p21": [
-          2,
-          1
-        ],
-        "p22": [
-          1,
-          0
-        ],
-        "p23": [
-          2,
-          0
-        ],
-        "p24": [
-          1,
-          1
-        ],
-        "p25": [
-          2,
-          0
-        ],
-        "p26": [
-          1,
-          0
-        ],
-        "p27": [
-          2,
-          1
-        ],
-        "p28": [
-          1,
-          0
-        ],
-        "p29": [
-          2,
-          0
-        ],
-        "p30": [
-          1,
-          1
-        ],
-        "p31": [
-          2,
-          0
-        ],
-        "p32": [
-          1,
-          0
         ]
       },
       "d8": {
@@ -1293,31 +738,17 @@ const CONFIG = {
         "p05": null,
         "p06": null,
         "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p08": null
       },
       "d4": {
         "p01": null,
         "p02": null,
         "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null
+        "p04": null
       },
       "semi": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": null
       },
       "final": {
         "p01": null
@@ -1388,70 +819,6 @@ const CONFIG = {
         "p16": [
           1,
           1
-        ],
-        "p17": [
-          2,
-          0
-        ],
-        "p18": [
-          1,
-          0
-        ],
-        "p19": [
-          2,
-          1
-        ],
-        "p20": [
-          1,
-          0
-        ],
-        "p21": [
-          2,
-          0
-        ],
-        "p22": [
-          1,
-          1
-        ],
-        "p23": [
-          2,
-          0
-        ],
-        "p24": [
-          1,
-          0
-        ],
-        "p25": [
-          2,
-          1
-        ],
-        "p26": [
-          1,
-          0
-        ],
-        "p27": [
-          2,
-          0
-        ],
-        "p28": [
-          1,
-          1
-        ],
-        "p29": [
-          2,
-          0
-        ],
-        "p30": [
-          1,
-          0
-        ],
-        "p31": [
-          2,
-          1
-        ],
-        "p32": [
-          1,
-          0
         ]
       },
       "d8": {
@@ -1462,31 +829,17 @@ const CONFIG = {
         "p05": null,
         "p06": null,
         "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p08": null
       },
       "d4": {
         "p01": null,
         "p02": null,
         "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null
+        "p04": null
       },
       "semi": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": null
       },
       "final": {
         "p01": null
@@ -1557,70 +910,6 @@ const CONFIG = {
         "p16": [
           2,
           0
-        ],
-        "p17": [
-          1,
-          1
-        ],
-        "p18": [
-          2,
-          0
-        ],
-        "p19": [
-          1,
-          0
-        ],
-        "p20": [
-          2,
-          1
-        ],
-        "p21": [
-          1,
-          0
-        ],
-        "p22": [
-          2,
-          0
-        ],
-        "p23": [
-          1,
-          1
-        ],
-        "p24": [
-          2,
-          0
-        ],
-        "p25": [
-          1,
-          0
-        ],
-        "p26": [
-          2,
-          1
-        ],
-        "p27": [
-          1,
-          0
-        ],
-        "p28": [
-          2,
-          0
-        ],
-        "p29": [
-          1,
-          0
-        ],
-        "p30": [
-          2,
-          1
-        ],
-        "p31": [
-          1,
-          0
-        ],
-        "p32": [
-          2,
-          0
         ]
       },
       "d8": {
@@ -1631,31 +920,17 @@ const CONFIG = {
         "p05": null,
         "p06": null,
         "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p08": null
       },
       "d4": {
         "p01": null,
         "p02": null,
         "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null
+        "p04": null
       },
       "semi": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": null
       },
       "final": {
         "p01": null
@@ -1775,118 +1050,6 @@ const CONFIG = {
         "visita": "Túnez",
         "flagV": "tn",
         "fecha": ""
-      },
-      "p17": {
-        "local": "Arabia Saudita",
-        "flagL": "sa",
-        "visita": "Irán",
-        "flagV": "ir",
-        "fecha": ""
-      },
-      "p18": {
-        "local": "Nigeria",
-        "flagL": "ng",
-        "visita": "Argelia",
-        "flagV": "dz",
-        "fecha": ""
-      },
-      "p19": {
-        "local": "Canadá",
-        "flagL": "ca",
-        "visita": "Chile",
-        "flagV": "cl",
-        "fecha": ""
-      },
-      "p20": {
-        "local": "Qatar",
-        "flagL": "qa",
-        "visita": "Honduras",
-        "flagV": "hn",
-        "fecha": ""
-      },
-      "p21": {
-        "local": "Turquía",
-        "flagL": "tr",
-        "visita": "Rumania",
-        "flagV": "ro",
-        "fecha": ""
-      },
-      "p22": {
-        "local": "Austria",
-        "flagL": "at",
-        "visita": "Escocia",
-        "flagV": "gb-sct",
-        "fecha": ""
-      },
-      "p23": {
-        "local": "Ucrania",
-        "flagL": "ua",
-        "visita": "Eslovenia",
-        "flagV": "si",
-        "fecha": ""
-      },
-      "p24": {
-        "local": "Suecia",
-        "flagL": "se",
-        "visita": "Eslovaquia",
-        "flagV": "sk",
-        "fecha": ""
-      },
-      "p25": {
-        "local": "Paraguay",
-        "flagL": "py",
-        "visita": "Bolivia",
-        "flagV": "bo",
-        "fecha": ""
-      },
-      "p26": {
-        "local": "Perú",
-        "flagL": "pe",
-        "visita": "Venezuela",
-        "flagV": "ve",
-        "fecha": ""
-      },
-      "p27": {
-        "local": "Costa Rica",
-        "flagL": "cr",
-        "visita": "Panamá",
-        "flagV": "pa",
-        "fecha": ""
-      },
-      "p28": {
-        "local": "Jamaica",
-        "flagL": "jm",
-        "visita": "Trinidad",
-        "flagV": "tt",
-        "fecha": ""
-      },
-      "p29": {
-        "local": "Malí",
-        "flagL": "ml",
-        "visita": "Costa de Marfil",
-        "flagV": "ci",
-        "fecha": ""
-      },
-      "p30": {
-        "local": "Egipto",
-        "flagL": "eg",
-        "visita": "Sudáfrica",
-        "flagV": "za",
-        "fecha": ""
-      },
-      "p31": {
-        "local": "China",
-        "flagL": "cn",
-        "visita": "Corea del Norte",
-        "flagV": "kp",
-        "fecha": ""
-      },
-      "p32": {
-        "local": "India",
-        "flagL": "in",
-        "visita": "Tailandia",
-        "flagV": "th",
-        "fecha": ""
       }
     },
     "d8": {
@@ -1945,62 +1108,6 @@ const CONFIG = {
         "visita": "Por definir",
         "flagV": "",
         "fecha": ""
-      },
-      "p09": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
-      },
-      "p10": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
-      },
-      "p11": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
-      },
-      "p12": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
-      },
-      "p13": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
-      },
-      "p14": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
-      },
-      "p15": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
-      },
-      "p16": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
       }
     },
     "d4": {
@@ -2031,34 +1138,6 @@ const CONFIG = {
         "visita": "Por definir",
         "flagV": "",
         "fecha": ""
-      },
-      "p05": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
-      },
-      "p06": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
-      },
-      "p07": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
-      },
-      "p08": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
       }
     },
     "semi": {
@@ -2070,20 +1149,6 @@ const CONFIG = {
         "fecha": ""
       },
       "p02": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
-      },
-      "p03": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
-      },
-      "p04": {
         "local": "Por definir",
         "flagL": "",
         "visita": "Por definir",

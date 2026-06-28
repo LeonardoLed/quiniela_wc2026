@@ -37,21 +37,21 @@
 <main>
   <div class="section-title">CLASIFICACIÓN GENERAL</div>
   <div style="font-size:11px;color:var(--gris);margin-bottom:10px;margin-top:-8px">
-    💡 Haz clic en una columna de etapa para ver el desglose de esa ronda
+    💡 Haz clic en cualquier encabezado para ordenar. Haz clic en un puntaje de fase para ver su detalle.
   </div>
   <div class="tabla-wrapper">
     <table>
       <thead>
         <tr>
-          <th></th>
-          <th style="text-align:left">Participante</th>
-          <th class="col-total">TOTAL</th>
-          <th>Grupos</th>
-          <th class="th-etapa" id="th-d16"   onclick="togglePanel('d16')"  style="color:#2ecc71">16vos<span class="ind">▼ detalle</span></th>
-          <th class="th-etapa" id="th-d8"    onclick="togglePanel('d8')"   style="color:#f39c12">8vos<span class="ind">▼ detalle</span></th>
-          <th class="th-etapa" id="th-d4"    onclick="togglePanel('d4')"   style="color:#e74c3c">4tos<span class="ind">▼ detalle</span></th>
-          <th class="th-etapa" id="th-semi"  onclick="togglePanel('semi')" style="color:#9b59b6">Semis<span class="ind">▼ detalle</span></th>
-          <th class="th-etapa" id="th-final" onclick="togglePanel('final')" style="color:#F0C030">Final<span class="ind">▼ detalle</span></th>
+          <th class="sortable" id="th-rank" onclick="sortTable('rank')"># <span id="arrow-rank"></span></th>
+          <th class="sortable" id="th-nombre" onclick="sortTable('nombre')" style="text-align:left">Participante <span id="arrow-nombre"></span></th>
+          <th class="sortable col-total" id="th-total" onclick="sortTable('total')">TOTAL <span id="arrow-total"></span></th>
+          <th class="sortable" id="th-grupos" onclick="sortTable('grupos')">Grupos <span id="arrow-grupos"></span></th>
+          <th class="sortable" id="th-d16" onclick="sortTable('d16')" style="color:#2ecc71">16vos <span id="arrow-d16"></span></th>
+          <th class="sortable" id="th-d8" onclick="sortTable('d8')" style="color:#f39c12">8vos <span id="arrow-d8"></span></th>
+          <th class="sortable" id="th-d4" onclick="sortTable('d4')" style="color:#e74c3c">4tos <span id="arrow-d4"></span></th>
+          <th class="sortable" id="th-semi" onclick="sortTable('semi')" style="color:#9b59b6">Semis <span id="arrow-semi"></span></th>
+          <th class="sortable" id="th-final" onclick="sortTable('final')" style="color:#F0C030">Final <span id="arrow-final"></span></th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>

@@ -38,7 +38,7 @@ function avatar(nombre){
 function flagImg(code){
   if(!code) return '';
   const c = code.toLowerCase();
-  return `<img class="team-flag" src="https://flagcdn.com/28x21/${c}.png" width="28" height="21" onerror="this.style.display='none'" alt="${esc(code)}">`;
+  return `<img class="team-flag" src="https://flagcdn.com/w80/${c}.png" width="34" height="34" loading="lazy" onerror="this.style.display='none'" alt="${esc(code)}">`;
 }
 function labelPartido(info){
   if(!info || !info.local || info.local === 'Por definir') return '<span style="color:var(--gris)">Por definir</span>';
@@ -62,6 +62,10 @@ const jugadores = participantes.map((p,i)=>{
   ETAPAS.forEach(et => etPts[et.id] = ptsEtapas[et.id][i]);
   return { ...p, i, ...etPts, total: (p.grupos || 0) + Object.values(etPts).reduce((s,v)=>s+v,0) };
 }).sort((a,b)=> b.total - a.total || a.nombre.localeCompare(b.nombre));
+
+jugadores.forEach((j, idx) => { j.rankOriginal = idx + 1; });
+let tablaOrden = [...jugadores];
+let sortState = { campo:'rank', asc:true };
 
 const maxTotal = Math.max(...jugadores.map(j=>j.total),1);
 document.getElementById('fecha-update').textContent = fechaUpdate;
@@ -94,7 +98,9 @@ function rankRowClass(nombre, rankActual){
 
 function medalla(i){ const c=['med-1','med-2','med-3'][i]||'med-n'; return `<span class="medalla ${c}">${i+1}</span>`; }
 function ptsClass(i){ return ['pts-total pts-1','pts-total pts-2','pts-total pts-3'][i]||'pts-total pts-n'; }
-function badge(v,etId){ return `<td><span class="badge-fase celda-etapa${v===0?' zero':''}" data-et="${etId}">${v===0?'—':v}</span></td>`; }
+function badge(v,etId){
+  return `<td><span class="badge-fase celda-etapa${v===0?' zero':''}" data-et="${etId}" onclick="event.stopPropagation(); togglePanel('${etId}')" title="Ver detalle de fase">${v===0?'—':v}</span></td>`;
+}
 
 function buildTooltipUsuario(p) {
   let html = `<div class="tooltip-inner"><h4 style="color:var(--dorado)">${avatar(p.nombre)} ${esc(p.nombre.toUpperCase())} — DESGLOSE COMPLETO</h4>`;
@@ -128,10 +134,39 @@ function buildTooltipUsuario(p) {
   return html + '</div>';
 }
 
+
+function valorOrden(j, campo){
+  if(campo === 'rank') return j.rankOriginal;
+  if(campo === 'nombre') return j.nombre.toLocaleLowerCase('es-MX');
+  return Number(j[campo] || 0);
+}
+
+function actualizarFlechasOrden(){
+  document.querySelectorAll("[id^='arrow-']").forEach(el => { el.textContent = ''; });
+  const arrow = document.getElementById(`arrow-${sortState.campo}`);
+  if(arrow) arrow.textContent = sortState.asc ? '▲' : '▼';
+}
+
+function sortTable(campo){
+  const mismoCampo = sortState.campo === campo;
+  sortState = { campo, asc: mismoCampo ? !sortState.asc : (campo === 'nombre' || campo === 'rank') };
+  tablaOrden = [...jugadores].sort((a,b)=>{
+    const va = valorOrden(a,campo);
+    const vb = valorOrden(b,campo);
+    let cmp;
+    if(typeof va === 'string') cmp = va.localeCompare(vb, 'es-MX');
+    else cmp = va - vb;
+    if(!sortState.asc) cmp *= -1;
+    return cmp || a.nombre.localeCompare(b.nombre, 'es-MX');
+  });
+  actualizarFlechasOrden();
+  renderTabla();
+}
+
 function renderTabla(){
   const tbody = document.getElementById('tbody');
   tbody.innerHTML = '';
-  jugadores.forEach((p,rank)=>{
+  tablaOrden.forEach((p,rank)=>{
     const tr = document.createElement('tr');
     tr.className = 'fila-jugador' + rankRowClass(p.nombre, rank+1);
     tr.innerHTML = `
@@ -155,8 +190,8 @@ function renderTabla(){
       if (!yaAbierto) { tr2.classList.add('open'); tr.querySelector('.hint-clic').textContent = '▲ ocultar'; }
     });
   });
-  try { localStorage.setItem('quiniela-ranking-anterior', JSON.stringify(jugadores.map(j=>j.nombre))); } catch (_) {}
 }
+
 
 function renderPaneles(){
   ETAPAS.forEach(et=>{
@@ -197,7 +232,7 @@ function togglePanel(etId){
   const th=document.getElementById(`th-${etId}`);
   const yaAbierto=panel.classList.contains('open');
   document.querySelectorAll('.panel-etapa').forEach(p=>p.classList.remove('open'));
-  document.querySelectorAll('.th-etapa').forEach(t=>t.classList.remove('activa'));
+  document.querySelectorAll('.sortable').forEach(t=>t.classList.remove('activa'));
   document.querySelectorAll('.celda-etapa').forEach(c=>c.classList.remove('highlight'));
   if(!yaAbierto){
     panel.classList.add('open'); th.classList.add('activa');
@@ -261,7 +296,9 @@ function toggleGrafica(){
 window.togglePanel = togglePanel;
 window.toggleFase = toggleFase;
 window.toggleGrafica = toggleGrafica;
+window.sortTable = sortTable;
 
+actualizarFlechasOrden();
 renderTabla();
 renderPaneles();
 renderGrafica();
