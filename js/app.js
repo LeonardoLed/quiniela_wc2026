@@ -1,6 +1,7 @@
 
 // LÓGICA AUTOMÁTICA — no necesitas editar este archivo para actualizar marcadores.
 const { reglas, participantes, resultados, pronosticos, partidos } = CONFIG;
+const faseAbiertaDefault = CONFIG.faseAbierta || 'd16';
 
 const ETAPAS = [
   { id:'d16',   label:'16avos de Final', color:'#2ecc71' },
