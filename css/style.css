@@ -130,7 +130,7 @@
 
   .bars-container { display:flex; flex-direction:column; gap:10px; }
   .bar-row { display:flex; align-items:center; gap:12px; }
-  .bar-label { width:115px; font-size:13px; font-weight:600; color:#fff; white-space:nowrap; flex-shrink:0; }
+  .bar-label { width:180px; min-width:180px; font-size:12px; font-weight:600; color:#fff; white-space:nowrap; flex-shrink:0; display:flex; align-items:center; gap:8px; overflow:hidden; text-overflow:ellipsis; }
   .bar-track { flex:1; background:rgba(255,255,255,.05); border-radius:4px; height:26px; overflow:hidden; display:flex; }
   .seg { height:100%; transition:width .7s cubic-bezier(.4,0,.2,1); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:11px; color:rgba(255,255,255,.85); min-width:0; overflow:hidden; }
   .seg+.seg { border-left:1px solid rgba(0,0,0,.3); }
@@ -140,7 +140,7 @@
   footer { text-align:center; padding:20px; font-size:11px; color:var(--gris); letter-spacing:1px; border-top:1px solid var(--borde); }
   @media(max-width:640px){
     table{font-size:11px;} .nombre{font-size:12px;} thead th{padding:10px 6px;font-size:9px;} td{padding:10px 6px;}
-    .pts-total{font-size:20px;} .bar-label{width:80px;font-size:11px;} .medalla{width:22px;height:22px;font-size:11px;}
+    .pts-total{font-size:20px;} .bar-label{width:125px;min-width:125px;font-size:10px;} .medalla{width:22px;height:22px;font-size:11px;}
     .panel-jugador{grid-template-columns:1fr;} .partidos-chips,.tip-chips{grid-template-columns:1fr;}
   }
 .fecha-partido { color:var(--dorado); font-size:10px; letter-spacing:.5px; margin-bottom:2px; }
@@ -250,3 +250,5 @@
 @media(max-width:560px){
   .flag-square { width:30px !important; height:30px !important; flex-basis:30px !important; }
 }
+
+.pasa-missing { color:#ff7b72; font-weight:600; }

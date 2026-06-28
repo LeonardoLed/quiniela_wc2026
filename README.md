@@ -1,55 +1,44 @@
 # Quiniela Mundial 2026
 
-Proyecto estático para GitHub Pages. No usa base de datos ni backend.
+Proyecto estático listo para GitHub Pages.
 
-## Qué editar
+## Dónde editar
 
-Edita únicamente:
+Todo lo manual se modifica en:
 
 ```text
 data/config.js
 ```
 
-Ahí puedes modificar participantes, puntos de grupos, partidos, fechas, resultados reales y pronósticos.
+## Participantes y puntos de grupos
 
-## Formato normal
+Busca `participantes` y cambia `nombre` o `grupos`.
 
-Para partidos sin empate:
+## Resultados y pronósticos
 
-```js
-p01: [2, 1]
-```
-
-## Formato para empates en eliminatoria
-
-Si el marcador queda empatado, indica quién pasa:
+Cada partido usa este formato:
 
 ```js
-p01: { marcador: [1, 1], pasa: "L" }
+p01: { marcador: [2, 0], pasa: null }
 ```
 
-- `L` = pasa el equipo local.
-- `V` = pasa el equipo visitante.
+Si el marcador queda empatado, debes indicar quién pasa:
 
-El mismo formato se usa en resultados reales y pronósticos.
-
-## Reglas de puntos
-
-- Marcador exacto = 3 puntos.
-- Si hay empate, el marcador exacto solo da 3 puntos si también coincide quién pasa.
-- Acertar quién pasa / ganador = 1 punto.
-- Error = 0 puntos.
-
-## Publicar en GitHub Pages
-
-Sube estos archivos a la raíz del repositorio:
-
-```text
-index.html
-css/style.css
-js/app.js
-data/config.js
-README.md
+```js
+p01: { marcador: [1, 1], pasa: "L" } // pasa local
+p01: { marcador: [1, 1], pasa: "V" } // pasa visitante
 ```
 
-Luego activa GitHub Pages desde `Settings > Pages > Deploy from a branch > main > /(root)`.
+`L` = local.  
+`V` = visitante.
+
+## Reglas
+
+- Marcador exacto sin empate: 3 pts.
+- Marcador exacto con empate y clasificado correcto: 3 pts.
+- Clasificado/ganador correcto: 1 pt.
+- Empate exacto pero clasificado incorrecto: 0 pts.
+
+## GitHub Pages
+
+Sube `index.html`, `css/`, `js/`, `data/` y este README a la raíz del repositorio.

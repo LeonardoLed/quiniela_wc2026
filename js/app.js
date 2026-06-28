@@ -80,7 +80,8 @@ function scoreStr(valor){
 function pasaTexto(valor, info){
   const m = marcadorDe(valor);
   const pasa = pasaDe(valor);
-  if(!m || ganadorMarcador(m) !== 'E' || !pasa) return '';
+  if(!m || ganadorMarcador(m) !== 'E') return '';
+  if(!pasa) return ' · pasa: sin definir';
   const equipo = pasa === 'L' ? (info?.local || 'Local') : (info?.visita || 'Visitante');
   return ` · pasa ${esc(equipo)}`;
 }
