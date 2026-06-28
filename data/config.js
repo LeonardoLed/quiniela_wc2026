@@ -17,6 +17,10 @@
 */
 
 const CONFIG = {
+  // Fase que aparece abierta por defecto en el desglose de cada jugador.
+  // Opciones: "grupos", "d16", "d8", "d4", "semi", "final".
+  "faseAbierta": "d16",
+
   "reglas": {
     "exacto": 3,
     "resultado": 1,

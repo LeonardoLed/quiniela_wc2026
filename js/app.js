@@ -242,6 +242,10 @@ async function cargarUltimaActualizacion(){
 
 cargarUltimaActualizacion();
 
+function faseEstaAbierta(etId){
+  return faseAbiertaDefault === etId;
+}
+
 function medalla(i){ const c=['med-1','med-2','med-3'][i]||'med-n'; return `<span class="medalla ${c}">${i+1}</span>`; }
 function ptsClass(i){ return ['pts-total pts-1','pts-total pts-2','pts-total pts-3'][i]||'pts-total pts-n'; }
 function badge(v,etId){
@@ -251,7 +255,7 @@ function badge(v,etId){
 function buildTooltipUsuario(p) {
   let html = `<div class="tooltip-inner"><h4 style="color:var(--dorado)">${avatar(p.nombre)} ${esc(p.nombre.toUpperCase())} — DESGLOSE COMPLETO</h4>`;
 
-  html += `<div class="tip-fase-bloque user-fase open">
+  html += `<div class="tip-fase-bloque user-fase ${faseEstaAbierta('grupos') ? 'open' : ''}">
     <button class="tip-fase-header" type="button" onclick="toggleUserFase(this)" style="--fase-color:var(--c-grupos)">
       <span>FASE DE GRUPOS</span>
       <strong>${p.grupos || 0} pts</strong>
@@ -280,7 +284,7 @@ function buildTooltipUsuario(p) {
     if (!chips) chips = `<span style="color:var(--gris);font-size:11px">Sin partidos visibles aún</span>`;
     const totalEt = p[et.id] || 0;
     const nota = et.nota ? `<div class="fase-note">${esc(et.nota)}</div>` : '';
-    html += `<div class="tip-fase-bloque user-fase open">
+    html += `<div class="tip-fase-bloque user-fase ${faseEstaAbierta(et.id) ? 'open' : ''}">
       <button class="tip-fase-header" type="button" onclick="toggleUserFase(this)" style="--fase-color:${et.color}">
         <span>${esc(et.label.toUpperCase())}</span>
         <strong>${totalEt} pts</strong>

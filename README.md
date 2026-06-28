@@ -59,3 +59,15 @@ Si pruebas el proyecto en tu computadora local, puede aparecer como `No disponib
 ```text
 DD/MM/AAAA · HH:mm h
 ```
+
+## Fase abierta por defecto
+
+En `data/config.js` puedes decidir qué fase aparece abierta en el desglose de cada jugador:
+
+```js
+faseAbierta: "d16"
+```
+
+Opciones: `"grupos"`, `"d16"`, `"d8"`, `"d4"`, `"semi"`, `"final"`.
+
+Por defecto queda abierto `d16` y las demás fases quedan contraídas.
