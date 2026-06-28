@@ -17,10 +17,7 @@
 */
 
 const CONFIG = {
-  // Fase que aparece abierta por defecto en el desglose de cada jugador.
-  // Opciones: "grupos", "d16", "d8", "d4", "semi", "final".
   "faseAbierta": "d16",
-
   "reglas": {
     "exacto": 3,
     "resultado": 1,
@@ -68,7 +65,10 @@ const CONFIG = {
     "d16": {
       "p01": null,
       "p02": null,
-      "p03": null,
+      "p03": {
+		  "marcador": [0, 1],
+		  "pasa": "V"
+	   },
       "p04": null,
       "p05": null,
       "p06": null,
@@ -111,22 +111,118 @@ const CONFIG = {
   "pronosticos": [
     {
       "d16": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p01": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p05": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p06": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p07": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p08": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p09": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p10": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p11": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p12": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p13": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p14": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p15": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        },
+        "p16": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "d8": {
         "p01": null,
@@ -155,22 +251,118 @@ const CONFIG = {
     },
     {
       "d16": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p01": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            0,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p05": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p06": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p07": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p08": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p09": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p10": {
+          "marcador": [
+            0,
+            2
+          ],
+          "pasa": null
+        },
+        "p11": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p12": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p13": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p14": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p15": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p16": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "d8": {
         "p01": null,
@@ -199,22 +391,118 @@ const CONFIG = {
     },
     {
       "d16": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "V"
+        },
+        "p04": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p05": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p06": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p07": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p08": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p09": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p10": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "V"
+        },
+        "p11": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p12": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p13": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p14": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p15": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        },
+        "p16": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       },
       "d8": {
         "p01": null,
@@ -243,22 +531,118 @@ const CONFIG = {
     },
     {
       "d16": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        },
+        "p03": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "V"
+        },
+        "p04": {
+          "marcador": [
+            3,
+            2
+          ],
+          "pasa": null
+        },
+        "p05": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        },
+        "p06": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p07": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p08": {
+          "marcador": [
+            0,
+            1
+          ],
+          "pasa": null
+        },
+        "p09": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p10": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p11": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        },
+        "p12": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p13": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p14": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "V"
+        },
+        "p15": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p16": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        }
       },
       "d8": {
         "p01": null,
@@ -287,22 +671,118 @@ const CONFIG = {
     },
     {
       "d16": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p01": {
+          "marcador": [
+            4,
+            0
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            4,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            3,
+            2
+          ],
+          "pasa": null
+        },
+        "p05": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        },
+        "p06": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p07": {
+          "marcador": [
+            0,
+            0
+          ],
+          "pasa": "L"
+        },
+        "p08": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p09": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p10": {
+          "marcador": [
+            1,
+            3
+          ],
+          "pasa": null
+        },
+        "p11": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        },
+        "p12": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p13": {
+          "marcador": [
+            4,
+            0
+          ],
+          "pasa": null
+        },
+        "p14": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p15": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        },
+        "p16": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        }
       },
       "d8": {
         "p01": null,
@@ -331,22 +811,118 @@ const CONFIG = {
     },
     {
       "d16": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p01": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            3,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p05": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p06": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p07": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p08": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p09": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        },
+        "p10": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p11": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p12": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p13": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p14": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p15": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p16": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       },
       "d8": {
         "p01": null,
@@ -375,22 +951,118 @@ const CONFIG = {
     },
     {
       "d16": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p01": {
+          "marcador": [
+            3,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            3,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        },
+        "p05": {
+          "marcador": [
+            3,
+            1
+          ],
+          "pasa": null
+        },
+        "p06": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p07": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p08": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p09": {
+          "marcador": [
+            3,
+            2
+          ],
+          "pasa": null
+        },
+        "p10": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p11": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p12": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p13": {
+          "marcador": [
+            3,
+            1
+          ],
+          "pasa": null
+        },
+        "p14": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "V"
+        },
+        "p15": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p16": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       },
       "d8": {
         "p01": null,
@@ -419,22 +1091,118 @@ const CONFIG = {
     },
     {
       "d16": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p01": {
+          "marcador": [
+            3,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "V"
+        },
+        "p04": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        },
+        "p05": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p06": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p07": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p08": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p09": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p10": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p11": {
+          "marcador": [
+            3,
+            1
+          ],
+          "pasa": null
+        },
+        "p12": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p13": {
+          "marcador": [
+            4,
+            0
+          ],
+          "pasa": null
+        },
+        "p14": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p15": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p16": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        }
       },
       "d8": {
         "p01": null,
@@ -463,22 +1231,118 @@ const CONFIG = {
     },
     {
       "d16": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null,
-        "p05": null,
-        "p06": null,
-        "p07": null,
-        "p08": null,
-        "p09": null,
-        "p10": null,
-        "p11": null,
-        "p12": null,
-        "p13": null,
-        "p14": null,
-        "p15": null,
-        "p16": null
+        "p01": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            3,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "V"
+        },
+        "p05": {
+          "marcador": [
+            3,
+            2
+          ],
+          "pasa": null
+        },
+        "p06": {
+          "marcador": [
+            4,
+            1
+          ],
+          "pasa": null
+        },
+        "p07": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p08": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p09": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "V"
+        },
+        "p10": {
+          "marcador": [
+            2,
+            3
+          ],
+          "pasa": null
+        },
+        "p11": {
+          "marcador": [
+            3,
+            1
+          ],
+          "pasa": null
+        },
+        "p12": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        },
+        "p13": {
+          "marcador": [
+            4,
+            0
+          ],
+          "pasa": null
+        },
+        "p14": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "V"
+        },
+        "p15": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p16": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "d8": {
         "p01": null,
