@@ -657,3 +657,30 @@ main { max-width:1180px; }
   color:var(--gris);
   font-size:9px;
 }
+
+.penales-box {
+  margin:6px 0 5px;
+  padding:6px 7px;
+  border:1px solid rgba(46,204,113,.32);
+  border-radius:8px;
+  background:rgba(46,204,113,.06);
+  text-align:center;
+}
+.penales-box span {
+  display:block;
+  color:var(--verde);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.9px;
+  text-transform:uppercase;
+  margin-bottom:2px;
+}
+.penales-box strong {
+  display:block;
+  color:#fff;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:17px;
+  letter-spacing:1px;
+  line-height:1;
+}
+.penales-box strong span { color:var(--gris); margin:0 2px; display:inline; font-size:17px; }

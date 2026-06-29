@@ -63,14 +63,28 @@ function tipoDefinicion(valor){
   if(typeof d === 'string') return d;
   return d.tipo || '';
 }
+function penalesDe(valor){
+  if(!valor || Array.isArray(valor)) return null;
+  return Array.isArray(valor.penales) ? valor.penales : null;
+}
 function definicionHtml(valor){
   const d = definicionDe(valor);
-  if(!d) return '';
-  const tipo = tipoDefinicion(valor) || 'Definición';
-  const marcador = marcadorDefinicion(valor);
-  const score = marcador ? `${marcador[0]} <span>:</span> ${marcador[1]}` : '';
-  const nota = (d && !Array.isArray(d) && d.nota) ? `<small>${esc(d.nota)}</small>` : '';
-  return `<div class="definicion-box"><span>${esc(tipo)}</span>${score ? `<strong>${score}</strong>` : ''}${nota}</div>`;
+  const penales = penalesDe(valor);
+  let html = '';
+
+  if(d){
+    const tipo = tipoDefinicion(valor) || 'Definición';
+    const marcador = marcadorDefinicion(valor);
+    const score = marcador ? `${marcador[0]} <span>:</span> ${marcador[1]}` : '';
+    const nota = (d && !Array.isArray(d) && d.nota) ? `<small>${esc(d.nota)}</small>` : '';
+    html += `<div class="definicion-box"><span>${esc(tipo)}</span>${score ? `<strong>${score}</strong>` : ''}${nota}</div>`;
+  }
+
+  if(penales){
+    html += `<div class="penales-box"><span>🥅 Penales</span><strong>${penales[0]} <span>:</span> ${penales[1]}</strong></div>`;
+  }
+
+  return html;
 }
 
 function ganadorMarcador(m){
