@@ -73,7 +73,8 @@ const CONFIG = {
       "p02": null,
       "p03": {
 		  "marcador": [0, 1],
-		  "pasa": "V"
+		  "pasa": "V",
+		  "estado": "final"
 	   },
       "p04": null,
       "p05": null,
@@ -81,9 +82,9 @@ const CONFIG = {
       "p07": null,
       "p08": null,
       "p09": {
-        "marcador": [1, 1],
-        "pasa": null,
-        "estado": "parcial"
+        "marcador": [2, 1],
+        "pasa": "L",
+        "estado": "final"
       },
       "p10": null,
       "p11": null,
