@@ -10,9 +10,9 @@
   - Empate donde pasa local: { marcador: [1, 1], pasa: "L", estado: "final" }
   - Empate donde pasa visitante: { marcador: [1, 1], pasa: "V", estado: "final" }
 
-  Regla de puntos:
-  - +1 punto por acertar quién pasa / ganador.
-  - +2 puntos adicionales por acertar marcador exacto.
+  Regla formal de puntos:
+  - Si NO hay empate real: +1 por ganador/clasificado correcto y +2 por marcador exacto.
+  - Si SÍ hay empate real: +1 por pronosticar empate, +1 por clasificado correcto y +1 por marcador exacto.
   - Máximo por partido: 3 puntos.
 
   L = pasa el equipo local
@@ -73,8 +73,7 @@ const CONFIG = {
       "p02": null,
       "p03": {
 		  "marcador": [0, 1],
-		  "pasa": "V",
-		  "estado": "final"
+		  "pasa": "V"
 	   },
       "p04": null,
       "p05": null,

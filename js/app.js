@@ -71,14 +71,29 @@ function calcPts(real, pron){
   const p = marcadorDe(pron);
   if(!r || !p) return 0;
 
-  // Nueva regla:
-  // +1 punto por acertar quién pasa / ganador.
-  // +2 puntos adicionales por acertar el marcador exacto.
-  // Máximo: 3 puntos.
-  const puntosPorClasificado = (clasificado(real) && clasificado(real) === clasificado(pron)) ? 1 : 0;
-  const puntosPorMarcador = marcadorExacto(real, pron) ? 2 : 0;
+  const realEmpate = ganadorMarcador(r) === 'E';
+  const pronEmpate = ganadorMarcador(p) === 'E';
+  let pts = 0;
 
-  return puntosPorClasificado + puntosPorMarcador;
+  // Regla formal vigente:
+  // Partido SIN empate real:
+  //   +1 por acertar ganador/clasificado.
+  //   +2 adicionales por marcador exacto.
+  // Partido CON empate real:
+  //   +1 por pronosticar empate.
+  //   +1 por acertar quién pasa.
+  //   +1 por marcador exacto.
+  // Máximo por partido: 3 puntos.
+  if(realEmpate){
+    if(pronEmpate) pts += 1;
+    if(clasificado(real) && clasificado(real) === clasificado(pron)) pts += 1;
+    if(marcadorExacto(real, pron)) pts += 1;
+    return Math.min(pts, 3);
+  }
+
+  if(clasificado(real) && clasificado(real) === clasificado(pron)) pts += 1;
+  if(marcadorExacto(real, pron)) pts += 2;
+  return Math.min(pts, 3);
 }
 function scoreStr(valor){
   const m = marcadorDe(valor);
@@ -381,7 +396,7 @@ function renderPaneles(){
         const pron=pronosticos[p.i][et.id][k];
         const info=partidos[et.id][k];
         const pts=calcPts(real,pron);
-        const chipCls=real ? (pts===reglas.exacto?'chip-p3':pts===reglas.resultado?'chip-p1':'chip-p0') : '';
+        const chipCls=real ? (pts>=3?'chip-p3':pts===2?'chip-p2':pts===1?'chip-p1':'chip-p0') : '';
         const badgeCls=puntosClass(pts);
         chips+=matchCard({info, real, pron, pts, chipCls, badgeCls});
       });

@@ -46,11 +46,20 @@ p01: { marcador: [1, 1], pasa: "V", estado: "final" } // pasa visitante
 
 ## Reglas
 
-- Clasificado/ganador correcto: 1 pt.
-- Marcador exacto: +2 pts adicionales.
-- Máximo por partido: 3 pts.
-- Si hay empate, el marcador exacto vale +2 aunque el clasificado sea incorrecto.
-- Si hay empate y también aciertas quién pasa, sumas +1 adicional.
+Cada partido de eliminatoria vale máximo 3 puntos.
+
+### Si el marcador real NO es empate
+
+- +1 punto si aciertas el ganador/clasificado.
+- +2 puntos adicionales si aciertas el marcador exacto.
+
+### Si el marcador real SÍ es empate
+
+- +1 punto si pronosticas empate.
+- +1 punto si aciertas quién pasa.
+- +1 punto si aciertas el marcador exacto.
+
+Ejemplo: si Brasil vs Japón termina 1-1 y clasifica Japón, quien pronosticó 1-1 pero clasificó Brasil recibe 2 puntos.
 
 ## GitHub Pages
 
@@ -97,13 +106,11 @@ Si omites `estado`, la página lo interpreta como `final` cuando hay marcador.
 
 ## Regla vigente de puntos
 
-En eliminatorias la puntuación se calcula por componentes:
+En eliminatorias la puntuación se calcula así:
 
-- +1 punto por acertar el ganador/clasificado.
-- +2 puntos adicionales por acertar el marcador exacto.
+- Si no hay empate real: +1 por ganador/clasificado correcto y +2 por marcador exacto.
+- Si hay empate real: +1 por empate pronosticado, +1 por clasificado correcto y +1 por marcador exacto.
 - Máximo 3 puntos por partido.
-
-Ejemplo: si Brasil vs Japón termina 1-1 y clasifica Japón, quien pronosticó 1-1 pero clasificó Brasil recibe 2 puntos.
 
 ## Marcador parcial / en vivo
 

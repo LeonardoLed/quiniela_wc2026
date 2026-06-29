@@ -566,3 +566,60 @@ main { max-width:1180px; }
     box-shadow: 0 0 3px rgba(74,138,255,.12);
   }
 }
+
+/* Tarjeta informativa de reglas */
+.reglas-card {
+  background:linear-gradient(180deg, rgba(240,192,48,.09), rgba(255,255,255,.025));
+  border:1px solid rgba(240,192,48,.25);
+  border-radius:12px;
+  padding:14px 16px;
+  margin:0 0 18px;
+  box-shadow:0 4px 22px rgba(0,0,0,.25);
+}
+.reglas-card-title {
+  font-family:'Bebas Neue',sans-serif;
+  color:var(--dorado);
+  letter-spacing:2px;
+  font-size:16px;
+  margin-bottom:10px;
+}
+.reglas-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:stretch;
+}
+.regla-box {
+  border:1px solid var(--borde);
+  border-radius:8px;
+  background:rgba(5,10,20,.45);
+  padding:10px 12px;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.regla-box strong { color:#fff; font-size:13px; }
+.regla-box span { color:var(--gris); font-size:12px; line-height:1.3; }
+.regla-max {
+  border-radius:8px;
+  padding:10px 14px;
+  min-width:112px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:var(--gris);
+  background:rgba(46,204,113,.08);
+  border:1px solid rgba(46,204,113,.25);
+  font-size:12px;
+}
+.regla-max strong {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px;
+  line-height:1;
+  color:var(--verde);
+}
+@media(max-width:760px){
+  .reglas-grid { grid-template-columns:1fr; }
+  .regla-max { flex-direction:row; gap:8px; }
+}
