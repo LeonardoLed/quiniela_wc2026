@@ -69,7 +69,11 @@ const CONFIG = {
   ],
   "resultados": {
     "d16": {
-      "p01": null,
+      "p01": {
+		  "marcador": [0, 0],
+		  "pasa": null,
+		  "estado": "parcial"
+		},
       "p02": null,
       "p03": {
 		  "marcador": [0, 1],
