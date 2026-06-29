@@ -127,3 +127,24 @@ p09: { marcador: [1, 1], pasa: "L", estado: "final" }
 ```
 
 `L` = clasifica local. `V` = clasifica visitante.
+
+## Marcador a los 90' y definición
+
+Para la quiniela, el campo `marcador` siempre representa el **resultado a los 90 minutos reglamentarios**.
+
+Si el partido se va a tiempo extra o penales, puedes mostrarlo de forma informativa con `definicion`. Esto no afecta el cálculo de puntos:
+
+```js
+p01: {
+  marcador: [1, 1],
+  pasa: null,
+  estado: "parcial",
+  definicion: {
+    tipo: "Tiempo Extra",
+    marcador: [1, 1],
+    nota: "Sin goles en T.E."
+  }
+}
+```
+
+Cuando termine el partido, cambia `estado` a `"final"` y completa `pasa: "L"` o `pasa: "V"`.

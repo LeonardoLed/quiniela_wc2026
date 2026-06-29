@@ -70,10 +70,15 @@ const CONFIG = {
   "resultados": {
     "d16": {
       "p01": {
-		  "marcador": [1, 1],
-		  "pasa": null,
-		  "estado": "parcial"
-		},
+        "marcador": [1, 1],
+        "pasa": null,
+        "estado": "parcial",
+        "definicion": {
+          "tipo": "Tiempo Extra",
+          "marcador": [1, 1],
+          "nota": "Sin goles en T.E."
+        }
+      },
       "p02": null,
       "p03": {
 		  "marcador": [0, 1],

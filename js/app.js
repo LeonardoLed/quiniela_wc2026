@@ -42,10 +42,37 @@ function estadoPartido(valor){
   if(!valor) return { texto:'POR JUGAR', clase:'pendiente', titulo:'Marcador pendiente' };
   const estado = String(estadoDe(valor) || 'final').toLowerCase();
   if(['parcial','en vivo','vivo','live'].includes(estado)){
-    return { texto:'MARCADOR PARCIAL', clase:'parcial', titulo:'Marcador parcial' };
+    return { texto:'MARCADOR PARCIAL', clase:'parcial', titulo:"Resultado a los 90'" };
   }
-  return { texto:'RESULTADO FINAL', clase:'final', titulo:'Resultado final' };
+  return { texto:'RESULTADO FINAL', clase:'final', titulo:"Resultado a los 90'" };
 }
+
+function definicionDe(valor){
+  if(!valor || Array.isArray(valor)) return null;
+  return valor.definicion || null;
+}
+function marcadorDefinicion(valor){
+  const d = definicionDe(valor);
+  if(!d) return null;
+  if(Array.isArray(d)) return d;
+  return d.marcador || null;
+}
+function tipoDefinicion(valor){
+  const d = definicionDe(valor);
+  if(!d) return '';
+  if(typeof d === 'string') return d;
+  return d.tipo || '';
+}
+function definicionHtml(valor){
+  const d = definicionDe(valor);
+  if(!d) return '';
+  const tipo = tipoDefinicion(valor) || 'Definición';
+  const marcador = marcadorDefinicion(valor);
+  const score = marcador ? `${marcador[0]} <span>:</span> ${marcador[1]}` : '';
+  const nota = (d && !Array.isArray(d) && d.nota) ? `<small>${esc(d.nota)}</small>` : '';
+  return `<div class="definicion-box"><span>${esc(tipo)}</span>${score ? `<strong>${score}</strong>` : ''}${nota}</div>`;
+}
+
 function ganadorMarcador(m){
   if(!m) return null;
   if(m[0] > m[1]) return 'L';
@@ -70,6 +97,9 @@ function calcPts(real, pron){
   const r = marcadorDe(real);
   const p = marcadorDe(pron);
   if(!r || !p) return 0;
+
+  const estado = String(estadoDe(real) || 'final').toLowerCase();
+  if(['parcial','en vivo','vivo','live'].includes(estado)) return 0;
 
   const realEmpate = ganadorMarcador(r) === 'E';
   const pronEmpate = ganadorMarcador(p) === 'E';
@@ -139,8 +169,8 @@ function puntosClass(pts){
 function matchCard({info, real, pron, pts, chipCls, badgeCls, compact=false}){
   const infoOk = info && info.local && info.local !== 'Por definir';
   if(!infoOk) return `<div class="match-card match-pending"><div class="match-empty">Por definir</div></div>`;
-  const mostrarPts = !!real;
   const estado = estadoPartido(real);
+  const mostrarPts = !!real && estado.clase === 'final';
   return `<div class="match-card ${chipCls}">
     ${fechaPartido(info)}
     <div class="match-status ${estado.clase}">${estado.texto}</div>
@@ -153,11 +183,12 @@ function matchCard({info, real, pron, pts, chipCls, badgeCls, compact=false}){
       <div class="score-line"><span class="score-label">${estado.titulo}</span><strong>${scoreDisplay(real)}</strong></div>
       <div class="score-line"><span class="score-label">Pron</span><strong>${scoreDisplay(pron)}</strong></div>
     </div>
+    ${definicionHtml(real)}
     <div class="match-classifica">
       ${clasificadoHtml(real, info, estado.clase === 'parcial' ? 'Va pasando' : 'Clasificó')}
       ${clasificadoHtml(pron, info, 'Pronosticó')}
     </div>
-    ${mostrarPts ? `<div class="match-points ${badgeCls}">${puntosLabel(pts)}${estado.clase === 'parcial' ? '<small> parcial</small>' : ''}</div>` : ''}
+    ${mostrarPts ? `<div class="match-points ${badgeCls}">${puntosLabel(pts)}</div>` : ''}
   </div>`;
 }
 

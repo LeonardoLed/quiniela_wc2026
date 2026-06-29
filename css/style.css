@@ -623,3 +623,37 @@ main { max-width:1180px; }
   .reglas-grid { grid-template-columns:1fr; }
   .regla-max { flex-direction:row; gap:8px; }
 }
+
+/* Resultado informativo fuera de 90' */
+.definicion-box {
+  margin:6px 0 5px;
+  padding:6px 7px;
+  border:1px dashed rgba(240,192,48,.28);
+  border-radius:8px;
+  background:rgba(240,192,48,.055);
+  text-align:center;
+}
+.definicion-box span {
+  display:block;
+  color:var(--dorado);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.9px;
+  text-transform:uppercase;
+  margin-bottom:2px;
+}
+.definicion-box strong {
+  display:block;
+  color:#fff;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:17px;
+  letter-spacing:1px;
+  line-height:1;
+}
+.definicion-box strong span { color:var(--gris); margin:0 2px; display:inline; font-size:17px; }
+.definicion-box small {
+  display:block;
+  margin-top:3px;
+  color:var(--gris);
+  font-size:9px;
+}
