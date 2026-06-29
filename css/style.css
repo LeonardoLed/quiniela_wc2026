@@ -73,6 +73,7 @@
   .tip-chips { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; }
   .tip-chip { display:flex; flex-direction:column; gap:2px; background:rgba(255,255,255,.04); border:1px solid var(--borde); border-radius:6px; padding:6px 9px; font-size:11px; min-width:0; }
   .tip-chip.chip-p3 { border-color:rgba(46,204,113,.4); background:rgba(46,204,113,.06); }
+  .tip-chip.chip-p2 { border-color:rgba(74,138,255,.38); background:rgba(74,138,255,.055); }
   .tip-chip.chip-p1 { border-color:rgba(243,156,18,.3); background:rgba(243,156,18,.05); }
   .tip-chip.chip-p0 { opacity:.45; }
   .tip-partido { color:var(--texto); font-weight:600; font-size:11px; line-height:1.6; display:flex; align-items:center; flex-wrap:wrap; gap:5px; }
@@ -81,7 +82,7 @@
   .tip-real { color:var(--gris); font-size:10px; }
   .tip-pron { color:#7aaaff; font-size:10px; }
   .tip-badge { font-family:'Bebas Neue',sans-serif; font-size:13px; margin-left:auto; }
-  .tip-badge.b3{color:var(--verde);} .tip-badge.b1{color:var(--naranja);} .tip-badge.b0{color:rgba(255,255,255,.18);}
+  .tip-badge.b3{color:var(--verde);} .tip-badge.b2{color:#7aaaff;} .tip-badge.b1{color:var(--naranja);} .tip-badge.b0{color:rgba(255,255,255,.18);}
 
   .panel-etapa { display:none; background:rgba(5,10,20,.95); border:1px solid var(--borde); border-top:none; border-radius:0 0 10px 10px; margin-bottom:28px; box-shadow:0 8px 32px rgba(0,0,0,.6); overflow:hidden; }
   .panel-etapa.open { display:block; }
@@ -98,6 +99,7 @@
   .partidos-chips { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; }
   .pchip { display:flex; flex-direction:column; gap:2px; background:rgba(255,255,255,.04); border:1px solid var(--borde); border-radius:6px; padding:7px 10px; font-size:11px; min-width:0; }
   .pchip.chip-p3 { border-color:rgba(46,204,113,.4); background:rgba(46,204,113,.06); }
+  .pchip.chip-p2 { border-color:rgba(74,138,255,.38); background:rgba(74,138,255,.055); }
   .pchip.chip-p1 { border-color:rgba(243,156,18,.3); background:rgba(243,156,18,.05); }
   .pchip.chip-p0 { opacity:.5; }
   .pchip-partido { color:var(--texto); font-weight:600; font-size:11px; line-height:1.6; display:flex; align-items:center; flex-wrap:wrap; gap:5px; }
@@ -106,7 +108,7 @@
   .pchip-real { color:var(--gris); font-size:10px; }
   .pchip-pron { color:#7aaaff; font-size:10px; }
   .pchip-badge { font-family:'Bebas Neue',sans-serif; font-size:13px; margin-left:auto; }
-  .pchip-badge.b3{color:var(--verde);} .pchip-badge.b1{color:var(--naranja);} .pchip-badge.b0{color:rgba(255,255,255,.2);}
+  .pchip-badge.b3{color:var(--verde);} .pchip-badge.b2{color:#7aaaff;} .pchip-badge.b1{color:var(--naranja);} .pchip-badge.b0{color:rgba(255,255,255,.2);}
 
   .grafica-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
   .grafica-wrapper { background:var(--tarjeta); border:1px solid var(--borde); border-radius:10px; padding:20px 24px 24px; box-shadow:0 4px 32px rgba(0,0,0,.4); transition:max-height .35s ease, opacity .25s ease, padding .25s ease, border-width .25s ease; max-height:900px; overflow:hidden; }
@@ -273,6 +275,7 @@ main { max-width:1180px; }
   overflow:hidden;
 }
 .match-card.chip-p3 { border-color:rgba(46,204,113,.50); background:rgba(46,204,113,.055); }
+.match-card.chip-p2 { border-color:rgba(74,138,255,.45); background:rgba(74,138,255,.045); }
 .match-card.chip-p1 { border-color:rgba(243,156,18,.45); background:rgba(243,156,18,.045); }
 .match-card.chip-p0 { border-color:rgba(231,76,60,.45); background:rgba(231,76,60,.035); }
 .match-card .fecha-partido {
@@ -410,6 +413,7 @@ main { max-width:1180px; }
   background:rgba(255,255,255,.08);
 }
 .match-points.b3 { color:var(--verde); border:1px solid rgba(46,204,113,.45); }
+.match-points.b2 { color:#7aaaff; border:1px solid rgba(74,138,255,.45); }
 .match-points.b1 { color:var(--naranja); border:1px solid rgba(243,156,18,.45); }
 .match-points.b0 { color:#ff7b72; border:1px solid rgba(231,76,60,.38); }
 .match-empty { color:var(--gris); text-align:center; padding:24px 0; }
@@ -503,4 +507,62 @@ main { max-width:1180px; }
 @media(max-width:560px){
   .tip-fase-header { font-size:11px; padding:9px 10px; }
   .grupo-score-value { font-size:38px; }
+}
+
+.match-status {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  align-self:center;
+  margin:0 auto 10px;
+  padding:4px 10px;
+  border-radius:999px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:11px;
+  letter-spacing:1.3px;
+  border:1px solid rgba(255,255,255,.14);
+}
+.match-status.pendiente {
+  color:var(--gris);
+  background:rgba(255,255,255,.035);
+}
+.match-status.parcial {
+  color:#7aaaff;
+  background:rgba(74,138,255,.12);
+  border-color:rgba(74,138,255,.45);
+  box-shadow:0 0 14px rgba(74,138,255,.13);
+}
+.match-status.final {
+  color:var(--verde);
+  background:rgba(46,204,113,.10);
+  border-color:rgba(46,204,113,.42);
+}
+.match-points small {
+  display:block;
+  margin-top:2px;
+  font-family:'Inter',sans-serif;
+  font-size:9px;
+  letter-spacing:.6px;
+  opacity:.8;
+}
+
+
+/* Efecto EN VIVO: parpadeo para marcador parcial */
+.match-status.parcial {
+  animation: parpadeoEnVivo 1s infinite;
+}
+
+.match-card:has(.match-status.parcial) {
+  box-shadow: 0 0 0 1px rgba(74,138,255,.28), 0 0 20px rgba(74,138,255,.10);
+}
+
+@keyframes parpadeoEnVivo {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 14px rgba(74,138,255,.45);
+  }
+  50% {
+    opacity: .45;
+    box-shadow: 0 0 3px rgba(74,138,255,.12);
+  }
 }

@@ -19,14 +19,26 @@ Busca `participantes` y cambia `nombre` o `grupos`.
 Cada partido usa este formato:
 
 ```js
-p01: { marcador: [2, 0], pasa: null }
+p01: { marcador: [2, 0], pasa: null, estado: "final" }
+```
+
+Si quieres mostrar un resultado en vivo/parcial:
+
+```js
+p01: { marcador: [1, 0], pasa: "L", estado: "parcial" }
+```
+
+Cuando termine el partido, cambia el estado a:
+
+```js
+p01: { marcador: [1, 0], pasa: "L", estado: "final" }
 ```
 
 Si el marcador queda empatado, debes indicar quién pasa:
 
 ```js
-p01: { marcador: [1, 1], pasa: "L" } // pasa local
-p01: { marcador: [1, 1], pasa: "V" } // pasa visitante
+p01: { marcador: [1, 1], pasa: "L", estado: "final" } // pasa local
+p01: { marcador: [1, 1], pasa: "V", estado: "final" } // pasa visitante
 ```
 
 `L` = local.  
@@ -34,10 +46,11 @@ p01: { marcador: [1, 1], pasa: "V" } // pasa visitante
 
 ## Reglas
 
-- Marcador exacto sin empate: 3 pts.
-- Marcador exacto con empate y clasificado correcto: 3 pts.
 - Clasificado/ganador correcto: 1 pt.
-- Empate exacto pero clasificado incorrecto: 0 pts.
+- Marcador exacto: +2 pts adicionales.
+- Máximo por partido: 3 pts.
+- Si hay empate, el marcador exacto vale +2 aunque el clasificado sea incorrecto.
+- Si hay empate y también aciertas quién pasa, sumas +1 adicional.
 
 ## GitHub Pages
 
@@ -71,3 +84,39 @@ faseAbierta: "d16"
 Opciones: `"grupos"`, `"d16"`, `"d8"`, `"d4"`, `"semi"`, `"final"`.
 
 Por defecto queda abierto `d16` y las demás fases quedan contraídas.
+
+## Marcador parcial / final
+
+En cada resultado puedes usar `estado`:
+
+- `estado: "parcial"` muestra **MARCADOR PARCIAL** y los puntos se muestran como parciales.
+- `estado: "final"` muestra **RESULTADO FINAL**.
+
+Si omites `estado`, la página lo interpreta como `final` cuando hay marcador.
+
+
+## Regla vigente de puntos
+
+En eliminatorias la puntuación se calcula por componentes:
+
+- +1 punto por acertar el ganador/clasificado.
+- +2 puntos adicionales por acertar el marcador exacto.
+- Máximo 3 puntos por partido.
+
+Ejemplo: si Brasil vs Japón termina 1-1 y clasifica Japón, quien pronosticó 1-1 pero clasificó Brasil recibe 2 puntos.
+
+## Marcador parcial / en vivo
+
+Para marcar un partido como parcial usa:
+
+```js
+p09: { marcador: [1, 1], pasa: null, estado: "parcial" }
+```
+
+Cuando termine, cambia a:
+
+```js
+p09: { marcador: [1, 1], pasa: "L", estado: "final" }
+```
+
+`L` = clasifica local. `V` = clasifica visitante.

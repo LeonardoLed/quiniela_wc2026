@@ -5,9 +5,15 @@
 
   Formato en eliminatorias:
   - Sin marcador: null
-  - Marcador normal: { marcador: [2, 0], pasa: null }
-  - Empate donde pasa local: { marcador: [1, 1], pasa: "L" }
-  - Empate donde pasa visitante: { marcador: [1, 1], pasa: "V" }
+  - Marcador normal final: { marcador: [2, 0], pasa: null, estado: "final" }
+  - Marcador parcial/en vivo: { marcador: [1, 0], pasa: "L", estado: "parcial" }
+  - Empate donde pasa local: { marcador: [1, 1], pasa: "L", estado: "final" }
+  - Empate donde pasa visitante: { marcador: [1, 1], pasa: "V", estado: "final" }
+
+  Regla de puntos:
+  - +1 punto por acertar quién pasa / ganador.
+  - +2 puntos adicionales por acertar marcador exacto.
+  - Máximo por partido: 3 puntos.
 
   L = pasa el equipo local
   V = pasa el equipo visitante
@@ -74,7 +80,11 @@ const CONFIG = {
       "p06": null,
       "p07": null,
       "p08": null,
-      "p09": null,
+      "p09": {
+        "marcador": [1, 1],
+        "pasa": null,
+        "estado": "parcial"
+      },
       "p10": null,
       "p11": null,
       "p12": null,

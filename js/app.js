@@ -34,6 +34,18 @@ function marcadorDe(valor){
 function pasaDe(valor){
   return valor && !Array.isArray(valor) ? valor.pasa : null;
 }
+function estadoDe(valor){
+  if(!valor || Array.isArray(valor)) return null;
+  return valor.estado || null;
+}
+function estadoPartido(valor){
+  if(!valor) return { texto:'POR JUGAR', clase:'pendiente', titulo:'Marcador pendiente' };
+  const estado = String(estadoDe(valor) || 'final').toLowerCase();
+  if(['parcial','en vivo','vivo','live'].includes(estado)){
+    return { texto:'MARCADOR PARCIAL', clase:'parcial', titulo:'Marcador parcial' };
+  }
+  return { texto:'RESULTADO FINAL', clase:'final', titulo:'Resultado final' };
+}
 function ganadorMarcador(m){
   if(!m) return null;
   if(m[0] > m[1]) return 'L';
@@ -59,20 +71,14 @@ function calcPts(real, pron){
   const p = marcadorDe(pron);
   if(!r || !p) return 0;
 
-  const exacto = marcadorExacto(real, pron);
-  const realEmpate = ganadorMarcador(r) === 'E';
-  const pronEmpate = ganadorMarcador(p) === 'E';
+  // Nueva regla:
+  // +1 punto por acertar quién pasa / ganador.
+  // +2 puntos adicionales por acertar el marcador exacto.
+  // Máximo: 3 puntos.
+  const puntosPorClasificado = (clasificado(real) && clasificado(real) === clasificado(pron)) ? 1 : 0;
+  const puntosPorMarcador = marcadorExacto(real, pron) ? 2 : 0;
 
-  // Marcador exacto: si hubo empate, también debe coincidir quién pasa.
-  if(exacto){
-    if(realEmpate || pronEmpate){
-      return clasificado(real) && clasificado(real) === clasificado(pron) ? reglas.exacto : reglas.error;
-    }
-    return reglas.exacto;
-  }
-
-  // Un punto por acertar quién pasa / ganador.
-  return clasificado(real) && clasificado(real) === clasificado(pron) ? reglas.resultado : reglas.error;
+  return puntosPorClasificado + puntosPorMarcador;
 }
 function scoreStr(valor){
   const m = marcadorDe(valor);
@@ -107,35 +113,36 @@ function scoreDisplay(valor){
   return m ? `${m[0]} <span>:</span> ${m[1]}` : `— <span>:</span> —`;
 }
 function puntosLabel(pts){
-  if(pts === reglas.exacto) return `+${reglas.exacto}`;
-  if(pts === reglas.resultado) return `+${reglas.resultado}`;
-  return '0';
+  return pts > 0 ? `+${pts}` : '0';
 }
 function puntosClass(pts){
-  if(pts === reglas.exacto) return 'b3';
-  if(pts === reglas.resultado) return 'b1';
+  if(pts >= 3) return 'b3';
+  if(pts === 2) return 'b2';
+  if(pts === 1) return 'b1';
   return 'b0';
 }
 function matchCard({info, real, pron, pts, chipCls, badgeCls, compact=false}){
   const infoOk = info && info.local && info.local !== 'Por definir';
   if(!infoOk) return `<div class="match-card match-pending"><div class="match-empty">Por definir</div></div>`;
   const mostrarPts = !!real;
+  const estado = estadoPartido(real);
   return `<div class="match-card ${chipCls}">
     ${fechaPartido(info)}
+    <div class="match-status ${estado.clase}">${estado.texto}</div>
     <div class="match-teams">
       <div class="match-team">${flagImg(info.flagL)}<span>${esc(info.local)}</span></div>
       <div class="match-vs">VS</div>
       <div class="match-team">${flagImg(info.flagV)}<span>${esc(info.visita)}</span></div>
     </div>
     <div class="match-scores">
-      <div class="score-line"><span class="score-label">Real</span><strong>${scoreDisplay(real)}</strong></div>
+      <div class="score-line"><span class="score-label">${estado.titulo}</span><strong>${scoreDisplay(real)}</strong></div>
       <div class="score-line"><span class="score-label">Pron</span><strong>${scoreDisplay(pron)}</strong></div>
     </div>
     <div class="match-classifica">
-      ${clasificadoHtml(real, info, 'Clasificó')}
+      ${clasificadoHtml(real, info, estado.clase === 'parcial' ? 'Va pasando' : 'Clasificó')}
       ${clasificadoHtml(pron, info, 'Pronosticó')}
     </div>
-    ${mostrarPts ? `<div class="match-points ${badgeCls}">${puntosLabel(pts)}</div>` : ''}
+    ${mostrarPts ? `<div class="match-points ${badgeCls}">${puntosLabel(pts)}${estado.clase === 'parcial' ? '<small> parcial</small>' : ''}</div>` : ''}
   </div>`;
 }
 
@@ -278,7 +285,7 @@ function buildTooltipUsuario(p) {
       const pron = pronosticos[p.i][et.id][k];
       const info = partidos[et.id][k];
       const pts = calcPts(real, pron);
-      const chipCls = real ? (pts===reglas.exacto?'chip-p3':pts===reglas.resultado?'chip-p1':'chip-p0') : '';
+      const chipCls = real ? (pts>=3?'chip-p3':pts===2?'chip-p2':pts===1?'chip-p1':'chip-p0') : '';
       const badgeCls = puntosClass(pts);
       chips += matchCard({info, real, pron, pts, chipCls, badgeCls, compact:true});
     });
