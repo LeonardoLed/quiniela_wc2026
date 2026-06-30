@@ -81,7 +81,7 @@ const CONFIG = {
         "penales": [3, 4]
       },
       "p02":{
-		  "marcador": [1, 0],
+		  "marcador": [2, 0],
 		  "pasa": null,
 		  "estado": "parcial",
 	   },
