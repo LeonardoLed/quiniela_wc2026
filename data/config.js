@@ -80,7 +80,10 @@ const CONFIG = {
         },
         "penales": [3, 4]
       },
-      "p02": null,
+      "p02":{
+		  "marcador": [0, 0],
+		  "pasa": null
+	   },
       "p03": {
 		  "marcador": [0, 1],
 		  "pasa": "V"
