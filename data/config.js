@@ -180,13 +180,11 @@ const CONFIG = {
           ],
           "pasa": null
         },
-        "p08": {
-          "marcador": [
-            1,
-            2
-          ],
-          "pasa": null
-        },
+       "p08": {
+  "marcador": [0, 0],
+  "pasa": null,
+  "estado": "parcial"
+},
         "p09": {
           "marcador": [
             2,
