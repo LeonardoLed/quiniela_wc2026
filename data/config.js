@@ -85,18 +85,18 @@ const CONFIG = {
 		  "marcador": [0, 1],
 		  "pasa": "V"
 	   },
-      "p04": null,
+      "p04": {
+		  "marcador": [1, 1],
+		  "pasa": "V",
+		  "estado": "final",
+		  "definicion": {
+			"tipo": "Tiempo Extra",
+			"marcador": [1, 1]
+		  },
+		  "penales": [2, 3]
+		},
       "p05": null,
-      "p06": {
-			  "marcador": [1, 1],
-			  "pasa": "V",
-			  "estado": "final",
-			  "definicion": {
-				"tipo": "Tiempo Extra",
-				"marcador": [1, 1]
-			  },
-			  "penales": [2, 3]
-	   },
+      "p06": null, 
       "p07": null,
       "p08": null,
       "p09": {
