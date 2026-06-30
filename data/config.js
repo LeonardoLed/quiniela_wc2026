@@ -87,7 +87,16 @@ const CONFIG = {
 	   },
       "p04": null,
       "p05": null,
-      "p06": null,
+      "p06": {
+			  "marcador": [1, 1],
+			  "pasa": "V",
+			  "estado": "final",
+			  "definicion": {
+				"tipo": "Tiempo Extra",
+				"marcador": [1, 1]
+			  },
+			  "penales": [2, 3]
+	   },
       "p07": null,
       "p08": null,
       "p09": {
@@ -180,11 +189,13 @@ const CONFIG = {
           ],
           "pasa": null
         },
-       "p08": {
-  "marcador": [0, 0],
-  "pasa": null,
-  "estado": "parcial"
-},
+        "p08": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
         "p09": {
           "marcador": [
             2,
