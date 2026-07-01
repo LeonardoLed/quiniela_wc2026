@@ -83,7 +83,7 @@ const CONFIG = {
       "p02":{
 		  "marcador": [3, 0],
 		  "pasa": "L",
-		  "estado": "final",
+		  "estado": "final"
 	   },
       "p03": {
 		  "marcador": [0, 1],
