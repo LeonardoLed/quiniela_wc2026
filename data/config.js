@@ -120,7 +120,7 @@ const CONFIG = {
 		  "estado": "final"
 	   },
       "p12": {
-		  "marcador": [0, 1],
+		  "marcador": [1, 1],
 		  "pasa": null,
 		  "estado": "parcial"
 	   },
