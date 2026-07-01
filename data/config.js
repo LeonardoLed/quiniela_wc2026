@@ -75,7 +75,7 @@ const CONFIG = {
         "estado": "final",
         "definicion": {
           "tipo": "Tiempo Extra",
-          "marcador": [1, 1],
+          "marcador": [0, 0],
           "nota": "Sin goles en T.E."
         },
         "penales": [3, 4]
@@ -95,7 +95,7 @@ const CONFIG = {
 		  "estado": "final",
 		  "definicion": {
 			"tipo": "Tiempo Extra",
-			"marcador": [1, 1],
+			"marcador": [0, 0],
 			"nota": "Sin goles en T.E."
 		  },
 		  "penales": [2, 3]
@@ -107,10 +107,11 @@ const CONFIG = {
 		  "marcador": [2, 2],
 		   "definicion": {
              "tipo": "Tiempo Extra",
-            "marcador": [0, 0],
+            "marcador": [1, 0],
+			"nota": "Marcador Final: 3-2"
             },
-		  "pasa": null,
-		  "estado": "parcial"
+		  "pasa": "L",
+		  "estado": "final"
 	   },
       "p09": {
         "marcador": [2, 1],
