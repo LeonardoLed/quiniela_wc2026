@@ -104,7 +104,11 @@ const CONFIG = {
       "p06": null, 
       "p07": null,
       "p08": {
-		  "marcador": [1, 2],
+		  "marcador": [2, 2],
+		   "definicion": {
+             "tipo": "Tiempo Extra",
+            "marcador": [0, 0],
+            },
 		  "pasa": null,
 		  "estado": "parcial"
 	   },
