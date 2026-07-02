@@ -101,7 +101,9 @@ const CONFIG = {
 		  "penales": [2, 3]
 		},
       "p05": null,
-      "p06": null, 
+      "p06": {"marcador": [0, 0],
+		  "pasa": null,
+		  "estado": "parcial"}, 
       "p07": {"marcador": [2, 0],
 		  "pasa": "L",
 		  "estado": "final"},
