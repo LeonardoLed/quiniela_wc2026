@@ -2,7 +2,7 @@
 
 Proyecto estático listo para GitHub Pages.
 
-## Dónde editar a
+## Dónde editar 
 
 Todo lo manual se modifica en:
 
