@@ -146,12 +146,14 @@ const CONFIG = {
       "p13": null,
       "p14": {
 		  "marcador": [1, 1],
-		  "pasa": null,
+		  "pasa": "V",
 		  "estado": "parcial",
 		  "definicion": {
             "tipo": "Tiempo Extra",
-            "marcador": [0, 0]
-	        }
+            "marcador": [0, 0],
+			"nota": "Sin goles en T.E."
+	        },
+		   "penales": [2, 4]
 	   },
       "p15":{
 		  "marcador": [2, 0],
