@@ -138,7 +138,7 @@ const CONFIG = {
 		  "pasa": "L",
 		  "estado": "final"
 	   },
-      "p127": {
+      "p12": {
 		  "marcador": [2, 1],
 		  "pasa": "L",
 		  "estado": "final"
