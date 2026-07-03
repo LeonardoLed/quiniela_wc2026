@@ -147,7 +147,7 @@ const CONFIG = {
       "p14": {
 		  "marcador": [1, 1],
 		  "pasa": "V",
-		  "estado": "parcial",
+		  "estado": "final",
 		  "definicion": {
             "tipo": "Tiempo Extra",
             "marcador": [0, 0],
