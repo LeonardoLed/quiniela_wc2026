@@ -138,14 +138,18 @@ const CONFIG = {
 		  "pasa": "L",
 		  "estado": "final"
 	   },
-      "p12": {
+      "p127": {
 		  "marcador": [2, 1],
 		  "pasa": "L",
 		  "estado": "final"
 	   },
       "p13": null,
       "p14": null,
-      "p15": null,
+      "p15":{
+		  "marcador": [2, 0],
+		  "pasa": null,
+		  "estado": "parcial"
+	   },
       "p16": null
     },
     "d8": {
