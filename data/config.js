@@ -18,12 +18,11 @@
   L = pasa el equipo local
   V = pasa el equipo visitante
 
-  La fecha y hora de última actualización se toman automáticamente
-  del último commit de GitHub Pages.
+  La fase abierta por defecto ahora es d8 para mostrar Octavos de Final.
 */
 
 const CONFIG = {
-  "faseAbierta": "d16",
+  "faseAbierta": "d8",
   "reglas": {
     "exacto": 3,
     "resultado": 1,
@@ -70,110 +69,184 @@ const CONFIG = {
   "resultados": {
     "d16": {
       "p01": {
-        "marcador": [1, 1],
+        "marcador": [
+          1,
+          1
+        ],
         "pasa": "V",
         "estado": "final",
         "definicion": {
           "tipo": "Tiempo Extra",
-          "marcador": [0, 0],
+          "marcador": [
+            0,
+            0
+          ],
           "nota": "Sin goles en T.E."
         },
-        "penales": [3, 4]
+        "penales": [
+          3,
+          4
+        ]
       },
-      "p02":{
-		  "marcador": [3, 0],
-		  "pasa": "L",
-		  "estado": "final"
-	   },
+      "p02": {
+        "marcador": [
+          3,
+          0
+        ],
+        "pasa": "L",
+        "estado": "final"
+      },
       "p03": {
-		  "marcador": [0, 1],
-		  "pasa": "V"
-	   },
+        "marcador": [
+          0,
+          1
+        ],
+        "pasa": "V"
+      },
       "p04": {
-		  "marcador": [1, 1],
-		  "pasa": "V",
-		  "estado": "final",
-		  "definicion": {
-			"tipo": "Tiempo Extra",
-			"marcador": [0, 0],
-			"nota": "Sin goles en T.E."
-		  },
-		  "penales": [2, 3]
-		},
+        "marcador": [
+          1,
+          1
+        ],
+        "pasa": "V",
+        "estado": "final",
+        "definicion": {
+          "tipo": "Tiempo Extra",
+          "marcador": [
+            0,
+            0
+          ],
+          "nota": "Sin goles en T.E."
+        },
+        "penales": [
+          2,
+          3
+        ]
+      },
       "p05": {
-		  "marcador": [2, 1],
-		  "pasa": "L",
-		  "estado": "final"
-	  },
+        "marcador": [
+          2,
+          1
+        ],
+        "pasa": "L",
+        "estado": "final"
+      },
       "p06": {
-		  "marcador": [3, 0],
-		  "pasa": "L",
-		  "estado": "final"
-	  }, 
-      "p07": {"marcador": [2, 0],
-		  "pasa": "L",
-		  "estado": "final"},
+        "marcador": [
+          3,
+          0
+        ],
+        "pasa": "L",
+        "estado": "final"
+      },
+      "p07": {
+        "marcador": [
+          2,
+          0
+        ],
+        "pasa": "L",
+        "estado": "final"
+      },
       "p08": {
-		  "marcador": [2, 2],
-		   "definicion": {
-             "tipo": "Tiempo Extra",
-            "marcador": [1, 0],
-			"nota": "Marcador Final: 3-2"
-            },
-		  "pasa": "L",
-		  "estado": "final"
-	   },
+        "marcador": [
+          2,
+          2
+        ],
+        "definicion": {
+          "tipo": "Tiempo Extra",
+          "marcador": [
+            1,
+            0
+          ],
+          "nota": "Marcador Final: 3-2"
+        },
+        "pasa": "L",
+        "estado": "final"
+      },
       "p09": {
-        "marcador": [2, 1],
+        "marcador": [
+          2,
+          1
+        ],
         "pasa": "L",
         "estado": "final"
       },
       "p10": {
-        "marcador": [1, 2],
+        "marcador": [
+          1,
+          2
+        ],
         "pasa": "V",
         "estado": "final"
       },
-      "p11":{
-		  "marcador": [2, 0],
-		  "pasa": "L",
-		  "estado": "final"
-	   },
+      "p11": {
+        "marcador": [
+          2,
+          0
+        ],
+        "pasa": "L",
+        "estado": "final"
+      },
       "p12": {
-		  "marcador": [2, 1],
-		  "pasa": "L",
-		  "estado": "final"
-	   },
+        "marcador": [
+          2,
+          1
+        ],
+        "pasa": "L",
+        "estado": "final"
+      },
       "p13": {
-		  "marcador": [1, 1],
-		  "pasa": "L",
-		  "definicion": {
-             "tipo": "Tiempo Extra",
-            "marcador": [2, 1],
-		   "nota": "Marcador Final: 3-2"
-		  },
-		  "estado": "final"
-	   },
+        "marcador": [
+          1,
+          1
+        ],
+        "pasa": "L",
+        "definicion": {
+          "tipo": "Tiempo Extra",
+          "marcador": [
+            2,
+            1
+          ],
+          "nota": "Marcador Final: 3-2"
+        },
+        "estado": "final"
+      },
       "p14": {
-		  "marcador": [1, 1],
-		  "pasa": "V",
-		  "estado": "final",
-		  "definicion": {
-            "tipo": "Tiempo Extra",
-            "marcador": [0, 0],
-			"nota": "Sin goles en T.E."
-	        },
-		   "penales": [2, 4]
-	   },
-      "p15":{
-		  "marcador": [2, 0],
-		  "pasa": "L",
-		  "estado": "final"
-	   },
+        "marcador": [
+          1,
+          1
+        ],
+        "pasa": "V",
+        "estado": "final",
+        "definicion": {
+          "tipo": "Tiempo Extra",
+          "marcador": [
+            0,
+            0
+          ],
+          "nota": "Sin goles en T.E."
+        },
+        "penales": [
+          2,
+          4
+        ]
+      },
+      "p15": {
+        "marcador": [
+          2,
+          0
+        ],
+        "pasa": "L",
+        "estado": "final"
+      },
       "p16": {
-		  "marcador": [1, 0],
-		  "pasa": "L",
-		  "estado": "final"
-	   },
+        "marcador": [
+          1,
+          0
+        ],
+        "pasa": "L",
+        "estado": "final"
+      }
     },
     "d8": {
       "p01": null,
@@ -183,7 +256,14 @@ const CONFIG = {
       "p05": null,
       "p06": null,
       "p07": null,
-      "p08": null
+      "p08": {
+        "marcador": [
+          0,
+          1
+        ],
+        "pasa": "V",
+        "estado": "final"
+      }
     },
     "d4": {
       "p01": null,
@@ -1579,90 +1659,90 @@ const CONFIG = {
     },
     "d8": {
       "p01": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
+        "local": "Canadá",
+        "flagL": "ca",
+        "visita": "Marruecos",
+        "flagV": "ma",
+        "fecha": "04/07 — Houston"
       },
       "p02": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
+        "local": "Paraguay",
+        "flagL": "py",
+        "visita": "Francia",
+        "flagV": "fr",
+        "fecha": "04/07 — Nueva York/Nueva Jersey"
       },
       "p03": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
+        "local": "Portugal",
+        "flagL": "pt",
+        "visita": "España",
+        "flagV": "es",
+        "fecha": "06/07 — Dallas"
       },
       "p04": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
+        "local": "Estados Unidos",
+        "flagL": "us",
+        "visita": "Bélgica",
+        "flagV": "be",
+        "fecha": "06/07 — Seattle"
       },
       "p05": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
+        "local": "Brasil",
+        "flagL": "br",
+        "visita": "Noruega",
+        "flagV": "no",
+        "fecha": "05/07 — Nueva York/Nueva Jersey"
       },
       "p06": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
+        "local": "México",
+        "flagL": "mx",
+        "visita": "Inglaterra",
+        "flagV": "gb-eng",
+        "fecha": "05/07 — Ciudad de México"
       },
       "p07": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
+        "local": "Argentina",
+        "flagL": "ar",
+        "visita": "Egipto",
+        "flagV": "eg",
+        "fecha": "07/07 — Atlanta"
       },
       "p08": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
+        "local": "Suiza",
+        "flagL": "ch",
+        "visita": "Colombia",
+        "flagV": "co",
+        "fecha": "07/07 — Vancouver"
       }
     },
     "d4": {
       "p01": {
-        "local": "Por definir",
+        "local": "Ganador Canadá/Marruecos",
         "flagL": "",
-        "visita": "Por definir",
+        "visita": "Ganador Paraguay/Francia",
         "flagV": "",
-        "fecha": ""
+        "fecha": "09/07"
       },
       "p02": {
-        "local": "Por definir",
+        "local": "Ganador Portugal/España",
         "flagL": "",
-        "visita": "Por definir",
+        "visita": "Ganador EE.UU./Bélgica",
         "flagV": "",
-        "fecha": ""
+        "fecha": "10/07"
       },
       "p03": {
-        "local": "Por definir",
+        "local": "Ganador Brasil/Noruega",
         "flagL": "",
-        "visita": "Por definir",
+        "visita": "Ganador México/Inglaterra",
         "flagV": "",
-        "fecha": ""
+        "fecha": "11/07"
       },
       "p04": {
-        "local": "Por definir",
+        "local": "Ganador Argentina/Egipto",
         "flagL": "",
-        "visita": "Por definir",
+        "visita": "Ganador Suiza/Colombia",
         "flagV": "",
-        "fecha": ""
+        "fecha": "11/07"
       }
     },
     "semi": {

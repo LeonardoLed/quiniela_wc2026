@@ -684,3 +684,737 @@ main { max-width:1180px; }
   line-height:1;
 }
 .penales-box strong span { color:var(--gris); margin:0 2px; display:inline; font-size:17px; }
+
+/* ===== Tema claro + grafo informativo de eliminatorias ===== */
+:root {
+  --fondo:#f3f6fb;
+  --tarjeta:#ffffff;
+  --borde:#d8e1ef;
+  --texto:#172033;
+  --gris:#617089;
+  --dorado:#b8860b;
+  --dorado2:#d8a21d;
+}
+body { background:linear-gradient(180deg,#eef3fb 0%,#f9fbff 100%); color:var(--texto); }
+header { background:linear-gradient(180deg,#ffffff 0%,#f3f7ff 72%,#f3f6fb 100%); }
+header::before { opacity:.35; filter:invert(1); }
+header h1 { color:#15213a; text-shadow:none; }
+header h1 em { color:#b8860b; text-shadow:none; }
+.update-bar { background:#ffffff; border-bottom:1px solid #d8e1ef; }
+.header-badge { background:#fffaf0; }
+.sede { color:#617089; }
+main { max-width:1160px; }
+.section-title { color:#2d3b52; }
+.section-title::after { background:linear-gradient(90deg,#c9d6e8,transparent); }
+.reglas-card,.tabla-wrapper,.grafica-wrapper,.panel-etapa,.bracket-section { background:#ffffff; border-color:#d8e1ef; box-shadow:0 10px 28px rgba(28,47,84,.08); }
+thead { background:linear-gradient(90deg,#f5f8fd,#eef4fc); }
+thead tr:first-child { border-bottom:1px solid #d8a21d; }
+tbody tr { border-bottom-color:#e5ecf7; }
+tbody tr:hover { background:#f7faff; }
+.nombre,.pj-nombre,.bar-label,.tip-partido,.pchip-partido { color:#172033 !important; }
+.badge-fase { background:#f3f7ff; border-color:#d8e1ef; color:#2d4f7d; }
+.col-total { background:#f4f7fd; }
+.tooltip-cell { background:#f7faff; }
+.tooltip-inner,.tooltip-inner .tip-chip,.pchip,.match-card { background:#ffffff; border-color:#d8e1ef; box-shadow:0 8px 22px rgba(28,47,84,.07); }
+.panel-etapa { background:#ffffff; }
+.panel-header,.panel-jugador { border-color:#e5ecf7; }
+.panel-jugador:hover { background:#f7faff; }
+.match-card { color:#172033; }
+.match-status.pendiente { color:#617089; background:#f3f7ff; border-color:#cdd8e8; }
+.match-status.final { background:#eaf8f0; border-color:#31c071; color:#138a49; }
+.match-status.parcial { background:#fff1f0; border-color:#e66052; color:#c0392b; }
+.score-line { background:#f7faff; border-color:#d8e1ef; }
+.definicion-box { background:#fff8e8; border-color:#ebc15c; }
+.penales-box { background:#ecfff6; border-color:#39c987; }
+.clasifica-line span,.score-label { color:#617089; }
+.match-points.b0 { border-color:#d95d56; color:#b53a32; }
+.filtros-fases { border-bottom-color:#d8e1ef; }
+.bar-track { background:#edf2f9; }
+.bar-total { color:#172033; }
+footer { background:#fff; border-top-color:#d8e1ef; }
+
+.bracket-section { margin:22px 0 26px; padding:20px; border-radius:16px; overflow:hidden; }
+.bracket-head { display:flex; justify-content:space-between; align-items:flex-start; gap:18px; margin-bottom:16px; }
+.bracket-title { margin-bottom:6px; }
+.bracket-head p { color:#617089; font-size:12px; line-height:1.55; max-width:760px; }
+.bracket-head code { background:#eef4fc; border:1px solid #d8e1ef; border-radius:6px; padding:1px 5px; color:#243b65; }
+.bracket-legend { display:flex; flex-direction:column; gap:7px; font-size:11px; color:#617089; white-space:nowrap; background:#f7faff; border:1px solid #d8e1ef; border-radius:12px; padding:10px 12px; }
+.bracket-legend span { display:flex; align-items:center; gap:7px; }
+.dot { width:9px; height:9px; border-radius:50%; display:inline-block; }
+.dot.done { background:#2ecc71; }
+.dot.live { background:#e74c3c; animation:parpadeoEnVivo 1s infinite; }
+.dot.wait { background:#9aa8bb; }
+.bracket-grafo { display:grid; grid-template-columns:1.45fr 1fr .9fr .9fr; gap:16px; overflow-x:auto; padding-bottom:8px; }
+.bracket-col { min-width:220px; display:flex; flex-direction:column; gap:12px; position:relative; }
+.bracket-round { font-family:'Bebas Neue',sans-serif; color:#22395f; letter-spacing:2px; font-size:16px; padding:7px 10px; background:#eef4fc; border:1px solid #d8e1ef; border-radius:10px; text-align:center; }
+.bracket-match { position:relative; background:#fff; border:1px solid #d8e1ef; border-radius:14px; padding:10px; box-shadow:0 6px 18px rgba(31,52,87,.08); }
+.bracket-match::after { content:''; position:absolute; right:-17px; top:50%; width:17px; height:1px; background:#c8d4e6; }
+.bracket-col:last-child .bracket-match::after { display:none; }
+.bracket-match.final { border-color:#74d99d; }
+.bracket-match.parcial { border-color:#e9796d; }
+.bracket-match.pendiente { opacity:.82; }
+.bracket-match-top { display:flex; align-items:center; justify-content:space-between; gap:8px; color:#b8860b; font-family:'Bebas Neue',sans-serif; letter-spacing:1.2px; font-size:12px; margin-bottom:7px; }
+.bracket-match-top small { color:#617089; font-family:'Inter',sans-serif; font-size:9px; letter-spacing:0; font-weight:700; }
+.bracket-team { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:8px; min-height:32px; border:1px solid #e0e7f2; border-radius:9px; padding:5px 7px; margin-top:5px; background:#f9fbff; }
+.bracket-team .flag-square { width:26px; height:20px; }
+.bracket-team span { font-size:12px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#172033; }
+.bracket-team strong { font-family:'Bebas Neue',sans-serif; font-size:18px; color:#22395f; min-width:16px; text-align:right; }
+.bracket-team.winner { background:#ebfff4; border-color:#7cdda4; }
+.bracket-team.winner span,.bracket-team.winner strong { color:#0d7f43; }
+.bracket-team.loser { opacity:.55; }
+.bracket-extra { margin-top:8px; }
+.bracket-extra .definicion-box,.bracket-extra .penales-box { padding:5px 8px; margin-top:5px; }
+.bracket-extra .definicion-box span,.bracket-extra .penales-box span { font-size:10px; }
+.bracket-extra .definicion-box strong,.bracket-extra .penales-box strong { font-size:15px; }
+@media(max-width:900px){
+  .bracket-head { flex-direction:column; }
+  .bracket-legend { flex-direction:row; flex-wrap:wrap; }
+  .bracket-grafo { grid-template-columns:repeat(4,230px); }
+}
+
+/* Bracket dinámico: iluminación de ruta del clasificado */
+.bracket-match.advancing {
+  border-color:#36c77a;
+  box-shadow:0 10px 26px rgba(46, 204, 113, .18);
+}
+.bracket-match.advancing::after {
+  height:3px;
+  background:linear-gradient(90deg,#36c77a,#13a85c);
+  box-shadow:0 0 10px rgba(46,204,113,.55);
+  border-radius:999px;
+}
+.bracket-team {
+  position:relative;
+  overflow:visible;
+}
+.bracket-team.winner::after {
+  content:'';
+  position:absolute;
+  right:-23px;
+  top:50%;
+  width:23px;
+  height:3px;
+  transform:translateY(-50%);
+  background:linear-gradient(90deg,#36c77a,#13a85c);
+  box-shadow:0 0 10px rgba(46,204,113,.55);
+  border-radius:999px;
+  z-index:3;
+}
+.bracket-col:last-child .bracket-team.winner::after,
+.bracket-col:last-child .bracket-match.advancing::after {
+  display:none;
+}
+.bracket-team.winner::before {
+  content:'✓';
+  position:absolute;
+  right:24px;
+  top:50%;
+  transform:translateY(-50%);
+  width:17px;
+  height:17px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:white;
+  background:#13a85c;
+  font-size:11px;
+  font-weight:900;
+  box-shadow:0 0 0 3px rgba(19,168,92,.14);
+}
+.bracket-team.advanced-slot {
+  background:#eafbf1;
+  border-color:#45cf83;
+  animation:slotArrive .55s ease both;
+}
+.bracket-team.advanced-slot span,
+.bracket-team.advanced-slot strong {
+  color:#0d7f43;
+}
+.bracket-team.placeholder-slot {
+  background:#f3f6fb;
+  border-style:dashed;
+  color:#7b8799;
+}
+.bracket-team span em {
+  display:block;
+  margin-top:1px;
+  font-style:normal;
+  font-size:8px;
+  letter-spacing:.9px;
+  text-transform:uppercase;
+  color:#13a85c;
+}
+.bracket-advance-note {
+  margin:7px 0 0;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  color:#0d7f43;
+  background:#eafbf1;
+  border:1px solid #9ee7bd;
+  border-radius:999px;
+  padding:3px 8px;
+  font-size:9px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+}
+.bracket-advance-note::before { content:'➜'; }
+@keyframes slotArrive {
+  from { opacity:.25; transform:translateX(-10px); }
+  to { opacity:1; transform:translateX(0); }
+}
+
+/* ===== Selector claro / oscuro ===== */
+html { transition: background .25s ease; }
+body, header, .tabla-wrapper, .grafica-wrapper, .panel-etapa, .bracket-section, .match-card, .bracket-match, .tooltip-inner, .tooltip-inner .tip-chip, .pchip, .score-line, .bracket-team, table, thead, tbody tr { transition: background .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.theme-toggle {
+  position:absolute;
+  top:12px;
+  right:14px;
+  z-index:10;
+  border:1px solid var(--borde);
+  background:var(--tarjeta);
+  color:var(--texto);
+  border-radius:999px;
+  padding:7px 12px;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.5px;
+  cursor:pointer;
+  box-shadow:0 8px 22px rgba(28,47,84,.10);
+}
+.theme-toggle:hover { transform:translateY(-1px); }
+body.theme-dark {
+  --fondo:#05080f;
+  --tarjeta:#0c1220;
+  --borde:#1a2a4a;
+  --texto:#e8edf8;
+  --gris:#8da0bd;
+  --dorado:#F0C030;
+  --dorado2:#D4A017;
+}
+body.theme-dark { background:linear-gradient(180deg,#05080f 0%,#08101f 100%); color:var(--texto); }
+body.theme-dark header { background:linear-gradient(180deg,#020510 0%,#050d1e 65%,#05080f 100%); }
+body.theme-dark header::before { opacity:.04; filter:none; }
+body.theme-dark header h1 { color:#fff; text-shadow:0 0 40px rgba(0,61,165,.5); }
+body.theme-dark header h1 em { color:var(--dorado); text-shadow:0 0 30px rgba(240,192,48,.5); }
+body.theme-dark .update-bar { background:rgba(2,5,16,.9); border-bottom-color:rgba(26,42,74,.75); }
+body.theme-dark .header-badge { background:rgba(240,192,48,.06); }
+body.theme-dark .sede { color:var(--gris); }
+body.theme-dark .section-title { color:#9fb0ca; }
+body.theme-dark .section-title::after { background:linear-gradient(90deg,#1a2a4a,transparent); }
+body.theme-dark .reglas-card,
+body.theme-dark .tabla-wrapper,
+body.theme-dark .grafica-wrapper,
+body.theme-dark .panel-etapa,
+body.theme-dark .bracket-section {
+  background:#0c1220;
+  border-color:#1a2a4a;
+  box-shadow:0 8px 34px rgba(0,0,0,.38);
+}
+body.theme-dark thead { background:linear-gradient(90deg,#060e1f,#091529); }
+body.theme-dark thead tr:first-child { border-bottom-color:#D4A017; }
+body.theme-dark tbody tr { border-bottom-color:#162747; }
+body.theme-dark tbody tr:hover { background:#101a2f; }
+body.theme-dark .nombre,
+body.theme-dark .pj-nombre,
+body.theme-dark .bar-label,
+body.theme-dark .tip-partido,
+body.theme-dark .pchip-partido { color:#e8edf8 !important; }
+body.theme-dark .badge-fase { background:#101a2f; border-color:#243a61; color:#d8e4f7; }
+body.theme-dark .col-total { background:#0a1020; }
+body.theme-dark .tooltip-cell { background:#080e1c; }
+body.theme-dark .tooltip-inner,
+body.theme-dark .tooltip-inner .tip-chip,
+body.theme-dark .pchip,
+body.theme-dark .match-card { background:#101827; border-color:#253657; box-shadow:0 8px 22px rgba(0,0,0,.24); }
+body.theme-dark .panel-header,
+body.theme-dark .panel-jugador { border-color:#1c2d4d; }
+body.theme-dark .panel-jugador:hover { background:#101827; }
+body.theme-dark .match-card { color:#e8edf8; }
+body.theme-dark .match-status.pendiente { color:#9fb0ca; background:#101827; border-color:#2a3f64; }
+body.theme-dark .match-status.final { background:rgba(46,204,113,.10); border-color:#31c071; color:#62df97; }
+body.theme-dark .match-status.parcial { background:rgba(231,76,60,.12); border-color:#e66052; color:#ff8175; }
+body.theme-dark .score-line { background:#0a1222; border-color:#223657; }
+body.theme-dark .definicion-box { background:rgba(240,192,48,.10); border-color:#c79a26; }
+body.theme-dark .penales-box { background:rgba(46,204,113,.10); border-color:#31c071; }
+body.theme-dark .clasifica-line span,
+body.theme-dark .score-label { color:#9fb0ca; }
+body.theme-dark .filtros-fases { border-bottom-color:#1a2a4a; }
+body.theme-dark .bar-track { background:#101827; }
+body.theme-dark .bar-total { color:#e8edf8; }
+body.theme-dark footer { background:#05080f; border-top-color:#1a2a4a; }
+body.theme-dark .theme-toggle { background:#101827; border-color:#2a3f64; color:#f7d65f; box-shadow:0 8px 22px rgba(0,0,0,.32); }
+body.theme-dark .bracket-head p { color:#9fb0ca; }
+body.theme-dark .bracket-head code { background:#101827; border-color:#253657; color:#d8e4f7; }
+body.theme-dark .bracket-legend { background:#101827; border-color:#253657; color:#9fb0ca; }
+body.theme-dark .bracket-round { color:#e8edf8; background:#101827; border-color:#253657; }
+body.theme-dark .bracket-match { background:#0f1726; border-color:#253657; box-shadow:0 8px 22px rgba(0,0,0,.28); }
+body.theme-dark .bracket-match::after { background:#324666; }
+body.theme-dark .bracket-team { background:#111c2f; border-color:#273a5d; }
+body.theme-dark .bracket-team span { color:#e8edf8; }
+body.theme-dark .bracket-team strong { color:#d8e4f7; }
+body.theme-dark .bracket-team.winner { background:rgba(46,204,113,.13); border-color:#45cf83; }
+body.theme-dark .bracket-team.winner span,
+body.theme-dark .bracket-team.winner strong { color:#62df97; }
+body.theme-dark .bracket-team.placeholder-slot { background:#0b1322; border-color:#2a3f64; }
+body.theme-dark .bracket-team.advanced-slot { background:rgba(46,204,113,.12); border-color:#45cf83; }
+body.theme-dark .bracket-advance-note { background:rgba(46,204,113,.12); color:#62df97; border-color:#45cf83; }
+body.theme-dark .bracket-match.advancing { box-shadow:0 10px 28px rgba(46,204,113,.22); }
+body.theme-dark .bracket-match.parcial { border-color:#ffbc4b; box-shadow:0 0 0 1px rgba(255,188,75,.12),0 10px 26px rgba(255,188,75,.12); }
+body.theme-dark .bracket-match.final { border-color:#45cf83; }
+body:not(.theme-dark) .theme-toggle { background:#ffffff; color:#22395f; }
+@media(max-width:700px){ .theme-toggle { position:relative; top:auto; right:auto; margin:10px auto 0; display:inline-flex; } }
+
+/* ===== Bracket tipo FIFA compacto/radial ===== */
+.bracket-section{
+  padding:18px 18px 22px;
+}
+.bracket-head{
+  margin-bottom:10px;
+}
+.bracket-grafo{
+  display:block !important;
+  overflow:auto;
+  padding:10px 4px 14px;
+  background:linear-gradient(180deg,rgba(248,251,255,.96),rgba(255,255,255,.96));
+  border-radius:18px;
+  border:1px solid #dce5f2;
+  min-height:650px;
+}
+.fifa-bracket{
+  position:relative;
+  width:var(--bw);
+  height:var(--bh);
+  margin:0 auto;
+  transform-origin:top center;
+}
+.fifa-lines{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  overflow:visible;
+}
+.fifa-link{
+  fill:none;
+  stroke:#9aa7b8;
+  stroke-width:2;
+  stroke-linecap:round;
+  opacity:.78;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.08));
+}
+.fifa-link.active{
+  stroke:#21b36b;
+  stroke-width:3.5;
+  opacity:1;
+  filter:drop-shadow(0 0 5px rgba(33,179,107,.35));
+  stroke-dasharray:260;
+  animation:fifaLineOn .75s ease both;
+}
+@keyframes fifaLineOn{
+  from{stroke-dashoffset:260;}
+  to{stroke-dashoffset:0;}
+}
+.fifa-node{
+  position:absolute;
+  width:118px;
+  min-height:58px;
+  transform:translate(-50%,-50%);
+  z-index:2;
+  text-align:center;
+}
+.fifa-node.small{ width:102px; }
+.fifa-node.tiny{ width:60px; min-height:42px; }
+.fifa-card{
+  background:#fff;
+  border:1px solid #d7deea;
+  border-radius:12px;
+  box-shadow:0 8px 24px rgba(40,54,78,.14);
+  padding:5px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+}
+.fifa-node:not(.tiny) .fifa-card{
+  min-height:34px;
+}
+.fifa-row{
+  display:grid;
+  grid-template-columns:20px 1fr auto auto auto;
+  align-items:center;
+  gap:3px;
+  min-width:48px;
+  background:#f7f9fd;
+  border:1px solid #e2e7f0;
+  border-radius:9px;
+  padding:4px 5px;
+  color:#2d3748;
+  font-weight:800;
+  font-size:8px;
+  text-transform:uppercase;
+}
+.fifa-node.small .fifa-row{ min-width:42px; grid-template-columns:18px 1fr auto auto auto; }
+.fifa-node.tiny .fifa-card{ border-radius:999px; padding:5px; gap:4px; min-height:auto; }
+.fifa-node.tiny .fifa-row{
+  display:flex;
+  min-width:0;
+  width:22px;
+  height:22px;
+  border-radius:999px;
+  padding:0;
+  justify-content:center;
+  background:#f2f5fa;
+}
+.fifa-node.tiny .fifa-row span,
+.fifa-node.tiny .fifa-row strong,
+.fifa-node.tiny .fifa-row small,
+.fifa-node.tiny .fifa-row em{ display:none; }
+.flag-bubble{
+  width:22px;
+  height:22px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#f4f6fa;
+  border:2px solid #fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.18);
+  overflow:hidden;
+}
+.flag-bubble .flag-square{
+  width:100%;
+  height:100%;
+  border-radius:999px;
+  border:0;
+  box-shadow:none;
+}
+.flag-bubble.empty{
+  font-size:10px;
+  font-weight:900;
+  color:#68778d;
+  border-color:#cfd8e8;
+}
+.fifa-row strong{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:15px;
+  color:#1d2b42;
+  min-width:7px;
+}
+.fifa-row .empty-score{
+  color:#9aa7b8;
+}
+.fifa-row small{
+  color:#6c7890;
+  font-size:8px;
+  font-weight:900;
+  margin-left:-2px;
+}
+.fifa-row em{
+  font-style:normal;
+  color:#13a764;
+  font-size:11px;
+  margin-left:1px;
+}
+.fifa-row.winner{
+  background:#eafff3;
+  border-color:#65d596;
+}
+.fifa-row.winner strong,
+.fifa-row.winner span{ color:#0a7a42; }
+.fifa-row.loser{
+  opacity:.42;
+  filter:grayscale(.3);
+}
+.fifa-node.final .fifa-card,
+.fifa-node.final-node .fifa-card,
+.fifa-node.final,
+.final-circle{
+  border-color:#cfd8e8;
+}
+.fifa-node.final{
+  width:112px;
+}
+.final-circle{
+  width:88px;
+  height:88px;
+  border-radius:999px;
+  background:#fff;
+  border:3px solid #788292;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto;
+  box-shadow:0 10px 24px rgba(33,43,61,.16);
+  font-size:24px;
+}
+.final-circle span{
+  display:block;
+  font-family:'Bebas Neue',sans-serif;
+  letter-spacing:1px;
+  font-size:13px;
+  color:#263448;
+  margin-top:3px;
+}
+.final-team{
+  margin-top:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  font-size:10px;
+  font-weight:900;
+  color:#1d2b42;
+}
+.final-team .flag-bubble{ width:24px; height:24px; }
+.fifa-meta{
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 2px);
+  transform:translateX(-50%);
+  white-space:nowrap;
+  color:#8a6713;
+  font-family:'Bebas Neue',sans-serif;
+  letter-spacing:.9px;
+  font-size:10px;
+  max-width:130px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.fifa-state{
+  margin-top:4px;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.5px;
+  color:#6b7890;
+  text-transform:uppercase;
+}
+.fifa-node.final .fifa-state{ display:none; }
+.fifa-node.final .fifa-extra,
+.fifa-node.tiny .fifa-extra{ display:none; }
+.fifa-extra{
+  margin-top:3px;
+  font-size:8px;
+  color:#617089;
+  font-weight:800;
+  white-space:nowrap;
+}
+.fifa-node.final .fifa-card{}
+.fifa-node.final-node{ z-index:3; }
+.fifa-node.parcial .fifa-card{
+  border-color:#f2b84b;
+  box-shadow:0 0 0 1px rgba(242,184,75,.20),0 10px 24px rgba(242,184,75,.18);
+  animation:fifaPulse 1.2s ease-in-out infinite;
+}
+@keyframes fifaPulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.025);}
+}
+.fifa-node.final:not(.final-node) .fifa-card{
+  border-color:#74d99d;
+}
+.fifa-node.pendiente .fifa-card{ opacity:.86; }
+.fifa-node.third-node{ opacity:.88; }
+@media(max-width:900px){
+  .fifa-bracket{ transform:scale(.82); margin-left:auto; margin-right:auto; }
+  .bracket-grafo{ min-height:545px; }
+}
+@media(max-width:700px){
+  .fifa-bracket{ transform:scale(.68); margin-left:-150px; }
+  .bracket-grafo{ min-height:455px; }
+}
+
+/* Tema oscuro para bracket FIFA */
+body.theme-dark .bracket-grafo{
+  background:linear-gradient(180deg,#0f1726,#0b1220);
+  border-color:#253657;
+}
+body.theme-dark .fifa-card,
+body.theme-dark .final-circle{
+  background:#101827;
+  border-color:#2b3d5f;
+  box-shadow:0 10px 28px rgba(0,0,0,.36);
+}
+body.theme-dark .fifa-row{
+  background:#152034;
+  border-color:#2a3b5c;
+  color:#e8edf8;
+}
+body.theme-dark .fifa-row strong{ color:#f1f6ff; }
+body.theme-dark .fifa-row.winner{
+  background:rgba(46,204,113,.16);
+  border-color:#45cf83;
+}
+body.theme-dark .fifa-row.winner strong,
+body.theme-dark .fifa-row.winner span{ color:#71e5a2; }
+body.theme-dark .fifa-link{ stroke:#425577; opacity:.75; }
+body.theme-dark .fifa-link.active{ stroke:#45cf83; }
+body.theme-dark .final-circle span,
+body.theme-dark .final-team{ color:#e8edf8; }
+body.theme-dark .fifa-state,
+body.theme-dark .fifa-extra{ color:#9fb0ca; }
+body.theme-dark .fifa-meta{ color:#ffd05b; }
+
+/* ===== Corrección de contraste en tema claro =====
+   En el tema claro los marcadores quedaban muy pálidos/blancos.
+   Estos estilos hacen que los resultados y pronósticos sean legibles. */
+body:not(.theme-dark) .score-line {
+  background:#ffffff;
+  border-color:#b9c8dc;
+  box-shadow:inset 0 0 0 1px rgba(28,47,84,.035), 0 3px 10px rgba(28,47,84,.06);
+}
+body:not(.theme-dark) .score-label {
+  color:#49627f;
+}
+body:not(.theme-dark) .score-line strong {
+  color:#10233f;
+  text-shadow:none;
+}
+body:not(.theme-dark) .score-line strong span {
+  color:#536b88;
+}
+body:not(.theme-dark) .match-card.final .score-line:first-child {
+  background:#f4fff8;
+  border-color:#74d99d;
+}
+body:not(.theme-dark) .match-card.parcial .score-line:first-child {
+  background:#fff8ea;
+  border-color:#f0bd55;
+}
+body:not(.theme-dark) .definicion-box strong,
+body:not(.theme-dark) .penales-box strong {
+  color:#0f213b;
+}
+body:not(.theme-dark) .clasifica-line strong {
+  color:#172033;
+}
+body:not(.theme-dark) .match-points {
+  background:#ffffff;
+  color:#10233f;
+}
+body:not(.theme-dark) .match-points.b0 {
+  background:#fff5f4;
+  color:#b53a32;
+}
+body:not(.theme-dark) .match-points:not(.b0) {
+  background:#fff8e6;
+  border-color:#d8a21d;
+  color:#9a6500;
+}
+
+/* Marcadores dentro del bracket FIFA en tema claro */
+body:not(.theme-dark) .fifa-row {
+  background:#ffffff;
+  border-color:#b9c8dc;
+  color:#203047;
+  box-shadow:0 2px 6px rgba(28,47,84,.05);
+}
+body:not(.theme-dark) .fifa-row strong {
+  color:#071a33;
+  font-weight:900;
+  text-shadow:none;
+}
+body:not(.theme-dark) .fifa-row small {
+  color:#405b78;
+}
+body:not(.theme-dark) .fifa-row .empty-score {
+  color:#72839a;
+}
+body:not(.theme-dark) .fifa-row.winner {
+  background:#e7fff1;
+  border-color:#2ecc71;
+  box-shadow:0 0 0 1px rgba(46,204,113,.12), 0 4px 12px rgba(46,204,113,.16);
+}
+body:not(.theme-dark) .fifa-row.winner strong,
+body:not(.theme-dark) .fifa-row.winner span {
+  color:#075b33;
+}
+body:not(.theme-dark) .fifa-card {
+  background:#ffffff;
+  border-color:#c6d3e5;
+}
+
+
+/* ===== Ajuste tema claro: reglas legibles y sin instrucciones internas ===== */
+body:not(.theme-dark) .reglas-card{
+  background:#ffffff;
+  border:1px solid #d8e1ef;
+  box-shadow:0 10px 28px rgba(28,47,84,.08);
+}
+body:not(.theme-dark) .reglas-card-title{
+  color:#b8860b;
+}
+body:not(.theme-dark) .regla-box{
+  background:linear-gradient(180deg,#ffffff 0%,#f7faff 100%);
+  border:1px solid #cfdbea;
+  box-shadow:0 4px 14px rgba(28,47,84,.06);
+}
+body:not(.theme-dark) .regla-box strong{
+  color:#172033;
+}
+body:not(.theme-dark) .regla-box span{
+  color:#44546a;
+}
+body:not(.theme-dark) .regla-max{
+  background:linear-gradient(180deg,#effcf5 0%,#e7f9ef 100%);
+  border:1px solid #9ee6bd;
+  color:#24513a;
+  box-shadow:0 4px 14px rgba(46,204,113,.12);
+}
+body:not(.theme-dark) .regla-max strong{
+  color:#1fb866;
+}
+body:not(.theme-dark) .regla-max small{
+  color:#456257;
+}
+.bracket-head p{ display:none !important; }
+
+
+/* ===== Fix final tema claro + reglas + bracket ===== */
+body:not(.theme-dark) .reglas-card,
+body:not(.theme-dark) .regla-card,
+body:not(.theme-dark) .regla-box,
+body:not(.theme-dark) .reglas-grid > div {
+  background: #ffffff !important;
+  color: #152238 !important;
+  border: 1px solid #d8e4f2 !important;
+  box-shadow: 0 10px 24px rgba(15, 35, 70, .07) !important;
+}
+body:not(.theme-dark) .reglas-card span,
+body:not(.theme-dark) .regla-card span,
+body:not(.theme-dark) .regla-box span,
+body:not(.theme-dark) .reglas-grid span,
+body:not(.theme-dark) .reglas-grid small {
+  color: #35506f !important;
+}
+body:not(.theme-dark) .reglas-card strong,
+body:not(.theme-dark) .regla-card strong,
+body:not(.theme-dark) .regla-max strong {
+  color: #18a85d !important;
+}
+body:not(.theme-dark) .reglas-grid > div:nth-child(1){
+  background: linear-gradient(135deg,#ffffff,#f3f8ff) !important;
+}
+body:not(.theme-dark) .reglas-grid > div:nth-child(2){
+  background: linear-gradient(135deg,#ffffff,#f8f5ff) !important;
+}
+body:not(.theme-dark) .regla-max{
+  background: linear-gradient(135deg,#f1fff7,#ffffff) !important;
+  border-color:#9de6be !important;
+}
+.bracket-head p,
+.bracket-help { display:none !important; }
+.bracket-grafo{
+  min-height:650px !important;
+  position:relative !important;
+}
+.fifa-bracket{
+  display:block !important;
+  min-width:980px !important;
+  min-height:650px !important;
+}
+.fifa-node{ visibility:visible !important; }

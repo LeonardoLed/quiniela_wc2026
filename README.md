@@ -2,7 +2,7 @@
 
 Proyecto estático listo para GitHub Pages.
 
-## Dónde editar a
+## Dónde editar 
 
 Todo lo manual se modifica en:
 
@@ -148,3 +148,23 @@ p01: {
 ```
 
 Cuando termine el partido, cambia `estado` a `"final"` y completa `pasa: "L"` o `pasa: "V"`.
+
+
+## Actualización a Octavos de Final
+
+Esta versión deja abierta por defecto la fase de **Octavos de Final** (`faseAbierta: "d8"`) y carga los cruces:
+
+1. Canadá vs Marruecos
+2. Paraguay vs Francia
+3. Portugal vs España
+4. Estados Unidos vs Bélgica
+5. Brasil vs Noruega
+6. México vs Inglaterra
+7. Argentina vs Egipto
+8. Suiza vs Colombia
+
+Además, se registró **Suiza 0-1 Colombia** como resultado final en octavos.
+
+## Bracket dinámico
+
+El bracket superior ahora ilumina la ruta del clasificado: cuando un partido tiene `estado: "final"` y un clasificado definido, la tarjeta marca al ganador con ✓, resalta la línea de avance y coloca automáticamente a la selección en la siguiente ronda.
