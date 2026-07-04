@@ -1651,3 +1651,217 @@ body.theme-dark .fifa-row strong{
   .fifa-bracket{ transform:scale(.76) !important; transform-origin:top left !important; }
   .bracket-grafo{ overflow-x:auto !important; min-height:540px !important; }
 }
+
+/* ===== Bracket v3: layout ordenado, centrado y sin desalineación ===== */
+.bracket-section{
+  overflow:hidden !important;
+}
+.bracket-grafo{
+  min-height:590px !important;
+  overflow:hidden !important;
+  padding:18px 8px 20px !important;
+  display:flex !important;
+  justify-content:center !important;
+  align-items:flex-start !important;
+}
+.fifa-bracket{
+  width:1100px !important;
+  height:560px !important;
+  transform:none !important;
+  margin:0 auto !important;
+  flex:0 0 auto !important;
+}
+.fifa-node{
+  width:142px !important;
+  min-height:58px !important;
+}
+.fifa-node.small{
+  width:118px !important;
+  min-height:52px !important;
+}
+.fifa-node.third-node{
+  width:128px !important;
+}
+.fifa-card{
+  box-sizing:border-box !important;
+  width:100% !important;
+  min-height:40px !important;
+  padding:5px !important;
+  gap:4px !important;
+  border-radius:13px !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+.fifa-node:not(.tiny) .fifa-card{
+  min-height:40px !important;
+}
+.fifa-row{
+  box-sizing:border-box !important;
+  height:30px !important;
+  min-height:30px !important;
+  min-width:62px !important;
+  max-width:64px !important;
+  grid-template-columns:22px 22px 16px !important;
+  grid-auto-columns:auto !important;
+  align-items:center !important;
+  justify-items:center !important;
+  gap:2px !important;
+  padding:3px 4px !important;
+  border-radius:9px !important;
+  overflow:hidden !important;
+}
+.fifa-node.small .fifa-row{
+  min-width:52px !important;
+  max-width:54px !important;
+  grid-template-columns:20px 18px 14px !important;
+  padding:3px !important;
+}
+.fifa-row span{
+  display:block !important;
+  width:22px !important;
+  min-width:0 !important;
+  max-width:22px !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  text-align:center !important;
+  font-size:8px !important;
+  line-height:1 !important;
+}
+.fifa-node.small .fifa-row span{
+  width:18px !important;
+  max-width:18px !important;
+  font-size:7.5px !important;
+}
+.fifa-row strong{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:16px !important;
+  height:22px !important;
+  min-width:16px !important;
+  max-width:16px !important;
+  padding:0 !important;
+  margin:0 !important;
+  line-height:1 !important;
+  text-align:center !important;
+  font-size:17px !important;
+  border-radius:6px !important;
+  box-sizing:border-box !important;
+}
+.fifa-node.small .fifa-row strong{
+  width:14px !important;
+  min-width:14px !important;
+  max-width:14px !important;
+  font-size:15px !important;
+}
+.fifa-row small,
+.fifa-row em{
+  display:none !important;
+}
+.flag-bubble{
+  width:22px !important;
+  height:22px !important;
+  min-width:22px !important;
+  max-width:22px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  line-height:1 !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+}
+.fifa-node.small .flag-bubble{
+  width:20px !important;
+  height:20px !important;
+  min-width:20px !important;
+  max-width:20px !important;
+}
+.flag-bubble .flag-square{
+  width:100% !important;
+  height:100% !important;
+  min-width:100% !important;
+  flex:0 0 100% !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  border-radius:999px !important;
+  padding:0 !important;
+  margin:0 !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+.flag-bubble .flag-square .team-flag{
+  width:100% !important;
+  height:100% !important;
+  display:block !important;
+  object-fit:cover !important;
+  object-position:center center !important;
+  border-radius:999px !important;
+}
+.flag-bubble.empty{
+  width:22px !important;
+  height:22px !important;
+  font-size:9px !important;
+}
+.fifa-meta{
+  bottom:calc(100% + 4px) !important;
+  max-width:140px !important;
+  font-size:10px !important;
+  line-height:1 !important;
+}
+.fifa-state{
+  margin-top:4px !important;
+  font-size:8px !important;
+  line-height:1 !important;
+}
+.fifa-extra{
+  max-width:130px !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+.final-circle{
+  width:84px !important;
+  height:84px !important;
+}
+.fifa-node.final-node{
+  width:112px !important;
+}
+.fifa-link{
+  stroke:#bdc8d8 !important;
+  stroke-width:2.4 !important;
+  stroke-linejoin:round !important;
+}
+.fifa-link.active{
+  stroke:#21b36b !important;
+  stroke-width:4 !important;
+}
+body:not(.theme-dark) .fifa-row strong{
+  background:#eef4fc !important;
+  border:1px solid #cbd8ea !important;
+  color:#071a33 !important;
+}
+body:not(.theme-dark) .fifa-row.winner strong{
+  background:#d9fae8 !important;
+  border-color:#83dca8 !important;
+  color:#075b33 !important;
+}
+@media(max-width:1240px){
+  .fifa-bracket{
+    transform:scale(.94) !important;
+    transform-origin:top center !important;
+  }
+  .bracket-grafo{ min-height:545px !important; }
+}
+@media(max-width:1080px){
+  .bracket-grafo{
+    overflow-x:auto !important;
+    justify-content:flex-start !important;
+  }
+  .fifa-bracket{
+    transform:scale(.88) !important;
+    transform-origin:top left !important;
+  }
+}

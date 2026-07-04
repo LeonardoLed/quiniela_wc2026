@@ -578,32 +578,32 @@ const BRACKET_MAP = {
 };
 
 const BRACKET_LAYOUT = {
-  W: 1240,
-  H: 610,
+  W: 1100,
+  H: 560,
   nodes: {
     // LADO IZQUIERDO: cuatro partidos de 8vos
-    'd8-p01': {x: 110, y: 90},
-    'd8-p02': {x: 110, y: 220},
-    'd8-p03': {x: 110, y: 390},
-    'd8-p04': {x: 110, y: 520},
+    'd8-p01': {x: 85, y: 75},
+    'd8-p02': {x: 85, y: 185},
+    'd8-p03': {x: 85, y: 345},
+    'd8-p04': {x: 85, y: 455},
 
     // LADO DERECHO: cuatro partidos de 8vos
-    'd8-p05': {x: 1130, y: 90},
-    'd8-p06': {x: 1130, y: 220},
-    'd8-p07': {x: 1130, y: 390},
-    'd8-p08': {x: 1130, y: 520},
+    'd8-p05': {x: 1015, y: 75},
+    'd8-p06': {x: 1015, y: 185},
+    'd8-p07': {x: 1015, y: 345},
+    'd8-p08': {x: 1015, y: 455},
 
     // 4tos
-    'd4-p01': {x: 320, y: 155, small:true},
-    'd4-p02': {x: 320, y: 455, small:true},
-    'd4-p03': {x: 920, y: 155, small:true},
-    'd4-p04': {x: 920, y: 455, small:true},
+    'd4-p01': {x: 265, y: 130, small:true},
+    'd4-p02': {x: 265, y: 400, small:true},
+    'd4-p03': {x: 835, y: 130, small:true},
+    'd4-p04': {x: 835, y: 400, small:true},
 
     // semifinales y finales
-    'semi-p01': {x: 505, y: 305, small:true},
-    'semi-p02': {x: 735, y: 305, small:true},
-    'final-p01': {x: 620, y: 285, final:true},
-    'final-p02': {x: 620, y: 425, small:true, third:true}
+    'semi-p01': {x: 435, y: 265, small:true},
+    'semi-p02': {x: 665, y: 265, small:true},
+    'final-p01': {x: 550, y: 245, final:true},
+    'final-p02': {x: 550, y: 380, small:true, third:true}
   },
   links: [
     ['d8-p01','d4-p01'], ['d8-p02','d4-p01'],
