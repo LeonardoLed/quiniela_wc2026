@@ -10,7 +10,7 @@ Todo lo manual se modifica en:
 data/config.js
 ```
 
-## Participantes y puntos de grupos a
+## Participantes y puntos de grupos 
 
 Busca `participantes` y cambia `nombre` o `grupos`.
 
