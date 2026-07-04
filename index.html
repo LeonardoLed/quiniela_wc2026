@@ -9,6 +9,7 @@
 <body>
 <div class="header-stripe"></div>
 <header>
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema">🌙 Tema oscuro</button>
   <div class="update-bar">🕐 ÚLTIMA ACTUALIZACIÓN: <span id="fecha-update"></span></div>
   <div class="trophy-wrap">
     <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,6 +58,23 @@
       <div class="regla-max">Máximo: <strong>3 pts</strong> por partido<br><small>El marcador que cuenta es a los 90'</small></div>
     </div>
   </div>
+
+
+  <section class="bracket-section" aria-label="Grafo de eliminatorias">
+    <div class="bracket-head">
+      <div>
+        <div class="section-title bracket-title">GRAFO DE ELIMINATORIAS</div>
+        <p>Se actualiza automáticamente con los resultados en <code>data/config.js</code>. El marcador mostrado es el resultado a los 90'. Tiempo extra y penales aparecen como información adicional.</p>
+      </div>
+      <div class="bracket-legend">
+        <span><b class="dot done"></b> Final</span>
+        <span><b class="dot live"></b> Parcial</span>
+        <span><b class="dot wait"></b> Por jugar</span>
+      </div>
+    </div>
+    <div id="bracket-grafo" class="bracket-grafo"></div>
+  </section>
+
   <div class="tabla-wrapper">
     <table>
       <thead>

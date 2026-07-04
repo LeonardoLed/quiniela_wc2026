@@ -164,3 +164,7 @@ Esta versión deja abierta por defecto la fase de **Octavos de Final** (`faseAbi
 8. Suiza vs Colombia
 
 Además, se registró **Suiza 0-1 Colombia** como resultado final en octavos.
+
+## Bracket dinámico
+
+El bracket superior ahora ilumina la ruta del clasificado: cuando un partido tiene `estado: "final"` y un clasificado definido, la tarjeta marca al ganador con ✓, resalta la línea de avance y coloca automáticamente a la selección en la siguiente ronda.

@@ -1,5 +1,28 @@
 
 // LÓGICA AUTOMÁTICA — no necesitas editar este archivo para actualizar marcadores.
+
+// ===== Tema claro / oscuro =====
+function initTheme(){
+  const saved = localStorage.getItem('quiniela-theme');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const theme = saved || (prefersDark ? 'dark' : 'light');
+  document.body.classList.toggle('theme-dark', theme === 'dark');
+  updateThemeButton();
+}
+function updateThemeButton(){
+  const btn = document.getElementById('theme-toggle');
+  if(!btn) return;
+  const dark = document.body.classList.contains('theme-dark');
+  btn.textContent = dark ? '☀️ Tema claro' : '🌙 Tema oscuro';
+  btn.setAttribute('aria-pressed', String(dark));
+}
+function toggleTheme(){
+  const dark = !document.body.classList.contains('theme-dark');
+  document.body.classList.toggle('theme-dark', dark);
+  localStorage.setItem('quiniela-theme', dark ? 'dark' : 'light');
+  updateThemeButton();
+}
+
 const { reglas, participantes, resultados, pronosticos, partidos } = CONFIG;
 const faseAbiertaDefault = CONFIG.faseAbierta || 'd16';
 
@@ -530,8 +553,120 @@ window.toggleFase = toggleFase;
 window.toggleGrafica = toggleGrafica;
 window.sortTable = sortTable;
 window.toggleUserFase = toggleUserFase;
+window.toggleTheme = toggleTheme;
 
+initTheme();
+document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
 actualizarFlechasOrden();
+// ===== Grafo informativo de eliminatorias =====
+const BRACKET_MAP = {
+  d4: {
+    p01: [['d8','p01'], ['d8','p02']],
+    p02: [['d8','p03'], ['d8','p04']],
+    p03: [['d8','p05'], ['d8','p06']],
+    p04: [['d8','p07'], ['d8','p08']],
+  },
+  semi: {
+    p01: [['d4','p01'], ['d4','p02']],
+    p02: [['d4','p03'], ['d4','p04']],
+  },
+  final: {
+    p01: [['semi','p01'], ['semi','p02']],
+    p02: [['semi','p01'], ['semi','p02']],
+  }
+};
+
+function teamFromInfo(info, side, extra={}){
+  return {
+    nombre: side === 'L' ? (info?.local || 'Por definir') : (info?.visita || 'Por definir'),
+    flag: side === 'L' ? (info?.flagL || '') : (info?.flagV || ''),
+    ...extra
+  };
+}
+function winnerSide(valor){
+  return clasificado(valor);
+}
+function loserSide(valor){
+  const w = winnerSide(valor);
+  if(!w) return null;
+  return w === 'L' ? 'V' : 'L';
+}
+function resolvedWinner(etId, key){
+  const info = partidos[etId]?.[key];
+  const real = resultados[etId]?.[key];
+  const side = winnerSide(real);
+  return side ? teamFromInfo(info, side, {advanced:true}) : null;
+}
+function resolvedLoser(etId, key){
+  const info = partidos[etId]?.[key];
+  const real = resultados[etId]?.[key];
+  const side = loserSide(real);
+  return side ? teamFromInfo(info, side, {advanced:true}) : null;
+}
+function labelGanador(etId, key){
+  const info = partidos[etId]?.[key];
+  if(!info) return {nombre:'Por definir', flag:''};
+  return {nombre:`Ganador ${info.local || '?'} / ${info.visita || '?'}`, flag:'', placeholder:true};
+}
+function bracketParticipants(etId, key){
+  if(etId === 'd8'){
+    const info = partidos.d8?.[key] || {};
+    return [teamFromInfo(info,'L'), teamFromInfo(info,'V')];
+  }
+  if(etId === 'final' && key === 'p02'){
+    const links = BRACKET_MAP.final.p02;
+    return links.map(([e,k]) => resolvedLoser(e,k) || {nombre:`Perdedor ${partidos[e]?.[k]?.local || '?'} / ${partidos[e]?.[k]?.visita || '?'}`, flag:'', placeholder:true});
+  }
+  const links = BRACKET_MAP[etId]?.[key] || [];
+  return links.map(([e,k]) => resolvedWinner(e,k) || labelGanador(e,k));
+}
+function bracketScore(etId, key, idx){
+  const real = resultados[etId]?.[key];
+  const m = marcadorDe(real);
+  return m ? m[idx] : '';
+}
+function bracketEstado(real){
+  const e = estadoPartido(real);
+  return e.clase;
+}
+function bracketMatch(etId, key, titulo){
+  const real = resultados[etId]?.[key];
+  const estado = bracketEstado(real);
+  const teams = bracketParticipants(etId, key);
+  const win = winnerSide(real);
+  const defHtml = definicionHtml(real);
+  const fecha = partidos[etId]?.[key]?.fecha || '';
+  const sideClass = win ? `winner-${win}` : 'no-winner';
+  const locked = win && estado === 'final' ? 'advancing' : '';
+  return `<article class="bracket-match ${estado} ${sideClass} ${locked}">
+    <div class="bracket-match-top"><span>${esc(titulo)}</span>${fecha ? `<small>${esc(fecha)}</small>` : ''}</div>
+    ${teams.map((t,i)=>{
+      const side = i===0 ? 'L' : 'V';
+      const cls = [
+        win ? (win===side ? 'winner' : 'loser') : '',
+        t.advanced ? 'advanced-slot' : '',
+        t.placeholder ? 'placeholder-slot' : ''
+      ].filter(Boolean).join(' ');
+      const avanzLabel = t.advanced ? '<em>avanzó</em>' : '';
+      return `<div class="bracket-team ${cls}">${flagImg(t.flag)}<span>${esc(t.nombre)}${avanzLabel}</span><strong>${bracketScore(etId,key,i)}</strong></div>`;
+    }).join('')}
+    ${win && estado === 'final' ? '<div class="bracket-advance-note">Ruta del clasificado</div>' : ''}
+    ${defHtml ? `<div class="bracket-extra">${defHtml}</div>` : ''}
+  </article>`;
+}
+function renderBracket(){
+  const el = document.getElementById('bracket-grafo');
+  if(!el) return;
+  const col = (label, items) => `<div class="bracket-col"><div class="bracket-round">${label}</div>${items.join('')}</div>`;
+  el.innerHTML = [
+    col('8vos de final', keysEtapa('d8').map(k => bracketMatch('d8', k, partidos.d8?.[k]?.fecha || k))),
+    col('4tos de final', keysEtapa('d4').map((k,i) => bracketMatch('d4', k, `4tos ${i+1}`))),
+    col('Semifinales', keysEtapa('semi').map((k,i) => bracketMatch('semi', k, `Semifinal ${i+1}`))),
+    col('Finales', keysEtapa('final').map((k,i) => bracketMatch('final', k, i===0 ? 'Final' : '3er lugar')))
+  ].join('');
+}
+
 renderTabla();
 renderPaneles();
 renderGrafica();
+renderBracket();
