@@ -578,32 +578,32 @@ const BRACKET_MAP = {
 };
 
 const BRACKET_LAYOUT = {
-  W: 1040,
-  H: 520,
+  W: 1240,
+  H: 610,
   nodes: {
     // LADO IZQUIERDO: cuatro partidos de 8vos
-    'd8-p01': {x: 96, y: 72},
-    'd8-p02': {x: 96, y: 172},
-    'd8-p03': {x: 96, y: 348},
-    'd8-p04': {x: 96, y: 448},
+    'd8-p01': {x: 110, y: 90},
+    'd8-p02': {x: 110, y: 220},
+    'd8-p03': {x: 110, y: 390},
+    'd8-p04': {x: 110, y: 520},
 
     // LADO DERECHO: cuatro partidos de 8vos
-    'd8-p05': {x: 944, y: 72},
-    'd8-p06': {x: 944, y: 172},
-    'd8-p07': {x: 944, y: 348},
-    'd8-p08': {x: 944, y: 448},
+    'd8-p05': {x: 1130, y: 90},
+    'd8-p06': {x: 1130, y: 220},
+    'd8-p07': {x: 1130, y: 390},
+    'd8-p08': {x: 1130, y: 520},
 
     // 4tos
-    'd4-p01': {x: 265, y: 122, small:true},
-    'd4-p02': {x: 265, y: 398, small:true},
-    'd4-p03': {x: 775, y: 122, small:true},
-    'd4-p04': {x: 775, y: 398, small:true},
+    'd4-p01': {x: 320, y: 155, small:true},
+    'd4-p02': {x: 320, y: 455, small:true},
+    'd4-p03': {x: 920, y: 155, small:true},
+    'd4-p04': {x: 920, y: 455, small:true},
 
     // semifinales y finales
-    'semi-p01': {x: 430, y: 260, small:true},
-    'semi-p02': {x: 610, y: 260, small:true},
-    'final-p01': {x: 520, y: 260, final:true},
-    'final-p02': {x: 520, y: 365, small:true, third:true}
+    'semi-p01': {x: 505, y: 305, small:true},
+    'semi-p02': {x: 735, y: 305, small:true},
+    'final-p01': {x: 620, y: 285, final:true},
+    'final-p02': {x: 620, y: 425, small:true, third:true}
   },
   links: [
     ['d8-p01','d4-p01'], ['d8-p02','d4-p01'],
@@ -737,8 +737,10 @@ function linkPath(from, to){
   const a = BRACKET_LAYOUT.nodes[from];
   const b = BRACKET_LAYOUT.nodes[to];
   const dx = b.x - a.x;
-  const startX = dx >= 0 ? a.x + 56 : a.x - 56;
-  const endX = dx >= 0 ? b.x - (b.final ? 50 : 56) : b.x + (b.final ? 50 : 56);
+  const aw = a.final ? 58 : (a.small ? 68 : 80);
+  const bw = b.final ? 58 : (b.small ? 68 : 80);
+  const startX = dx >= 0 ? a.x + aw : a.x - aw;
+  const endX = dx >= 0 ? b.x - bw : b.x + bw;
   const startY = a.y;
   const endY = b.y;
   const midX = startX + (endX - startX) / 2;
