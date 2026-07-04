@@ -578,34 +578,38 @@ const BRACKET_MAP = {
 };
 
 const BRACKET_LAYOUT = {
-  W: 1320,
-  H: 620,
+  W: 1280,
+  H: 560,
   nodes: {
     // LADO IZQUIERDO: 4 partidos de 8vos
-    'd8-p01': {x: 130, y: 105},
-    'd8-p02': {x: 130, y: 235},
-    'd8-p03': {x: 130, y: 385},
-    'd8-p04': {x: 130, y: 515},
+    'd8-p01': {x: 115, y: 105},
+    'd8-p02': {x: 115, y: 235},
+    'd8-p03': {x: 115, y: 375},
+    'd8-p04': {x: 115, y: 505},
 
-    // 4tos y semifinal izquierda
+    // 4tos lado izquierdo
     'd4-p01': {x: 335, y: 170, small:true},
-    'd4-p02': {x: 335, y: 450, small:true},
-    'semi-p01': {x: 540, y: 310, small:true},
+    'd4-p02': {x: 335, y: 440, small:true},
+
+    // Semifinal izquierda
+    'semi-p01': {x: 535, y: 305, small:true},
 
     // Centro
-    'final-p01': {x: 660, y: 285, final:true},
-    'final-p02': {x: 660, y: 465, small:true, third:true},
+    'final-p01': {x: 640, y: 270, final:true},
+    'final-p02': {x: 640, y: 430, small:true, third:true},
 
-    // Semifinal y 4tos derecha
-    'semi-p02': {x: 780, y: 310, small:true},
-    'd4-p03': {x: 985, y: 170, small:true},
-    'd4-p04': {x: 985, y: 450, small:true},
+    // Semifinal derecha
+    'semi-p02': {x: 745, y: 305, small:true},
+
+    // 4tos lado derecho
+    'd4-p03': {x: 945, y: 170, small:true},
+    'd4-p04': {x: 945, y: 440, small:true},
 
     // LADO DERECHO: 4 partidos de 8vos
-    'd8-p05': {x: 1190, y: 105},
-    'd8-p06': {x: 1190, y: 235},
-    'd8-p07': {x: 1190, y: 385},
-    'd8-p08': {x: 1190, y: 515}
+    'd8-p05': {x: 1165, y: 105},
+    'd8-p06': {x: 1165, y: 235},
+    'd8-p07': {x: 1165, y: 375},
+    'd8-p08': {x: 1165, y: 505}
   },
   links: [
     ['d8-p01','d4-p01'], ['d8-p02','d4-p01'],
@@ -705,7 +709,7 @@ function bracketNode(id){
 
   if(isFinalCircle){
     const champ = winIdx >= 0 ? teams[winIdx] : {nombre:'Final', flag:'', placeholder:true};
-    return `<div class="${classes}" style="left:${pos.x}px;top:${pos.y}px" title="Final">
+    return `<div class="${classes}" style="left:${(pos.x/BRACKET_LAYOUT.W)*100}%;top:${(pos.y/BRACKET_LAYOUT.H)*100}%" title="Final">
       <div class="final-circle">🏆<span>FINAL</span></div>
       <div class="final-team">${flagBubble(champ.flag)}<b>${esc(champ.placeholder ? 'Final' : champ.nombre)}</b></div>
     </div>`;
@@ -724,7 +728,7 @@ function bracketNode(id){
 
   const meta = partidos[etId]?.[key]?.fecha || (pos.third ? '3er lugar' : '');
   const extra = real?.definicion || real?.penales ? `<div class="fifa-extra">${real?.definicion?.tipo ? esc(real.definicion.tipo).replace('Tiempo Extra','T.E.') : ''}${real?.penales ? ` · Pen. ${real.penales[0]}-${real.penales[1]}` : ''}</div>` : '';
-  return `<div class="${classes}" style="left:${pos.x}px;top:${pos.y}px" data-match="${id}">
+  return `<div class="${classes}" style="left:${(pos.x/BRACKET_LAYOUT.W)*100}%;top:${(pos.y/BRACKET_LAYOUT.H)*100}%" data-match="${id}">
     <div class="fifa-meta">${esc(meta)}</div>
     <div class="fifa-card">${rows}</div>
     ${extra}
@@ -736,19 +740,14 @@ function linkActive(from, to){
   const real = resultados[e]?.[k];
   return bracketEstado(real) === 'final' && !!winnerSide(real);
 }
-function nodeHalfWidth(id){
-  const n = BRACKET_LAYOUT.nodes[id] || {};
-  if(n.final) return 62;
-  return n.small ? 76 : 84;
-}
 function linkPath(from, to){
   const a = BRACKET_LAYOUT.nodes[from];
   const b = BRACKET_LAYOUT.nodes[to];
-  const aw = nodeHalfWidth(from);
-  const bw = nodeHalfWidth(to);
-  const leftToRight = b.x >= a.x;
-  const startX = leftToRight ? a.x + aw : a.x - aw;
-  const endX = leftToRight ? b.x - bw : b.x + bw;
+  const dx = b.x - a.x;
+  const aw = a.final ? 58 : (a.small ? 68 : 80);
+  const bw = b.final ? 58 : (b.small ? 68 : 80);
+  const startX = dx >= 0 ? a.x + aw : a.x - aw;
+  const endX = dx >= 0 ? b.x - bw : b.x + bw;
   const startY = a.y;
   const endY = b.y;
   const midX = startX + (endX - startX) / 2;
