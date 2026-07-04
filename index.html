@@ -60,18 +60,11 @@
   </div>
 
 
-  <section class="bracket-section" aria-label="Grafo de eliminatorias">
-    <div class="bracket-head">
-      <div>
-        <div class="section-title bracket-title">GRAFO DE ELIMINATORIAS</div>
-      </div>
-      <div class="bracket-legend">
-        <span><b class="dot done"></b> Final</span>
-        <span><b class="dot live"></b> Parcial</span>
-        <span><b class="dot wait"></b> Por jugar</span>
-      </div>
+  <section class="camino-card" aria-label="Camino al campeonato">
+    <div class="camino-head">
+      <div class="section-title camino-title">🏆 CAMINO AL CAMPEONATO</div>
     </div>
-    <div id="bracket-grafo" class="bracket-grafo"></div>
+    <div id="bracket-grafo" class="camino-svg-stage"></div>
   </section>
 
   <div class="tabla-wrapper">
@@ -117,7 +110,7 @@
 </main>
 <footer>⚽ FIFA WORLD CUP 2026 — QUINIELA PRIVADA</footer>
 
-<script src="data/config.js?v=20260704-graph-visible-v2"></script>
-<script src="js/app.js?v=20260704-graph-visible-v2"></script>
+<script>document.write('<script src="data/config.js?v=' + Date.now() + '"><\/script>')</script>
+<script src="js/app.js?v=20260704-svg-live-third"></script>
 </body>
 </html>
