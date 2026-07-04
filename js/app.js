@@ -50,6 +50,7 @@ const fasesDef = [
 ];
 
 const esc = (s='') => String(s).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const normalizar = (s='') => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 function marcadorDe(valor){
   if(!valor) return null;
   return Array.isArray(valor) ? valor : valor.marcador;
