@@ -1337,3 +1337,84 @@ body:not(.theme-dark) .fifa-card {
   background:#ffffff;
   border-color:#c6d3e5;
 }
+
+
+/* ===== Ajuste tema claro: reglas legibles y sin instrucciones internas ===== */
+body:not(.theme-dark) .reglas-card{
+  background:#ffffff;
+  border:1px solid #d8e1ef;
+  box-shadow:0 10px 28px rgba(28,47,84,.08);
+}
+body:not(.theme-dark) .reglas-card-title{
+  color:#b8860b;
+}
+body:not(.theme-dark) .regla-box{
+  background:linear-gradient(180deg,#ffffff 0%,#f7faff 100%);
+  border:1px solid #cfdbea;
+  box-shadow:0 4px 14px rgba(28,47,84,.06);
+}
+body:not(.theme-dark) .regla-box strong{
+  color:#172033;
+}
+body:not(.theme-dark) .regla-box span{
+  color:#44546a;
+}
+body:not(.theme-dark) .regla-max{
+  background:linear-gradient(180deg,#effcf5 0%,#e7f9ef 100%);
+  border:1px solid #9ee6bd;
+  color:#24513a;
+  box-shadow:0 4px 14px rgba(46,204,113,.12);
+}
+body:not(.theme-dark) .regla-max strong{
+  color:#1fb866;
+}
+body:not(.theme-dark) .regla-max small{
+  color:#456257;
+}
+.bracket-head p{ display:none !important; }
+
+
+/* ===== Fix final tema claro + reglas + bracket ===== */
+body:not(.theme-dark) .reglas-card,
+body:not(.theme-dark) .regla-card,
+body:not(.theme-dark) .regla-box,
+body:not(.theme-dark) .reglas-grid > div {
+  background: #ffffff !important;
+  color: #152238 !important;
+  border: 1px solid #d8e4f2 !important;
+  box-shadow: 0 10px 24px rgba(15, 35, 70, .07) !important;
+}
+body:not(.theme-dark) .reglas-card span,
+body:not(.theme-dark) .regla-card span,
+body:not(.theme-dark) .regla-box span,
+body:not(.theme-dark) .reglas-grid span,
+body:not(.theme-dark) .reglas-grid small {
+  color: #35506f !important;
+}
+body:not(.theme-dark) .reglas-card strong,
+body:not(.theme-dark) .regla-card strong,
+body:not(.theme-dark) .regla-max strong {
+  color: #18a85d !important;
+}
+body:not(.theme-dark) .reglas-grid > div:nth-child(1){
+  background: linear-gradient(135deg,#ffffff,#f3f8ff) !important;
+}
+body:not(.theme-dark) .reglas-grid > div:nth-child(2){
+  background: linear-gradient(135deg,#ffffff,#f8f5ff) !important;
+}
+body:not(.theme-dark) .regla-max{
+  background: linear-gradient(135deg,#f1fff7,#ffffff) !important;
+  border-color:#9de6be !important;
+}
+.bracket-head p,
+.bracket-help { display:none !important; }
+.bracket-grafo{
+  min-height:650px !important;
+  position:relative !important;
+}
+.fifa-bracket{
+  display:block !important;
+  min-width:980px !important;
+  min-height:650px !important;
+}
+.fifa-node{ visibility:visible !important; }

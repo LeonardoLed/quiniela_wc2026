@@ -762,7 +762,20 @@ function renderBracket(){
   </div>`;
 }
 
-renderTabla();
-renderPaneles();
-renderGrafica();
-renderBracket();
+function safeRender(fn, name){
+  try { fn(); }
+  catch(err){ console.error('Error renderizando ' + name, err); }
+}
+
+function renderAll(){
+  safeRender(renderTabla, 'tabla');
+  safeRender(renderPaneles, 'paneles');
+  safeRender(renderBracket, 'bracket');
+  safeRender(renderGrafica, 'grafica');
+}
+
+if(document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderAll);
+} else {
+  renderAll();
+}
