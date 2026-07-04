@@ -145,13 +145,13 @@ const CONFIG = {
 	   },
       "p13": {
 		  "marcador": [1, 1],
-		  "pasa": null,
+		  "pasa": "L",
 		  "definicion": {
              "tipo": "Tiempo Extra",
-            "marcador": [1, 1],
-		   "nota": "Marcador: 2-2"
+            "marcador": [2, 1],
+		   "nota": "Marcador Final: 3-2"
 		  },
-		  "estado": "parcial"
+		  "estado": "final"
 	   },
       "p14": {
 		  "marcador": [1, 1],
