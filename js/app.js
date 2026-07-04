@@ -577,52 +577,60 @@ const BRACKET_MAP = {
   }
 };
 
-const BRACKET_LAYOUT = {
-  W: 1280,
-  H: 560,
-  nodes: {
-    // LADO IZQUIERDO: 4 partidos de 8vos
-    'd8-p01': {x: 115, y: 105},
-    'd8-p02': {x: 115, y: 235},
-    'd8-p03': {x: 115, y: 375},
-    'd8-p04': {x: 115, y: 505},
+// Layout tipo "óvalo" (estilo grafo circular de eliminatorias): cada ronda es un
+// anillo elíptico concéntrico que se va cerrando hacia el centro, en vez de
+// columnas rectas. Esto reproduce la forma curva solicitada manteniendo
+// exactamente la misma lógica de cruces (BRACKET_MAP) que ya existía.
+const BRACKET_LAYOUT = (function(){
+  const W = 1320, H = 660;
+  const cx = W / 2, cy = H / 2;
 
-    // 4tos lado izquierdo
-    'd4-p01': {x: 335, y: 170, small:true},
-    'd4-p02': {x: 335, y: 440, small:true},
+  // Radios (rx) y ángulo máximo (grados) por ronda. rx controla qué tan
+  // "ancho" es el arco de esa ronda; el ángulo controla la curvatura.
+  const RINGS = {
+    d8:   { rx: 545, angle: 58 },
+    d4:   { rx: 345, angle: 46 },
+    semi: { rx: 165, angle: 0  }
+  };
 
-    // Semifinal izquierda
-    'semi-p01': {x: 535, y: 305, small:true},
+  function arcPos(side, ring, i, n){
+    const cfg = RINGS[ring];
+    const t = n <= 1 ? 0 : (-cfg.angle + i * (2 * cfg.angle) / (n - 1));
+    const rad = t * Math.PI / 180;
+    return {
+      x: cx + side * cfg.rx * Math.cos(rad),
+      y: cy + cfg.rx * 0.42 * Math.sin(rad)
+    };
+  }
 
-    // Centro
-    'final-p01': {x: 640, y: 270, final:true},
-    'final-p02': {x: 640, y: 430, small:true, third:true},
+  const nodes = {};
+  ['p01','p02','p03','p04'].forEach((k,i)=>{ nodes[`d8-${k}`] = arcPos(-1,'d8',i,4); });
+  ['p05','p06','p07','p08'].forEach((k,i)=>{ nodes[`d8-${k}`] = arcPos( 1,'d8',i,4); });
 
-    // Semifinal derecha
-    'semi-p02': {x: 745, y: 305, small:true},
+  ['p01','p02'].forEach((k,i)=>{ nodes[`d4-${k}`] = {...arcPos(-1,'d4',i,2), small:true}; });
+  ['p03','p04'].forEach((k,i)=>{ nodes[`d4-${k}`] = {...arcPos( 1,'d4',i,2), small:true}; });
 
-    // 4tos lado derecho
-    'd4-p03': {x: 945, y: 170, small:true},
-    'd4-p04': {x: 945, y: 440, small:true},
+  nodes['semi-p01'] = {...arcPos(-1,'semi',0,1), small:true};
+  nodes['semi-p02'] = {...arcPos( 1,'semi',0,1), small:true};
 
-    // LADO DERECHO: 4 partidos de 8vos
-    'd8-p05': {x: 1165, y: 105},
-    'd8-p06': {x: 1165, y: 235},
-    'd8-p07': {x: 1165, y: 375},
-    'd8-p08': {x: 1165, y: 505}
-  },
-  links: [
-    ['d8-p01','d4-p01'], ['d8-p02','d4-p01'],
-    ['d8-p03','d4-p02'], ['d8-p04','d4-p02'],
-    ['d4-p01','semi-p01'], ['d4-p02','semi-p01'],
-    ['semi-p01','final-p01'], ['semi-p01','final-p02'],
+  nodes['final-p01'] = {x: cx, y: cy - 78, final:true};
+  nodes['final-p02'] = {x: cx, y: cy + 96, small:true, third:true};
 
-    ['d8-p05','d4-p03'], ['d8-p06','d4-p03'],
-    ['d8-p07','d4-p04'], ['d8-p08','d4-p04'],
-    ['d4-p03','semi-p02'], ['d4-p04','semi-p02'],
-    ['semi-p02','final-p01'], ['semi-p02','final-p02']
-  ]
-};
+  return {
+    W, H, nodes,
+    links: [
+      ['d8-p01','d4-p01'], ['d8-p02','d4-p01'],
+      ['d8-p03','d4-p02'], ['d8-p04','d4-p02'],
+      ['d4-p01','semi-p01'], ['d4-p02','semi-p01'],
+      ['semi-p01','final-p01'], ['semi-p01','final-p02'],
+
+      ['d8-p05','d4-p03'], ['d8-p06','d4-p03'],
+      ['d8-p07','d4-p04'], ['d8-p08','d4-p04'],
+      ['d4-p03','semi-p02'], ['d4-p04','semi-p02'],
+      ['semi-p02','final-p01'], ['semi-p02','final-p02']
+    ]
+  };
+})();
 
 function bracketKey(etId, key){ return `${etId}-${key}`; }
 function splitBracketKey(id){ const [e,k] = id.split('-'); return [e,k]; }
@@ -709,7 +717,7 @@ function bracketNode(id){
 
   if(isFinalCircle){
     const champ = winIdx >= 0 ? teams[winIdx] : {nombre:'Final', flag:'', placeholder:true};
-    return `<div class="${classes}" style="left:${(pos.x/BRACKET_LAYOUT.W)*100}%;top:${(pos.y/BRACKET_LAYOUT.H)*100}%" title="Final">
+    return `<div class="${classes}" style="left:${pos.x}px;top:${pos.y}px" title="Final">
       <div class="final-circle">🏆<span>FINAL</span></div>
       <div class="final-team">${flagBubble(champ.flag)}<b>${esc(champ.placeholder ? 'Final' : champ.nombre)}</b></div>
     </div>`;
@@ -728,7 +736,7 @@ function bracketNode(id){
 
   const meta = partidos[etId]?.[key]?.fecha || (pos.third ? '3er lugar' : '');
   const extra = real?.definicion || real?.penales ? `<div class="fifa-extra">${real?.definicion?.tipo ? esc(real.definicion.tipo).replace('Tiempo Extra','T.E.') : ''}${real?.penales ? ` · Pen. ${real.penales[0]}-${real.penales[1]}` : ''}</div>` : '';
-  return `<div class="${classes}" style="left:${(pos.x/BRACKET_LAYOUT.W)*100}%;top:${(pos.y/BRACKET_LAYOUT.H)*100}%" data-match="${id}">
+  return `<div class="${classes}" style="left:${pos.x}px;top:${pos.y}px" data-match="${id}">
     <div class="fifa-meta">${esc(meta)}</div>
     <div class="fifa-card">${rows}</div>
     ${extra}
@@ -740,18 +748,23 @@ function linkActive(from, to){
   const real = resultados[e]?.[k];
   return bracketEstado(real) === 'final' && !!winnerSide(real);
 }
+function nodeHalfWidth(id){
+  const n = BRACKET_LAYOUT.nodes[id] || {};
+  if(n.final) return 56;
+  return n.small ? 59 : 66;
+}
 function linkPath(from, to){
   const a = BRACKET_LAYOUT.nodes[from];
   const b = BRACKET_LAYOUT.nodes[to];
-  const dx = b.x - a.x;
-  const aw = a.final ? 58 : (a.small ? 68 : 80);
-  const bw = b.final ? 58 : (b.small ? 68 : 80);
-  const startX = dx >= 0 ? a.x + aw : a.x - aw;
-  const endX = dx >= 0 ? b.x - bw : b.x + bw;
+  const aw = nodeHalfWidth(from);
+  const bw = nodeHalfWidth(to);
+  const leftToRight = b.x >= a.x;
+  const startX = leftToRight ? a.x + aw : a.x - aw;
+  const endX = leftToRight ? b.x - bw : b.x + bw;
   const startY = a.y;
   const endY = b.y;
-  const midX = startX + (endX - startX) / 2;
-  return `M ${startX} ${startY} H ${midX} V ${endY} H ${endX}`;
+  const bend = (endX - startX) * 0.55;
+  return `M ${startX} ${startY} C ${startX + bend} ${startY}, ${endX - bend} ${endY}, ${endX} ${endY}`;
 }
 function renderBracket(){
   const el = document.getElementById('bracket-grafo');
