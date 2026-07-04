@@ -559,217 +559,226 @@ window.toggleTheme = toggleTheme;
 initTheme();
 document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
 actualizarFlechasOrden();
-// ===== Grafo informativo de eliminatorias estilo FIFA =====
-const BRACKET_MAP = {
-  d4: {
-    p01: [['d8','p01'], ['d8','p02']],
-    p02: [['d8','p03'], ['d8','p04']],
-    p03: [['d8','p05'], ['d8','p06']],
-    p04: [['d8','p07'], ['d8','p08']],
-  },
-  semi: {
-    p01: [['d4','p01'], ['d4','p02']],
-    p02: [['d4','p03'], ['d4','p04']],
-  },
-  final: {
-    p01: [['semi','p01'], ['semi','p02']],
-    p02: [['semi','p01'], ['semi','p02']],
-  }
-};
-
-const BRACKET_LAYOUT = {
-  W: 1320,
-  H: 620,
-  nodes: {
-    // LADO IZQUIERDO: 4 partidos de 8vos
-    'd8-p01': {x: 130, y: 105},
-    'd8-p02': {x: 130, y: 235},
-    'd8-p03': {x: 130, y: 385},
-    'd8-p04': {x: 130, y: 515},
-
-    // 4tos y semifinal izquierda
-    'd4-p01': {x: 335, y: 170, small:true},
-    'd4-p02': {x: 335, y: 450, small:true},
-    'semi-p01': {x: 540, y: 310, small:true},
-
-    // Centro
-    'final-p01': {x: 660, y: 285, final:true},
-    'final-p02': {x: 660, y: 465, small:true, third:true},
-
-    // Semifinal y 4tos derecha
-    'semi-p02': {x: 780, y: 310, small:true},
-    'd4-p03': {x: 985, y: 170, small:true},
-    'd4-p04': {x: 985, y: 450, small:true},
-
-    // LADO DERECHO: 4 partidos de 8vos
-    'd8-p05': {x: 1190, y: 105},
-    'd8-p06': {x: 1190, y: 235},
-    'd8-p07': {x: 1190, y: 385},
-    'd8-p08': {x: 1190, y: 515}
-  },
-  links: [
-    ['d8-p01','d4-p01'], ['d8-p02','d4-p01'],
-    ['d8-p03','d4-p02'], ['d8-p04','d4-p02'],
-    ['d4-p01','semi-p01'], ['d4-p02','semi-p01'],
-    ['semi-p01','final-p01'], ['semi-p01','final-p02'],
-
-    ['d8-p05','d4-p03'], ['d8-p06','d4-p03'],
-    ['d8-p07','d4-p04'], ['d8-p08','d4-p04'],
-    ['d4-p03','semi-p02'], ['d4-p04','semi-p02'],
-    ['semi-p02','final-p01'], ['semi-p02','final-p02']
-  ]
-};
-
-function bracketKey(etId, key){ return `${etId}-${key}`; }
-function splitBracketKey(id){ const [e,k] = id.split('-'); return [e,k]; }
-function teamFromInfo(info, side, extra={}){
-  return {
-    nombre: side === 'L' ? (info?.local || 'Por definir') : (info?.visita || 'Por definir'),
-    flag: side === 'L' ? (info?.flagL || '') : (info?.flagV || ''),
-    side,
-    ...extra
-  };
-}
-function winnerSide(valor){ return clasificado(valor); }
-function loserSide(valor){ const w = winnerSide(valor); return !w ? null : (w === 'L' ? 'V' : 'L'); }
-function resolvedWinner(etId, key){
-  const info = partidos[etId]?.[key];
-  const real = resultados[etId]?.[key];
-  const side = winnerSide(real);
-  return side ? teamFromInfo(info, side, {advanced:true, source:bracketKey(etId,key)}) : null;
-}
-function resolvedLoser(etId, key){
-  const info = partidos[etId]?.[key];
-  const real = resultados[etId]?.[key];
-  const side = loserSide(real);
-  return side ? teamFromInfo(info, side, {advanced:true, source:bracketKey(etId,key)}) : null;
-}
-function labelGanador(etId, key){ return {nombre:'?', flag:'', placeholder:true, source:bracketKey(etId,key)}; }
-function labelPerdedor(etId, key){ return {nombre:'?', flag:'', placeholder:true, source:bracketKey(etId,key)}; }
-function bracketParticipants(etId, key){
-  if(etId === 'd8'){
-    const info = partidos.d8?.[key] || {};
-    return [teamFromInfo(info,'L'), teamFromInfo(info,'V')];
-  }
-  if(etId === 'final' && key === 'p02'){
-    return BRACKET_MAP.final.p02.map(([e,k]) => resolvedLoser(e,k) || labelPerdedor(e,k));
-  }
-  const links = BRACKET_MAP[etId]?.[key] || [];
-  return links.map(([e,k]) => resolvedWinner(e,k) || labelGanador(e,k));
-}
-function bracketScore(etId, key, idx){
-  const real = resultados[etId]?.[key];
-  const m = marcadorDe(real);
-  return m ? String(m[idx]) : '';
-}
-function bracketWinnerIndex(etId, key){
-  const w = winnerSide(resultados[etId]?.[key]);
-  if(!w) return -1;
-  return w === 'L' ? 0 : 1;
-}
-function bracketEstado(real){ return estadoPartido(real).clase; }
-function bracketAbbr(team){
-  const n = normalizar(team?.nombre || '');
-  const map = {
-    'canada':'CAN','marruecos':'MAR','paraguay':'PAR','francia':'FRA',
-    'portugal':'POR','espana':'ESP','estados unidos':'USA','belgica':'BEL',
-    'brasil':'BRA','noruega':'NOR','mexico':'MEX','inglaterra':'ENG',
-    'argentina':'ARG','egipto':'EGY','suiza':'SUI','colombia':'COL'
-  };
-  if(map[n]) return map[n];
-  if(team?.placeholder) return '?';
-  return (team?.nombre || '?').slice(0,3).toUpperCase();
-}
-function flagBubble(flag, cls=''){
-  if(!flag) return `<span class="flag-bubble empty ${cls}">?</span>`;
-  return `<span class="flag-bubble ${cls}">${flagImg(flag)}</span>`;
-}
-function bracketStatusLabel(etId,key){
-  const real = resultados[etId]?.[key];
-  const st = bracketEstado(real);
-  if(st === 'final') return 'Final';
-  if(st === 'parcial') return 'Parcial';
-  return 'Por jugar';
-}
-function bracketNode(id){
-  const [etId,key] = splitBracketKey(id);
-  const pos = BRACKET_LAYOUT.nodes[id];
-  const teams = bracketParticipants(etId,key);
-  const real = resultados[etId]?.[key];
-  const estado = bracketEstado(real);
-  const winIdx = bracketWinnerIndex(etId,key);
-  const m = marcadorDe(real);
-  const pen = real?.penales;
-  const isFinalCircle = pos.final;
-  const classes = ['fifa-node', estado, pos.small?'small':'', pos.tiny?'tiny':'', pos.final?'final-node':'', pos.third?'third-node':''].filter(Boolean).join(' ');
-
-  if(isFinalCircle){
-    const champ = winIdx >= 0 ? teams[winIdx] : {nombre:'Final', flag:'', placeholder:true};
-    return `<div class="${classes}" style="left:${pos.x}px;top:${pos.y}px" title="Final">
-      <div class="final-circle">🏆<span>FINAL</span></div>
-      <div class="final-team">${flagBubble(champ.flag)}<b>${esc(champ.placeholder ? 'Final' : champ.nombre)}</b></div>
-    </div>`;
-  }
-
-  const rows = teams.map((t,i)=>{
-    const isWinner = i === winIdx;
-    const score = m ? `<strong>${m[i]}</strong>` : '<strong class="empty-score">-</strong>';
-    const penScore = pen && pen[i] != null ? `<small>(${pen[i]})</small>` : '';
-    return `<div class="fifa-row ${isWinner?'winner':(winIdx>=0?'loser':'')}">
-      ${flagBubble(t.flag)}
-      <span>${esc(bracketAbbr(t))}</span>
-      ${score}${penScore}${isWinner?'<em>✓</em>':''}
-    </div>`;
-  }).join('');
-
-  const meta = partidos[etId]?.[key]?.fecha || (pos.third ? '3er lugar' : '');
-  const extra = real?.definicion || real?.penales ? `<div class="fifa-extra">${real?.definicion?.tipo ? esc(real.definicion.tipo).replace('Tiempo Extra','T.E.') : ''}${real?.penales ? ` · Pen. ${real.penales[0]}-${real.penales[1]}` : ''}</div>` : '';
-  return `<div class="${classes}" style="left:${pos.x}px;top:${pos.y}px" data-match="${id}">
-    <div class="fifa-meta">${esc(meta)}</div>
-    <div class="fifa-card">${rows}</div>
-    ${extra}
-    <div class="fifa-state">${bracketStatusLabel(etId,key)}</div>
-  </div>`;
-}
-function linkActive(from, to){
-  const [e,k] = splitBracketKey(from);
-  const real = resultados[e]?.[k];
-  return bracketEstado(real) === 'final' && !!winnerSide(real);
-}
-function nodeHalfWidth(id){
-  const n = BRACKET_LAYOUT.nodes[id] || {};
-  if(n.final) return 62;
-  return n.small ? 76 : 84;
-}
-function linkPath(from, to){
-  const a = BRACKET_LAYOUT.nodes[from];
-  const b = BRACKET_LAYOUT.nodes[to];
-  const aw = nodeHalfWidth(from);
-  const bw = nodeHalfWidth(to);
-  const leftToRight = b.x >= a.x;
-  const startX = leftToRight ? a.x + aw : a.x - aw;
-  const endX = leftToRight ? b.x - bw : b.x + bw;
-  const startY = a.y;
-  const endY = b.y;
-  const midX = startX + (endX - startX) / 2;
-  return `M ${startX} ${startY} H ${midX} V ${endY} H ${endX}`;
-}
+// ===== Bracket SVG dinámico tipo camino al campeonato =====
 function renderBracket(){
   const el = document.getElementById('bracket-grafo');
   if(!el) return;
-  const W = BRACKET_LAYOUT.W, H = BRACKET_LAYOUT.H;
-  const lines = BRACKET_LAYOUT.links.map(([from,to])=>{
-    const active = linkActive(from,to) ? 'active' : '';
-    return `<path class="fifa-link ${active}" d="${linkPath(from,to)}"/>`;
-  }).join('');
-  const nodes = Object.keys(BRACKET_LAYOUT.nodes).map(bracketNode).join('');
-  el.innerHTML = `<div class="fifa-bracket" style="--bw:${W}px;--bh:${H}px">
-    <svg class="fifa-lines" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-      ${lines}
-    </svg>
-    ${nodes}
-  </div>`;
+
+  const W = 1320;
+  const H = 650;
+  const R = 19;
+  const NS = 'http://www.w3.org/2000/svg';
+
+  const map = {
+    d4: {
+      p01: [['d8','p01'], ['d8','p02']],
+      p02: [['d8','p03'], ['d8','p04']],
+      p03: [['d8','p05'], ['d8','p06']],
+      p04: [['d8','p07'], ['d8','p08']],
+    },
+    semi: {
+      p01: [['d4','p01'], ['d4','p02']],
+      p02: [['d4','p03'], ['d4','p04']],
+    },
+    final: {
+      p01: [['semi','p01'], ['semi','p02']],
+      p02: [['semi','p01'], ['semi','p02']],
+    }
+  };
+
+  function statusOf(real){
+    if(!real) return 'pendiente';
+    const e = String(estadoDe(real) || 'final').toLowerCase();
+    if(e === 'parcial' || e === 'en-vivo' || e === 'vivo' || e === 'live') return 'parcial';
+    return 'final';
+  }
+  function teamBase(et,key,side){
+    const info = partidos?.[et]?.[key] || {};
+    return {
+      nombre: side === 'L' ? (info.local || '') : (info.visita || ''),
+      flag: side === 'L' ? (info.flagL || '') : (info.flagV || ''),
+      side,
+      match:`${et}-${key}`
+    };
+  }
+  function winnerSideOf(et,key){
+    const real = resultados?.[et]?.[key];
+    if(statusOf(real) !== 'final') return null;
+    return clasificado(real);
+  }
+  function loserSideOf(et,key){
+    const w = winnerSideOf(et,key);
+    if(!w) return null;
+    return w === 'L' ? 'V' : 'L';
+  }
+  function winnerTeam(et,key){
+    const w = winnerSideOf(et,key);
+    if(!w) return null;
+    const info = getParticipants(et,key);
+    return w === 'L' ? info[0] : info[1];
+  }
+  function loserTeam(et,key){
+    const l = loserSideOf(et,key);
+    if(!l) return null;
+    const info = getParticipants(et,key);
+    return l === 'L' ? info[0] : info[1];
+  }
+  function getParticipants(et,key){
+    if(et === 'd8') return [teamBase('d8',key,'L'), teamBase('d8',key,'V')];
+    if(et === 'final' && key === 'p02'){
+      return map.final.p02.map(([a,b]) => loserTeam(a,b) || null);
+    }
+    const links = map?.[et]?.[key] || [];
+    return links.map(([a,b]) => winnerTeam(a,b) || null);
+  }
+  function nodeTeam(kind, ref, side){
+    if(kind === 'team'){
+      const [et,key] = ref.split('-');
+      return teamBase(et,key,side);
+    }
+    if(kind === 'winner'){
+      const [et,key] = ref.split('-');
+      return winnerTeam(et,key);
+    }
+    if(kind === 'loser'){
+      const [et,key] = ref.split('-');
+      return loserTeam(et,key);
+    }
+    return null;
+  }
+  function originalNodeStatus(ref, side){
+    const [et,key] = ref.split('-');
+    const real = resultados?.[et]?.[key];
+    const st = statusOf(real);
+    if(st === 'pendiente') return 'pendiente';
+    if(st === 'parcial') return 'parcial';
+    const w = clasificado(real);
+    if(!w) return 'pendiente';
+    return w === side ? 'final' : 'eliminado';
+  }
+  function advanceNodeStatus(ref, useLoser=false){
+    const [et,key] = ref.split('-');
+    const real = resultados?.[et]?.[key];
+    const st = statusOf(real);
+    if(st === 'parcial') return 'parcial';
+    if(st === 'final' && (useLoser ? loserTeam(et,key) : winnerTeam(et,key))) return 'final';
+    return 'pendiente';
+  }
+
+  const nodes = {
+    // lado izquierdo: cuatro partidos
+    'd8-p01-L':{x:90,y:75,kind:'team',ref:'d8-p01',side:'L'},  'd8-p01-V':{x:90,y:125,kind:'team',ref:'d8-p01',side:'V'},
+    'd8-p02-L':{x:90,y:200,kind:'team',ref:'d8-p02',side:'L'}, 'd8-p02-V':{x:90,y:250,kind:'team',ref:'d8-p02',side:'V'},
+    'd8-p03-L':{x:90,y:400,kind:'team',ref:'d8-p03',side:'L'}, 'd8-p03-V':{x:90,y:450,kind:'team',ref:'d8-p03',side:'V'},
+    'd8-p04-L':{x:90,y:525,kind:'team',ref:'d8-p04',side:'L'}, 'd8-p04-V':{x:90,y:575,kind:'team',ref:'d8-p04',side:'V'},
+    'w-d8-p01':{x:230,y:100,kind:'winner',ref:'d8-p01'}, 'w-d8-p02':{x:230,y:225,kind:'winner',ref:'d8-p02'},
+    'w-d8-p03':{x:230,y:425,kind:'winner',ref:'d8-p03'}, 'w-d8-p04':{x:230,y:550,kind:'winner',ref:'d8-p04'},
+    'w-d4-p01':{x:390,y:162,kind:'winner',ref:'d4-p01'}, 'w-d4-p02':{x:390,y:487,kind:'winner',ref:'d4-p02'},
+    'w-semi-p01':{x:545,y:325,kind:'winner',ref:'semi-p01'},
+    'loser-semi-p01':{x:595,y:455,kind:'loser',ref:'semi-p01'},
+
+    // lado derecho: cuatro partidos
+    'd8-p05-L':{x:1230,y:75,kind:'team',ref:'d8-p05',side:'L'},  'd8-p05-V':{x:1230,y:125,kind:'team',ref:'d8-p05',side:'V'},
+    'd8-p06-L':{x:1230,y:200,kind:'team',ref:'d8-p06',side:'L'}, 'd8-p06-V':{x:1230,y:250,kind:'team',ref:'d8-p06',side:'V'},
+    'd8-p07-L':{x:1230,y:400,kind:'team',ref:'d8-p07',side:'L'}, 'd8-p07-V':{x:1230,y:450,kind:'team',ref:'d8-p07',side:'V'},
+    'd8-p08-L':{x:1230,y:525,kind:'team',ref:'d8-p08',side:'L'}, 'd8-p08-V':{x:1230,y:575,kind:'team',ref:'d8-p08',side:'V'},
+    'w-d8-p05':{x:1090,y:100,kind:'winner',ref:'d8-p05'}, 'w-d8-p06':{x:1090,y:225,kind:'winner',ref:'d8-p06'},
+    'w-d8-p07':{x:1090,y:425,kind:'winner',ref:'d8-p07'}, 'w-d8-p08':{x:1090,y:550,kind:'winner',ref:'d8-p08'},
+    'w-d4-p03':{x:930,y:162,kind:'winner',ref:'d4-p03'}, 'w-d4-p04':{x:930,y:487,kind:'winner',ref:'d4-p04'},
+    'w-semi-p02':{x:775,y:325,kind:'winner',ref:'semi-p02'},
+    'loser-semi-p02':{x:725,y:455,kind:'loser',ref:'semi-p02'},
+
+    // centro
+    'champion':{x:660,y:325,kind:'winner',ref:'final-p01'},
+    'third-winner':{x:660,y:455,kind:'winner',ref:'final-p02'},
+    'trophy':{x:660,y:325,kind:'trophy'},
+    'third-medal':{x:660,y:455,kind:'third-trophy'}
+  };
+
+  const links = [
+    ['d8-p01-L','w-d8-p01','d8-p01'],['d8-p01-V','w-d8-p01','d8-p01'],
+    ['d8-p02-L','w-d8-p02','d8-p02'],['d8-p02-V','w-d8-p02','d8-p02'],
+    ['d8-p03-L','w-d8-p03','d8-p03'],['d8-p03-V','w-d8-p03','d8-p03'],
+    ['d8-p04-L','w-d8-p04','d8-p04'],['d8-p04-V','w-d8-p04','d8-p04'],
+    ['w-d8-p01','w-d4-p01','d4-p01'],['w-d8-p02','w-d4-p01','d4-p01'],
+    ['w-d8-p03','w-d4-p02','d4-p02'],['w-d8-p04','w-d4-p02','d4-p02'],
+    ['w-d4-p01','w-semi-p01','semi-p01'],['w-d4-p02','w-semi-p01','semi-p01'],
+    ['w-semi-p01','champion','final-p01'],
+    ['loser-semi-p01','third-winner','final-p02'],
+
+    ['d8-p05-L','w-d8-p05','d8-p05'],['d8-p05-V','w-d8-p05','d8-p05'],
+    ['d8-p06-L','w-d8-p06','d8-p06'],['d8-p06-V','w-d8-p06','d8-p06'],
+    ['d8-p07-L','w-d8-p07','d8-p07'],['d8-p07-V','w-d8-p07','d8-p07'],
+    ['d8-p08-L','w-d8-p08','d8-p08'],['d8-p08-V','w-d8-p08','d8-p08'],
+    ['w-d8-p05','w-d4-p03','d4-p03'],['w-d8-p06','w-d4-p03','d4-p03'],
+    ['w-d8-p07','w-d4-p04','d4-p04'],['w-d8-p08','w-d4-p04','d4-p04'],
+    ['w-d4-p03','w-semi-p02','semi-p02'],['w-d4-p04','w-semi-p02','semi-p02'],
+    ['w-semi-p02','champion','final-p01'],
+    ['loser-semi-p02','third-winner','final-p02']
+  ];
+
+  function nodeStatus(id){
+    const n = nodes[id];
+    if(!n) return 'pendiente';
+    if(n.kind === 'team') return originalNodeStatus(n.ref, n.side);
+    if(n.kind === 'winner') return advanceNodeStatus(n.ref, false);
+    if(n.kind === 'loser') return advanceNodeStatus(n.ref, true);
+    return 'pendiente';
+  }
+  function lineStatus(from,to,matchRef){
+    const st = nodeStatus(to);
+    const fromSt = nodeStatus(from);
+    if(st === 'final' && fromSt !== 'eliminado') return 'final';
+    const [et,key] = matchRef.split('-');
+    const realSt = statusOf(resultados?.[et]?.[key]);
+    if(realSt === 'parcial') return 'parcial';
+    return 'pendiente';
+  }
+  function elbow(a,b){
+    const n1 = nodes[a], n2 = nodes[b];
+    const dir = n2.x >= n1.x ? 1 : -1;
+    const sx = n1.x + dir*(R+3), sy = n1.y;
+    const ex = n2.x - dir*(R+3), ey = n2.y;
+    const mx = sx + (ex-sx) * 0.55;
+    return `M ${sx} ${sy} H ${mx} V ${ey} H ${ex}`;
+  }
+  function flagHref(code){
+    if(!code) return '';
+    return `https://flagcdn.com/${String(code).toLowerCase().trim()}.svg`;
+  }
+  function resolveTeam(id){
+    const n = nodes[id];
+    if(!n || n.kind === 'trophy' || n.kind === 'third-trophy') return null;
+    return nodeTeam(n.kind, n.ref, n.side);
+  }
+  function drawLine([from,to,m]){
+    return `<path class="wc-svg-line ${lineStatus(from,to,m)}" d="${elbow(from,to)}"/>`;
+  }
+  function drawNode(id){
+    const n = nodes[id];
+    if(n.kind === 'trophy'){
+      return `<g class="wc-svg-trophy"><circle cx="${n.x}" cy="${n.y}" r="34"/><text x="${n.x}" y="${n.y+7}" text-anchor="middle">🏆</text></g>`;
+    }
+    if(n.kind === 'third-trophy'){
+      return `<g class="wc-svg-third"><circle cx="${n.x}" cy="${n.y}" r="24"/><text x="${n.x}" y="${n.y+6}" text-anchor="middle">🥉</text></g>`;
+    }
+    const t = resolveTeam(id);
+    const st = nodeStatus(id);
+    const clipId = `clip-${id.replace(/[^a-zA-Z0-9_-]/g,'')}`;
+    const title = t?.nombre || 'Por definir';
+    const img = t?.flag ? `<image href="${flagHref(t.flag)}" x="${n.x-R}" y="${n.y-R}" width="${R*2}" height="${R*2}" preserveAspectRatio="xMidYMid slice" clip-path="url(#${clipId})"/>` : `<text class="wc-svg-question" x="${n.x}" y="${n.y+5}" text-anchor="middle">?</text>`;
+    return `<g class="wc-svg-node ${st}"><title>${esc(title)}</title><clipPath id="${clipId}"><circle cx="${n.x}" cy="${n.y}" r="${R-1}"/></clipPath><circle class="wc-svg-disc" cx="${n.x}" cy="${n.y}" r="${R}"/>${img}</g>`;
+  }
+
+  el.innerHTML = `<svg class="wc-svg-bracket" viewBox="0 0 ${W} ${H}" role="img" aria-label="Camino al campeonato generado desde config.js">
+    <defs>
+      <filter id="wcNodeShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#0f172a" flood-opacity=".16"/></filter>
+    </defs>
+    ${links.map(drawLine).join('')}
+    ${Object.keys(nodes).map(drawNode).join('')}
+  </svg>`;
 }
+
 
 function safeRender(fn, name){
   try { fn(); }

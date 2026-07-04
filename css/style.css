@@ -2130,3 +2130,54 @@ body.theme-dark .final-circle span,body.theme-dark .final-team{ color:#edf3ff !i
   object-position:center center !important;
   display:block !important;
 }
+
+
+/* ===== Bracket SVG dinámico: camino al campeonato ===== */
+.camino-card{
+  background:var(--card-bg,#fff);
+  border:1px solid var(--linea,#d7e2f0);
+  border-radius:18px;
+  padding:18px 18px 14px;
+  margin:22px 0 26px;
+  box-shadow:0 10px 26px rgba(15,23,42,.06);
+  overflow:hidden;
+}
+.camino-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.camino-title{margin:0!important;}
+.camino-svg-stage{
+  width:100%;
+  min-height:520px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(circle at center, rgba(255,255,255,.98) 0%, rgba(248,251,255,.94) 45%, rgba(243,247,252,.9) 100%);
+  border-radius:16px;
+}
+.wc-svg-bracket{width:100%;height:auto;max-height:680px;display:block;}
+.wc-svg-line{fill:none;stroke:#cdd5df;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s ease, stroke-width .25s ease, opacity .25s ease;}
+.wc-svg-line.final{stroke:#17b86b;stroke-width:3.1;}
+.wc-svg-line.parcial{stroke:#f59e0b;stroke-width:3;stroke-dasharray:7 5;animation:wcSvgDash 1.2s linear infinite;}
+@keyframes wcSvgDash{to{stroke-dashoffset:-24;}}
+.wc-svg-node{filter:url(#wcNodeShadow);transition:opacity .25s ease, filter .25s ease;}
+.wc-svg-disc{fill:#fff;stroke:#d6dde8;stroke-width:2.2;}
+.wc-svg-node.final .wc-svg-disc{stroke:#15b86a;stroke-width:3;}
+.wc-svg-node.parcial .wc-svg-disc{stroke:#f59e0b;stroke-width:3;}
+.wc-svg-node.pendiente{opacity:.58;}
+.wc-svg-node.eliminado{opacity:.34;filter:grayscale(1);}
+.wc-svg-node.eliminado image{filter:grayscale(1);}
+.wc-svg-question{font-family:Arial,sans-serif;font-size:16px;font-weight:800;fill:#93a1b4;}
+.wc-svg-trophy circle{fill:#fffdf5;stroke:#f0aa17;stroke-width:2.4;stroke-dasharray:6 4;filter:url(#wcNodeShadow);}
+.wc-svg-trophy text{font-size:28px;dominant-baseline:middle;}
+.wc-svg-third circle{fill:#fffdf5;stroke:#f0aa17;stroke-width:2;filter:url(#wcNodeShadow);opacity:.92;}
+.wc-svg-third text{font-size:20px;dominant-baseline:middle;}
+body.theme-dark .camino-card{background:#0f1726;border-color:#263857;box-shadow:0 12px 32px rgba(0,0,0,.28);}
+body.theme-dark .camino-svg-stage{background:radial-gradient(circle at center,#121d30 0%,#0f1726 55%,#0b1220 100%);}
+body.theme-dark .wc-svg-line{stroke:#34455e;}
+body.theme-dark .wc-svg-line.final{stroke:#22c77a;}
+body.theme-dark .wc-svg-line.parcial{stroke:#fbbf24;}
+body.theme-dark .wc-svg-disc{fill:#111c2f;stroke:#465872;}
+body.theme-dark .wc-svg-node.pendiente{opacity:.48;}
+/* Banderas llenando completamente sus contenedores */
+.flag-square,.flag-bubble,.flag-frame{overflow:hidden!important;}
+.flag-square .team-flag,.flag-bubble .team-flag,.flag-frame .team-flag,.team-flag{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center center!important;display:block!important;}
+@media(max-width:980px){.camino-svg-stage{min-height:420px;overflow-x:auto;justify-content:flex-start}.wc-svg-bracket{min-width:980px}}

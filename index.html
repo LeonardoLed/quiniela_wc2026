@@ -58,6 +58,15 @@
       <div class="regla-max">Máximo: <strong>3 pts</strong> por partido<br><small>El marcador que cuenta es a los 90'</small></div>
     </div>
   </div>
+
+
+  <section class="camino-card" aria-label="Camino al campeonato">
+    <div class="camino-head">
+      <div class="section-title camino-title">🏆 CAMINO AL CAMPEONATO</div>
+    </div>
+    <div id="bracket-grafo" class="camino-svg-stage"></div>
+  </section>
+
   <div class="tabla-wrapper">
     <table>
       <thead>
@@ -101,7 +110,7 @@
 </main>
 <footer>⚽ FIFA WORLD CUP 2026 — QUINIELA PRIVADA</footer>
 
-<script src="data/config.js?v=20260704-graph-visible-v2"></script>
-<script src="js/app.js?v=20260704-graph-visible-v2"></script>
+<script>document.write('<script src="data/config.js?v=' + Date.now() + '"><\/script>')</script>
+<script src="js/app.js?v=20260704-svg-live-third"></script>
 </body>
 </html>
