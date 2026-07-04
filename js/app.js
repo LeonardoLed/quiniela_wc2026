@@ -578,42 +578,45 @@ const BRACKET_MAP = {
 };
 
 const BRACKET_LAYOUT = {
-  W: 1100,
-  H: 560,
+  W: 1320,
+  H: 620,
   nodes: {
-    // LADO IZQUIERDO: cuatro partidos de 8vos
-    'd8-p01': {x: 85, y: 75},
-    'd8-p02': {x: 85, y: 185},
-    'd8-p03': {x: 85, y: 345},
-    'd8-p04': {x: 85, y: 455},
+    // LADO IZQUIERDO: 4 partidos de 8vos
+    'd8-p01': {x: 130, y: 105},
+    'd8-p02': {x: 130, y: 235},
+    'd8-p03': {x: 130, y: 385},
+    'd8-p04': {x: 130, y: 515},
 
-    // LADO DERECHO: cuatro partidos de 8vos
-    'd8-p05': {x: 1015, y: 75},
-    'd8-p06': {x: 1015, y: 185},
-    'd8-p07': {x: 1015, y: 345},
-    'd8-p08': {x: 1015, y: 455},
+    // 4tos y semifinal izquierda
+    'd4-p01': {x: 335, y: 170, small:true},
+    'd4-p02': {x: 335, y: 450, small:true},
+    'semi-p01': {x: 540, y: 310, small:true},
 
-    // 4tos
-    'd4-p01': {x: 265, y: 130, small:true},
-    'd4-p02': {x: 265, y: 400, small:true},
-    'd4-p03': {x: 835, y: 130, small:true},
-    'd4-p04': {x: 835, y: 400, small:true},
+    // Centro
+    'final-p01': {x: 660, y: 285, final:true},
+    'final-p02': {x: 660, y: 465, small:true, third:true},
 
-    // semifinales y finales
-    'semi-p01': {x: 435, y: 265, small:true},
-    'semi-p02': {x: 665, y: 265, small:true},
-    'final-p01': {x: 550, y: 245, final:true},
-    'final-p02': {x: 550, y: 380, small:true, third:true}
+    // Semifinal y 4tos derecha
+    'semi-p02': {x: 780, y: 310, small:true},
+    'd4-p03': {x: 985, y: 170, small:true},
+    'd4-p04': {x: 985, y: 450, small:true},
+
+    // LADO DERECHO: 4 partidos de 8vos
+    'd8-p05': {x: 1190, y: 105},
+    'd8-p06': {x: 1190, y: 235},
+    'd8-p07': {x: 1190, y: 385},
+    'd8-p08': {x: 1190, y: 515}
   },
   links: [
     ['d8-p01','d4-p01'], ['d8-p02','d4-p01'],
     ['d8-p03','d4-p02'], ['d8-p04','d4-p02'],
+    ['d4-p01','semi-p01'], ['d4-p02','semi-p01'],
+    ['semi-p01','final-p01'], ['semi-p01','final-p02'],
+
     ['d8-p05','d4-p03'], ['d8-p06','d4-p03'],
     ['d8-p07','d4-p04'], ['d8-p08','d4-p04'],
-    ['d4-p01','semi-p01'], ['d4-p02','semi-p01'],
     ['d4-p03','semi-p02'], ['d4-p04','semi-p02'],
-    ['semi-p01','final-p01'], ['semi-p02','final-p01'],
-    ['semi-p01','final-p02'], ['semi-p02','final-p02']
+    ['semi-p02','final-p01'], ['semi-p02','final-p02']
   ]
 };
 
@@ -733,14 +736,19 @@ function linkActive(from, to){
   const real = resultados[e]?.[k];
   return bracketEstado(real) === 'final' && !!winnerSide(real);
 }
+function nodeHalfWidth(id){
+  const n = BRACKET_LAYOUT.nodes[id] || {};
+  if(n.final) return 62;
+  return n.small ? 76 : 84;
+}
 function linkPath(from, to){
   const a = BRACKET_LAYOUT.nodes[from];
   const b = BRACKET_LAYOUT.nodes[to];
-  const dx = b.x - a.x;
-  const aw = a.final ? 58 : (a.small ? 68 : 80);
-  const bw = b.final ? 58 : (b.small ? 68 : 80);
-  const startX = dx >= 0 ? a.x + aw : a.x - aw;
-  const endX = dx >= 0 ? b.x - bw : b.x + bw;
+  const aw = nodeHalfWidth(from);
+  const bw = nodeHalfWidth(to);
+  const leftToRight = b.x >= a.x;
+  const startX = leftToRight ? a.x + aw : a.x - aw;
+  const endX = leftToRight ? b.x - bw : b.x + bw;
   const startY = a.y;
   const endY = b.y;
   const midX = startX + (endX - startX) / 2;
