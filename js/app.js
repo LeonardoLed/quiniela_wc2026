@@ -578,42 +578,49 @@ const BRACKET_MAP = {
 };
 
 const BRACKET_LAYOUT = {
-  W: 1180,
-  H: 620,
+  W: 1280,
+  H: 560,
   nodes: {
-    // LADO IZQUIERDO: cuatro partidos de 8vos
-    'd8-p01': {x: 120, y: 85},
-    'd8-p02': {x: 120, y: 205},
-    'd8-p03': {x: 120, y: 365},
-    'd8-p04': {x: 120, y: 485},
+    // LADO IZQUIERDO: 4 partidos de 8vos
+    'd8-p01': {x: 115, y: 105},
+    'd8-p02': {x: 115, y: 235},
+    'd8-p03': {x: 115, y: 375},
+    'd8-p04': {x: 115, y: 505},
 
-    // LADO DERECHO: cuatro partidos de 8vos
-    'd8-p05': {x: 1060, y: 85},
-    'd8-p06': {x: 1060, y: 205},
-    'd8-p07': {x: 1060, y: 365},
-    'd8-p08': {x: 1060, y: 485},
+    // 4tos lado izquierdo
+    'd4-p01': {x: 335, y: 170, small:true},
+    'd4-p02': {x: 335, y: 440, small:true},
 
-    // 4tos
-    'd4-p01': {x: 315, y: 145, small:true},
-    'd4-p02': {x: 315, y: 425, small:true},
-    'd4-p03': {x: 865, y: 145, small:true},
-    'd4-p04': {x: 865, y: 425, small:true},
+    // Semifinal izquierda
+    'semi-p01': {x: 535, y: 305, small:true},
 
-    // semifinales y finales
-    'semi-p01': {x: 485, y: 285, small:true},
-    'semi-p02': {x: 695, y: 285, small:true},
-    'final-p01': {x: 590, y: 285, final:true},
-    'final-p02': {x: 590, y: 405, small:true, third:true}
+    // Centro
+    'final-p01': {x: 640, y: 270, final:true},
+    'final-p02': {x: 640, y: 430, small:true, third:true},
+
+    // Semifinal derecha
+    'semi-p02': {x: 745, y: 305, small:true},
+
+    // 4tos lado derecho
+    'd4-p03': {x: 945, y: 170, small:true},
+    'd4-p04': {x: 945, y: 440, small:true},
+
+    // LADO DERECHO: 4 partidos de 8vos
+    'd8-p05': {x: 1165, y: 105},
+    'd8-p06': {x: 1165, y: 235},
+    'd8-p07': {x: 1165, y: 375},
+    'd8-p08': {x: 1165, y: 505}
   },
   links: [
     ['d8-p01','d4-p01'], ['d8-p02','d4-p01'],
     ['d8-p03','d4-p02'], ['d8-p04','d4-p02'],
+    ['d4-p01','semi-p01'], ['d4-p02','semi-p01'],
+    ['semi-p01','final-p01'], ['semi-p01','final-p02'],
+
     ['d8-p05','d4-p03'], ['d8-p06','d4-p03'],
     ['d8-p07','d4-p04'], ['d8-p08','d4-p04'],
-    ['d4-p01','semi-p01'], ['d4-p02','semi-p01'],
     ['d4-p03','semi-p02'], ['d4-p04','semi-p02'],
-    ['semi-p01','final-p01'], ['semi-p02','final-p01'],
-    ['semi-p01','final-p02'], ['semi-p02','final-p02']
+    ['semi-p02','final-p01'], ['semi-p02','final-p02']
   ]
 };
 
@@ -702,7 +709,7 @@ function bracketNode(id){
 
   if(isFinalCircle){
     const champ = winIdx >= 0 ? teams[winIdx] : {nombre:'Final', flag:'', placeholder:true};
-    return `<div class="${classes}" style="left:${pos.x}px;top:${pos.y}px" title="Final">
+    return `<div class="${classes}" style="left:${(pos.x/BRACKET_LAYOUT.W)*100}%;top:${(pos.y/BRACKET_LAYOUT.H)*100}%" title="Final">
       <div class="final-circle">🏆<span>FINAL</span></div>
       <div class="final-team">${flagBubble(champ.flag)}<b>${esc(champ.placeholder ? 'Final' : champ.nombre)}</b></div>
     </div>`;
@@ -721,7 +728,7 @@ function bracketNode(id){
 
   const meta = partidos[etId]?.[key]?.fecha || (pos.third ? '3er lugar' : '');
   const extra = real?.definicion || real?.penales ? `<div class="fifa-extra">${real?.definicion?.tipo ? esc(real.definicion.tipo).replace('Tiempo Extra','T.E.') : ''}${real?.penales ? ` · Pen. ${real.penales[0]}-${real.penales[1]}` : ''}</div>` : '';
-  return `<div class="${classes}" style="left:${pos.x}px;top:${pos.y}px" data-match="${id}">
+  return `<div class="${classes}" style="left:${(pos.x/BRACKET_LAYOUT.W)*100}%;top:${(pos.y/BRACKET_LAYOUT.H)*100}%" data-match="${id}">
     <div class="fifa-meta">${esc(meta)}</div>
     <div class="fifa-card">${rows}</div>
     ${extra}
@@ -737,8 +744,10 @@ function linkPath(from, to){
   const a = BRACKET_LAYOUT.nodes[from];
   const b = BRACKET_LAYOUT.nodes[to];
   const dx = b.x - a.x;
-  const startX = dx >= 0 ? a.x + 64 : a.x - 64;
-  const endX = dx >= 0 ? b.x - (b.final ? 56 : 64) : b.x + (b.final ? 56 : 64);
+  const aw = a.final ? 58 : (a.small ? 68 : 80);
+  const bw = b.final ? 58 : (b.small ? 68 : 80);
+  const startX = dx >= 0 ? a.x + aw : a.x - aw;
+  const endX = dx >= 0 ? b.x - bw : b.x + bw;
   const startY = a.y;
   const endY = b.y;
   const midX = startX + (endX - startX) / 2;
