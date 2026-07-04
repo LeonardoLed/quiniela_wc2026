@@ -966,3 +966,374 @@ body.theme-dark .bracket-match.parcial { border-color:#ffbc4b; box-shadow:0 0 0 
 body.theme-dark .bracket-match.final { border-color:#45cf83; }
 body:not(.theme-dark) .theme-toggle { background:#ffffff; color:#22395f; }
 @media(max-width:700px){ .theme-toggle { position:relative; top:auto; right:auto; margin:10px auto 0; display:inline-flex; } }
+
+/* ===== Bracket tipo FIFA compacto/radial ===== */
+.bracket-section{
+  padding:18px 18px 22px;
+}
+.bracket-head{
+  margin-bottom:10px;
+}
+.bracket-grafo{
+  display:block !important;
+  overflow:auto;
+  padding:10px 4px 14px;
+  background:linear-gradient(180deg,rgba(248,251,255,.96),rgba(255,255,255,.96));
+  border-radius:18px;
+  border:1px solid #dce5f2;
+  min-height:650px;
+}
+.fifa-bracket{
+  position:relative;
+  width:var(--bw);
+  height:var(--bh);
+  margin:0 auto;
+  transform-origin:top center;
+}
+.fifa-lines{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  overflow:visible;
+}
+.fifa-link{
+  fill:none;
+  stroke:#9aa7b8;
+  stroke-width:2;
+  stroke-linecap:round;
+  opacity:.78;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.08));
+}
+.fifa-link.active{
+  stroke:#21b36b;
+  stroke-width:3.5;
+  opacity:1;
+  filter:drop-shadow(0 0 5px rgba(33,179,107,.35));
+  stroke-dasharray:260;
+  animation:fifaLineOn .75s ease both;
+}
+@keyframes fifaLineOn{
+  from{stroke-dashoffset:260;}
+  to{stroke-dashoffset:0;}
+}
+.fifa-node{
+  position:absolute;
+  width:118px;
+  min-height:58px;
+  transform:translate(-50%,-50%);
+  z-index:2;
+  text-align:center;
+}
+.fifa-node.small{ width:102px; }
+.fifa-node.tiny{ width:60px; min-height:42px; }
+.fifa-card{
+  background:#fff;
+  border:1px solid #d7deea;
+  border-radius:12px;
+  box-shadow:0 8px 24px rgba(40,54,78,.14);
+  padding:5px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+}
+.fifa-node:not(.tiny) .fifa-card{
+  min-height:34px;
+}
+.fifa-row{
+  display:grid;
+  grid-template-columns:20px 1fr auto auto auto;
+  align-items:center;
+  gap:3px;
+  min-width:48px;
+  background:#f7f9fd;
+  border:1px solid #e2e7f0;
+  border-radius:9px;
+  padding:4px 5px;
+  color:#2d3748;
+  font-weight:800;
+  font-size:8px;
+  text-transform:uppercase;
+}
+.fifa-node.small .fifa-row{ min-width:42px; grid-template-columns:18px 1fr auto auto auto; }
+.fifa-node.tiny .fifa-card{ border-radius:999px; padding:5px; gap:4px; min-height:auto; }
+.fifa-node.tiny .fifa-row{
+  display:flex;
+  min-width:0;
+  width:22px;
+  height:22px;
+  border-radius:999px;
+  padding:0;
+  justify-content:center;
+  background:#f2f5fa;
+}
+.fifa-node.tiny .fifa-row span,
+.fifa-node.tiny .fifa-row strong,
+.fifa-node.tiny .fifa-row small,
+.fifa-node.tiny .fifa-row em{ display:none; }
+.flag-bubble{
+  width:22px;
+  height:22px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#f4f6fa;
+  border:2px solid #fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.18);
+  overflow:hidden;
+}
+.flag-bubble .flag-square{
+  width:100%;
+  height:100%;
+  border-radius:999px;
+  border:0;
+  box-shadow:none;
+}
+.flag-bubble.empty{
+  font-size:10px;
+  font-weight:900;
+  color:#68778d;
+  border-color:#cfd8e8;
+}
+.fifa-row strong{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:15px;
+  color:#1d2b42;
+  min-width:7px;
+}
+.fifa-row .empty-score{
+  color:#9aa7b8;
+}
+.fifa-row small{
+  color:#6c7890;
+  font-size:8px;
+  font-weight:900;
+  margin-left:-2px;
+}
+.fifa-row em{
+  font-style:normal;
+  color:#13a764;
+  font-size:11px;
+  margin-left:1px;
+}
+.fifa-row.winner{
+  background:#eafff3;
+  border-color:#65d596;
+}
+.fifa-row.winner strong,
+.fifa-row.winner span{ color:#0a7a42; }
+.fifa-row.loser{
+  opacity:.42;
+  filter:grayscale(.3);
+}
+.fifa-node.final .fifa-card,
+.fifa-node.final-node .fifa-card,
+.fifa-node.final,
+.final-circle{
+  border-color:#cfd8e8;
+}
+.fifa-node.final{
+  width:112px;
+}
+.final-circle{
+  width:88px;
+  height:88px;
+  border-radius:999px;
+  background:#fff;
+  border:3px solid #788292;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto;
+  box-shadow:0 10px 24px rgba(33,43,61,.16);
+  font-size:24px;
+}
+.final-circle span{
+  display:block;
+  font-family:'Bebas Neue',sans-serif;
+  letter-spacing:1px;
+  font-size:13px;
+  color:#263448;
+  margin-top:3px;
+}
+.final-team{
+  margin-top:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  font-size:10px;
+  font-weight:900;
+  color:#1d2b42;
+}
+.final-team .flag-bubble{ width:24px; height:24px; }
+.fifa-meta{
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 2px);
+  transform:translateX(-50%);
+  white-space:nowrap;
+  color:#8a6713;
+  font-family:'Bebas Neue',sans-serif;
+  letter-spacing:.9px;
+  font-size:10px;
+  max-width:130px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.fifa-state{
+  margin-top:4px;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.5px;
+  color:#6b7890;
+  text-transform:uppercase;
+}
+.fifa-node.final .fifa-state{ display:none; }
+.fifa-node.final .fifa-extra,
+.fifa-node.tiny .fifa-extra{ display:none; }
+.fifa-extra{
+  margin-top:3px;
+  font-size:8px;
+  color:#617089;
+  font-weight:800;
+  white-space:nowrap;
+}
+.fifa-node.final .fifa-card{}
+.fifa-node.final-node{ z-index:3; }
+.fifa-node.parcial .fifa-card{
+  border-color:#f2b84b;
+  box-shadow:0 0 0 1px rgba(242,184,75,.20),0 10px 24px rgba(242,184,75,.18);
+  animation:fifaPulse 1.2s ease-in-out infinite;
+}
+@keyframes fifaPulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.025);}
+}
+.fifa-node.final:not(.final-node) .fifa-card{
+  border-color:#74d99d;
+}
+.fifa-node.pendiente .fifa-card{ opacity:.86; }
+.fifa-node.third-node{ opacity:.88; }
+@media(max-width:900px){
+  .fifa-bracket{ transform:scale(.82); margin-left:auto; margin-right:auto; }
+  .bracket-grafo{ min-height:545px; }
+}
+@media(max-width:700px){
+  .fifa-bracket{ transform:scale(.68); margin-left:-150px; }
+  .bracket-grafo{ min-height:455px; }
+}
+
+/* Tema oscuro para bracket FIFA */
+body.theme-dark .bracket-grafo{
+  background:linear-gradient(180deg,#0f1726,#0b1220);
+  border-color:#253657;
+}
+body.theme-dark .fifa-card,
+body.theme-dark .final-circle{
+  background:#101827;
+  border-color:#2b3d5f;
+  box-shadow:0 10px 28px rgba(0,0,0,.36);
+}
+body.theme-dark .fifa-row{
+  background:#152034;
+  border-color:#2a3b5c;
+  color:#e8edf8;
+}
+body.theme-dark .fifa-row strong{ color:#f1f6ff; }
+body.theme-dark .fifa-row.winner{
+  background:rgba(46,204,113,.16);
+  border-color:#45cf83;
+}
+body.theme-dark .fifa-row.winner strong,
+body.theme-dark .fifa-row.winner span{ color:#71e5a2; }
+body.theme-dark .fifa-link{ stroke:#425577; opacity:.75; }
+body.theme-dark .fifa-link.active{ stroke:#45cf83; }
+body.theme-dark .final-circle span,
+body.theme-dark .final-team{ color:#e8edf8; }
+body.theme-dark .fifa-state,
+body.theme-dark .fifa-extra{ color:#9fb0ca; }
+body.theme-dark .fifa-meta{ color:#ffd05b; }
+
+/* ===== Corrección de contraste en tema claro =====
+   En el tema claro los marcadores quedaban muy pálidos/blancos.
+   Estos estilos hacen que los resultados y pronósticos sean legibles. */
+body:not(.theme-dark) .score-line {
+  background:#ffffff;
+  border-color:#b9c8dc;
+  box-shadow:inset 0 0 0 1px rgba(28,47,84,.035), 0 3px 10px rgba(28,47,84,.06);
+}
+body:not(.theme-dark) .score-label {
+  color:#49627f;
+}
+body:not(.theme-dark) .score-line strong {
+  color:#10233f;
+  text-shadow:none;
+}
+body:not(.theme-dark) .score-line strong span {
+  color:#536b88;
+}
+body:not(.theme-dark) .match-card.final .score-line:first-child {
+  background:#f4fff8;
+  border-color:#74d99d;
+}
+body:not(.theme-dark) .match-card.parcial .score-line:first-child {
+  background:#fff8ea;
+  border-color:#f0bd55;
+}
+body:not(.theme-dark) .definicion-box strong,
+body:not(.theme-dark) .penales-box strong {
+  color:#0f213b;
+}
+body:not(.theme-dark) .clasifica-line strong {
+  color:#172033;
+}
+body:not(.theme-dark) .match-points {
+  background:#ffffff;
+  color:#10233f;
+}
+body:not(.theme-dark) .match-points.b0 {
+  background:#fff5f4;
+  color:#b53a32;
+}
+body:not(.theme-dark) .match-points:not(.b0) {
+  background:#fff8e6;
+  border-color:#d8a21d;
+  color:#9a6500;
+}
+
+/* Marcadores dentro del bracket FIFA en tema claro */
+body:not(.theme-dark) .fifa-row {
+  background:#ffffff;
+  border-color:#b9c8dc;
+  color:#203047;
+  box-shadow:0 2px 6px rgba(28,47,84,.05);
+}
+body:not(.theme-dark) .fifa-row strong {
+  color:#071a33;
+  font-weight:900;
+  text-shadow:none;
+}
+body:not(.theme-dark) .fifa-row small {
+  color:#405b78;
+}
+body:not(.theme-dark) .fifa-row .empty-score {
+  color:#72839a;
+}
+body:not(.theme-dark) .fifa-row.winner {
+  background:#e7fff1;
+  border-color:#2ecc71;
+  box-shadow:0 0 0 1px rgba(46,204,113,.12), 0 4px 12px rgba(46,204,113,.16);
+}
+body:not(.theme-dark) .fifa-row.winner strong,
+body:not(.theme-dark) .fifa-row.winner span {
+  color:#075b33;
+}
+body:not(.theme-dark) .fifa-card {
+  background:#ffffff;
+  border-color:#c6d3e5;
+}

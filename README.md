@@ -2,7 +2,7 @@
 
 Proyecto estático listo para GitHub Pages.
 
-## Dónde editar
+## Dónde editar 
 
 Todo lo manual se modifica en:
 
@@ -10,7 +10,7 @@ Todo lo manual se modifica en:
 data/config.js
 ```
 
-## Participantes y puntos de grupos
+## Participantes y puntos de grupos a
 
 Busca `participantes` y cambia `nombre` o `grupos`.
 

@@ -256,7 +256,14 @@ const CONFIG = {
       "p05": null,
       "p06": null,
       "p07": null,
-      "p08": null
+      "p08": {
+        "marcador": [
+          0,
+          1
+        ],
+        "pasa": "V",
+        "estado": "final"
+      }
     },
     "d4": {
       "p01": null,
