@@ -1419,9 +1419,9 @@ body:not(.theme-dark) .regla-max{
 }
 .fifa-node{ visibility:visible !important; }
 
-/* ===== Ajuste de bracket: dos lados, cuatro partidos por lado (óvalo) ===== */
-.fifa-bracket{ min-width:1200px; }
-.bracket-grafo{ min-height:680px; }
+/* ===== Ajuste de bracket: dos lados, cuatro partidos por lado ===== */
+.fifa-bracket{ min-width:1180px; }
+.bracket-grafo{ min-height:640px; }
 .fifa-link{ stroke-width:2.2; stroke:#b8c4d5; }
 .fifa-link.active{ stroke:#20b96b; stroke-width:4; }
 .fifa-node{ width:132px; }

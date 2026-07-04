@@ -577,60 +577,48 @@ const BRACKET_MAP = {
   }
 };
 
-// Layout tipo "óvalo" (estilo grafo circular de eliminatorias): cada ronda es un
-// anillo elíptico concéntrico que se va cerrando hacia el centro, en vez de
-// columnas rectas. Esto reproduce la forma curva solicitada manteniendo
-// exactamente la misma lógica de cruces (BRACKET_MAP) que ya existía.
-const BRACKET_LAYOUT = (function(){
-  const W = 1320, H = 660;
-  const cx = W / 2, cy = H / 2;
+const BRACKET_LAYOUT = {
+  W: 1320,
+  H: 620,
+  nodes: {
+    // LADO IZQUIERDO: 4 partidos de 8vos
+    'd8-p01': {x: 130, y: 105},
+    'd8-p02': {x: 130, y: 235},
+    'd8-p03': {x: 130, y: 385},
+    'd8-p04': {x: 130, y: 515},
 
-  // Radios (rx) y ángulo máximo (grados) por ronda. rx controla qué tan
-  // "ancho" es el arco de esa ronda; el ángulo controla la curvatura.
-  const RINGS = {
-    d8:   { rx: 545, angle: 58 },
-    d4:   { rx: 345, angle: 46 },
-    semi: { rx: 165, angle: 0  }
-  };
+    // 4tos y semifinal izquierda
+    'd4-p01': {x: 335, y: 170, small:true},
+    'd4-p02': {x: 335, y: 450, small:true},
+    'semi-p01': {x: 540, y: 310, small:true},
 
-  function arcPos(side, ring, i, n){
-    const cfg = RINGS[ring];
-    const t = n <= 1 ? 0 : (-cfg.angle + i * (2 * cfg.angle) / (n - 1));
-    const rad = t * Math.PI / 180;
-    return {
-      x: cx + side * cfg.rx * Math.cos(rad),
-      y: cy + cfg.rx * 0.42 * Math.sin(rad)
-    };
-  }
+    // Centro
+    'final-p01': {x: 660, y: 285, final:true},
+    'final-p02': {x: 660, y: 465, small:true, third:true},
 
-  const nodes = {};
-  ['p01','p02','p03','p04'].forEach((k,i)=>{ nodes[`d8-${k}`] = arcPos(-1,'d8',i,4); });
-  ['p05','p06','p07','p08'].forEach((k,i)=>{ nodes[`d8-${k}`] = arcPos( 1,'d8',i,4); });
+    // Semifinal y 4tos derecha
+    'semi-p02': {x: 780, y: 310, small:true},
+    'd4-p03': {x: 985, y: 170, small:true},
+    'd4-p04': {x: 985, y: 450, small:true},
 
-  ['p01','p02'].forEach((k,i)=>{ nodes[`d4-${k}`] = {...arcPos(-1,'d4',i,2), small:true}; });
-  ['p03','p04'].forEach((k,i)=>{ nodes[`d4-${k}`] = {...arcPos( 1,'d4',i,2), small:true}; });
+    // LADO DERECHO: 4 partidos de 8vos
+    'd8-p05': {x: 1190, y: 105},
+    'd8-p06': {x: 1190, y: 235},
+    'd8-p07': {x: 1190, y: 385},
+    'd8-p08': {x: 1190, y: 515}
+  },
+  links: [
+    ['d8-p01','d4-p01'], ['d8-p02','d4-p01'],
+    ['d8-p03','d4-p02'], ['d8-p04','d4-p02'],
+    ['d4-p01','semi-p01'], ['d4-p02','semi-p01'],
+    ['semi-p01','final-p01'], ['semi-p01','final-p02'],
 
-  nodes['semi-p01'] = {...arcPos(-1,'semi',0,1), small:true};
-  nodes['semi-p02'] = {...arcPos( 1,'semi',0,1), small:true};
-
-  nodes['final-p01'] = {x: cx, y: cy - 78, final:true};
-  nodes['final-p02'] = {x: cx, y: cy + 96, small:true, third:true};
-
-  return {
-    W, H, nodes,
-    links: [
-      ['d8-p01','d4-p01'], ['d8-p02','d4-p01'],
-      ['d8-p03','d4-p02'], ['d8-p04','d4-p02'],
-      ['d4-p01','semi-p01'], ['d4-p02','semi-p01'],
-      ['semi-p01','final-p01'], ['semi-p01','final-p02'],
-
-      ['d8-p05','d4-p03'], ['d8-p06','d4-p03'],
-      ['d8-p07','d4-p04'], ['d8-p08','d4-p04'],
-      ['d4-p03','semi-p02'], ['d4-p04','semi-p02'],
-      ['semi-p02','final-p01'], ['semi-p02','final-p02']
-    ]
-  };
-})();
+    ['d8-p05','d4-p03'], ['d8-p06','d4-p03'],
+    ['d8-p07','d4-p04'], ['d8-p08','d4-p04'],
+    ['d4-p03','semi-p02'], ['d4-p04','semi-p02'],
+    ['semi-p02','final-p01'], ['semi-p02','final-p02']
+  ]
+};
 
 function bracketKey(etId, key){ return `${etId}-${key}`; }
 function splitBracketKey(id){ const [e,k] = id.split('-'); return [e,k]; }
@@ -750,8 +738,8 @@ function linkActive(from, to){
 }
 function nodeHalfWidth(id){
   const n = BRACKET_LAYOUT.nodes[id] || {};
-  if(n.final) return 56;
-  return n.small ? 59 : 66;
+  if(n.final) return 62;
+  return n.small ? 76 : 84;
 }
 function linkPath(from, to){
   const a = BRACKET_LAYOUT.nodes[from];
@@ -763,8 +751,8 @@ function linkPath(from, to){
   const endX = leftToRight ? b.x - bw : b.x + bw;
   const startY = a.y;
   const endY = b.y;
-  const bend = (endX - startX) * 0.55;
-  return `M ${startX} ${startY} C ${startX + bend} ${startY}, ${endX - bend} ${endY}, ${endX} ${endY}`;
+  const midX = startX + (endX - startX) / 2;
+  return `M ${startX} ${startY} H ${midX} V ${endY} H ${endX}`;
 }
 function renderBracket(){
   const el = document.getElementById('bracket-grafo');
