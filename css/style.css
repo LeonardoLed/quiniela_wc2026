@@ -2113,3 +2113,20 @@ body.theme-dark .final-circle span,body.theme-dark .final-team{ color:#edf3ff !i
   .bracket-grafo{ overflow-x:auto !important; min-height:500px !important; }
   .fifa-bracket{ transform:scale(.76) !important; transform-origin:top left !important; margin-left:0 !important; }
 }
+
+/* Ajuste solicitado: las banderas deben llenar completamente su recuadro */
+.flag-square,
+.flag-bubble,
+.flag-frame{
+  overflow:hidden !important;
+}
+.flag-square .team-flag,
+.flag-bubble .team-flag,
+.flag-frame .team-flag,
+.team-flag{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:center center !important;
+  display:block !important;
+}
