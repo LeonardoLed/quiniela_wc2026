@@ -1,4 +1,4 @@
-# Quiniela Mundial 2026 USA-CAN-MEX A
+# Quiniela Mundial 2026 USA-CAN-MEX
 
 Proyecto estático listo para GitHub Pages.
 
