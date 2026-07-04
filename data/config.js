@@ -148,8 +148,8 @@ const CONFIG = {
 		  "pasa": null,
 		  "definicion": {
              "tipo": "Tiempo Extra",
-            "marcador": [1, 0],
-		   "nota": "Marcador: 2-1"
+            "marcador": [1, 1],
+		   "nota": "Marcador: 2-2"
 		  },
 		  "estado": "parcial"
 	   },
