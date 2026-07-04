@@ -1418,3 +1418,23 @@ body:not(.theme-dark) .regla-max{
   min-height:650px !important;
 }
 .fifa-node{ visibility:visible !important; }
+
+/* ===== Ajuste de bracket: dos lados, cuatro partidos por lado ===== */
+.fifa-bracket{ min-width:1180px; }
+.bracket-grafo{ min-height:640px; }
+.fifa-link{ stroke-width:2.2; stroke:#b8c4d5; }
+.fifa-link.active{ stroke:#20b96b; stroke-width:4; }
+.fifa-node{ width:132px; }
+.fifa-node.small{ width:118px; }
+.fifa-card{ min-height:40px; }
+.fifa-node:not(.tiny) .fifa-card{ min-height:42px; }
+.fifa-row{ min-width:54px; font-size:9px; }
+.fifa-node.small .fifa-row{ min-width:50px; }
+@media(max-width:900px){
+  .fifa-bracket{ transform:scale(.72); margin-left:0; margin-right:0; }
+  .bracket-grafo{ min-height:470px; }
+}
+@media(max-width:700px){
+  .fifa-bracket{ transform:scale(.58); margin-left:-220px; }
+  .bracket-grafo{ min-height:380px; }
+}
