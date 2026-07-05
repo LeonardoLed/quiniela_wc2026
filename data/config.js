@@ -253,7 +253,14 @@ const CONFIG = {
       },
       "p03": null,
       "p04": null,
-      "p05": null,
+      "p05": {
+        "marcador": [
+          0,
+          0
+        ],
+        "pasa": null,
+        "estado": "parcial"
+      },
       "p06": null,
       "p07": null,
       "p08": null
