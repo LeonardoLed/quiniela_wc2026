@@ -263,7 +263,7 @@ const CONFIG = {
       },
       "p06":  {
         "marcador": [
-          0,
+          1,
           2
         ],
         "pasa": null,
