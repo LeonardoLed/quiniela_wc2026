@@ -308,9 +308,10 @@ async function cargarUltimaActualizacion(){
   }
 
   try{
-    const res = await fetch(`https://api.github.com/repos/${repoInfo.user}/${repoInfo.repo}/commits?per_page=1`, {
-      headers: { 'Accept': 'application/vnd.github+json' }
+    const res = await fetch(`https://api.github.com/repos/${repoInfo.user}/${repoInfo.repo}/commits?sha=8vos&per_page=1`, {
+    headers: { 'Accept': 'application/vnd.github+json' }
     });
+   
 
     if(!res.ok) throw new Error('No se pudo consultar GitHub');
 
