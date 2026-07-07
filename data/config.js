@@ -8,7 +8,7 @@
 */
 
 const CONFIG = {
-  "faseAbierta": "d8",
+  "faseAbierta": "d4",
   "reglas": {
     "exacto": 3,
     "resultado": 1,
@@ -2193,32 +2193,32 @@ const CONFIG = {
     },
     "d4": {
       "p01": {
-        "local": "Ganador Canadá/Marruecos",
-        "flagL": "",
-        "visita": "Ganador Paraguay/Francia",
-        "flagV": "",
-        "fecha": "09/07"
+        "local": "Francia",
+        "flagL": "fr",
+        "visita": "Marruecos",
+        "flagV": "ma",
+        "fecha": "09/07 — Boston"
       },
       "p02": {
-        "local": "Ganador Portugal/España",
-        "flagL": "",
-        "visita": "Ganador EE.UU./Bélgica",
-        "flagV": "",
-        "fecha": "10/07"
+        "local": "España",
+        "flagL": "es",
+        "visita": "Bélgica",
+        "flagV": "be",
+        "fecha": "10/07 — Los Ángeles"
       },
       "p03": {
-        "local": "Ganador Brasil/Noruega",
-        "flagL": "",
-        "visita": "Ganador México/Inglaterra",
-        "flagV": "",
-        "fecha": "11/07"
+        "local": "Noruega",
+        "flagL": "no",
+        "visita": "Inglaterra",
+        "flagV": "gb-eng",
+        "fecha": "11/07 — Miami"
       },
       "p04": {
-        "local": "Ganador Argentina/Egipto",
-        "flagL": "",
-        "visita": "Ganador Suiza/Colombia",
-        "flagV": "",
-        "fecha": "11/07"
+        "local": "Argentina",
+        "flagL": "ar",
+        "visita": "Suiza",
+        "flagV": "ch",
+        "fecha": "11/07 — Kansas City"
       }
     },
     "semi": {
