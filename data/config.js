@@ -308,7 +308,7 @@ const CONFIG = {
           "penales": [
           0,
           0
-        ]
+        ],
         "pasa": null,
         "estado": "parcial"
       
