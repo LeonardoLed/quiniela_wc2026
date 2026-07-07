@@ -303,10 +303,15 @@ const CONFIG = {
             0,
             0
           ],
-        "nota": "Sin goles en T.E.",
+        "nota": "Sin goles en T.E."
+        },
+          "penales": [
+          0,
+          0
+        ]
         "pasa": null,
         "estado": "parcial"
-      }
+      
       }
         
     },
