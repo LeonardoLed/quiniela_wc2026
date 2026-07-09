@@ -4,7 +4,7 @@
   Archivo actualizado con pronósticos de Octavos de Final.
   Nota: el campo original argVsAus se interpretó como Argentina vs Egipto.
   Se omitieron los registros "Prueba" y la quiniela vacía #12.
-  Ajuste: Canadá 0-3 Marruecos y p01 de Christian Zugaide no cuenta por entrega fuera de tiempo.
+  Ajuste: pronósticos de Cuartos cargados. Mario Morales y Eduardo Sandoval no cuentan p01 por entrega fuera de tiempo.
 */
 
 const CONFIG = {
@@ -505,10 +505,34 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "semi": {
         "p01": null,
@@ -693,10 +717,34 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "semi": {
         "p01": null,
@@ -881,10 +929,34 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "semi": {
         "p01": null,
@@ -1063,10 +1135,34 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        },
+        "p02": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "semi": {
         "p01": null,
@@ -1252,9 +1348,27 @@ const CONFIG = {
       },
       "d4": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            0,
+            1
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        }
       },
       "semi": {
         "p01": null,
@@ -1439,10 +1553,34 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        },
+        "p02": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "V"
+        }
       },
       "semi": {
         "p01": null,
@@ -1627,10 +1765,34 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p03": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "V"
+        },
+        "p04": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       },
       "semi": {
         "p01": null,
@@ -1815,10 +1977,34 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       },
       "semi": {
         "p01": null,
@@ -2004,9 +2190,27 @@ const CONFIG = {
       },
       "d4": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            3,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "semi": {
         "p01": null,
