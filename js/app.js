@@ -308,9 +308,10 @@ async function cargarUltimaActualizacion(){
   }
 
   try{
-    const res = await fetch(`https://api.github.com/repos/${repoInfo.user}/${repoInfo.repo}/commits?per_page=1`, {
-      headers: { 'Accept': 'application/vnd.github+json' }
+    const res = await fetch(`https://api.github.com/repos/${repoInfo.user}/${repoInfo.repo}/commits?sha=8vos&per_page=1`, {
+    headers: { 'Accept': 'application/vnd.github+json' }
     });
+   
 
     if(!res.ok) throw new Error('No se pudo consultar GitHub');
 
@@ -571,11 +572,11 @@ function renderBracket(){
 
   const map = {
     d4: {
-      p01: [['d8','p01'], ['d8','p02']],
-      p02: [['d8','p03'], ['d8','p04']],
-      p03: [['d8','p05'], ['d8','p06']],
-      p04: [['d8','p07'], ['d8','p08']],
-    },
+		  p01: [['d8','p02'], ['d8','p01']], // Francia arriba, Marruecos abajo
+		  p02: [['d8','p03'], ['d8','p04']],
+		  p03: [['d8','p05'], ['d8','p06']],
+		  p04: [['d8','p07'], ['d8','p08']],
+	},
     semi: {
       p01: [['d4','p01'], ['d4','p02']],
       p02: [['d4','p03'], ['d4','p04']],
@@ -725,15 +726,26 @@ function renderBracket(){
     if(n.kind === 'loser') return advanceNodeStatus(n.ref, true);
     return 'pendiente';
   }
-  function lineStatus(from,to,matchRef){
-    const st = nodeStatus(to);
-    const fromSt = nodeStatus(from);
-    if(st === 'final' && fromSt !== 'eliminado') return 'final';
-    const [et,key] = matchRef.split('-');
-    const realSt = statusOf(resultados?.[et]?.[key]);
-    if(realSt === 'parcial') return 'parcial';
-    return 'pendiente';
-  }
+	function sameTeam(a,b){
+	  if(!a || !b) return false;
+	  return normalizar(a.nombre) === normalizar(b.nombre) || 
+			 String(a.flag || '').toLowerCase() === String(b.flag || '').toLowerCase();
+	}
+
+	function lineStatus(from,to,matchRef){
+	  const [et,key] = matchRef.split('-');
+	  const realSt = statusOf(resultados?.[et]?.[key]);
+
+	  if(realSt === 'parcial') return 'parcial';
+	  if(realSt !== 'final') return 'pendiente';
+
+	  const fromTeam = resolveTeam(from);
+	  const winner = winnerTeam(et,key);
+
+	  if(winner && sameTeam(fromTeam, winner)) return 'final';
+
+	  return 'pendiente';
+	}
   function elbow(a,b){
     const n1 = nodes[a], n2 = nodes[b];
     const dir = n2.x >= n1.x ? 1 : -1;
