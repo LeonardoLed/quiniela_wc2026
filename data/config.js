@@ -316,7 +316,14 @@ const CONFIG = {
         
     },
     "d4": {
-      "p01": null,
+      "p01": {
+        "marcador": [
+          2,
+          0
+        ],
+        "pasa": null,
+        "estado": "parcial"
+      },
       "p02": null,
       "p03": null,
       "p04": null
