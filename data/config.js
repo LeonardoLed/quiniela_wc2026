@@ -326,11 +326,11 @@ const CONFIG = {
       },
       "p02": {
         "marcador": [
-          1,
+          2,
           1
         ],
-        "pasa": null,
-        "estado": "parcial"
+        "pasa": "L",
+        "estado": "final"
       },
       "p03": null,
       "p04": null
