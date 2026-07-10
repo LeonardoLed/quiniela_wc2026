@@ -718,34 +718,96 @@ function renderBracket(){
     ['loser-semi-p02','third-winner','final-p02']
   ];
 
-  function nodeStatus(id){
-    const n = nodes[id];
-    if(!n) return 'pendiente';
-    if(n.kind === 'team') return originalNodeStatus(n.ref, n.side);
-    if(n.kind === 'winner') return advanceNodeStatus(n.ref, false);
-    if(n.kind === 'loser') return advanceNodeStatus(n.ref, true);
+function sameTeam(a,b){
+  if(!a || !b) return false;
+  const na = normalizar(a.nombre || '');
+  const nb = normalizar(b.nombre || '');
+  const fa = String(a.flag || '').toLowerCase();
+  const fb = String(b.flag || '').toLowerCase();
+  return (na && nb && na === nb) || (fa && fb && fa === fb);
+}
+
+function teamTournamentStatus(team){
+  if(!team) return 'pendiente';
+
+  let hasPlayed = false;
+  let isPlaying = false;
+  let eliminated = false;
+
+  const rounds = ['d8','d4','semi','final'];
+
+  rounds.forEach(et => {
+    Object.keys(resultados?.[et] || {}).forEach(key => {
+      const real = resultados?.[et]?.[key];
+      const st = statusOf(real);
+      const parts = getParticipants(et, key);
+      const participa = parts.some(p => sameTeam(p, team));
+
+      if(!participa) return;
+
+      if(st === 'parcial'){
+        isPlaying = true;
+        return;
+      }
+
+      if(st !== 'final') return;
+
+      hasPlayed = true;
+      const win = winnerTeam(et, key);
+
+      if(win && !sameTeam(win, team)){
+        eliminated = true;
+      }
+    });
+  });
+
+  if(eliminated) return 'eliminado';
+  if(isPlaying) return 'parcial';
+  if(hasPlayed) return 'final';
+  return 'pendiente';
+}
+
+function nodeStatus(id){
+  const n = nodes[id];
+  if(!n) return 'pendiente';
+
+  if(n.kind === 'trophy' || n.kind === 'third-trophy'){
     return 'pendiente';
   }
-	function sameTeam(a,b){
-	  if(!a || !b) return false;
-	  return normalizar(a.nombre) === normalizar(b.nombre) || 
-			 String(a.flag || '').toLowerCase() === String(b.flag || '').toLowerCase();
-	}
 
-	function lineStatus(from,to,matchRef){
-	  const [et,key] = matchRef.split('-');
-	  const realSt = statusOf(resultados?.[et]?.[key]);
+  const team = resolveTeam(id);
 
-	  if(realSt === 'parcial') return 'parcial';
-	  if(realSt !== 'final') return 'pendiente';
+  if(team){
+    return teamTournamentStatus(team);
+  }
 
-	  const fromTeam = resolveTeam(from);
-	  const winner = winnerTeam(et,key);
+  return 'pendiente';
+}
 
-	  if(winner && sameTeam(fromTeam, winner)) return 'final';
+function lineStatus(from,to,matchRef){
+  const fromTeam = resolveTeam(from);
+  const toTeam = resolveTeam(to);
 
-	  return 'pendiente';
-	}
+  if(!fromTeam || !toTeam) return 'pendiente';
+
+  const fromStatus = teamTournamentStatus(fromTeam);
+  const toStatus = teamTournamentStatus(toTeam);
+
+  if(fromStatus === 'parcial' || toStatus === 'parcial'){
+    return 'parcial';
+  }
+
+  if(fromStatus === 'eliminado' || toStatus === 'eliminado'){
+    return 'pendiente';
+  }
+
+  if(sameTeam(fromTeam, toTeam) && toStatus === 'final'){
+    return 'final';
+  }
+
+  return 'pendiente';
+}
+	
   function elbow(a,b){
     const n1 = nodes[a], n2 = nodes[b];
     const dir = n2.x >= n1.x ? 1 : -1;
