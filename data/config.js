@@ -334,7 +334,7 @@ const CONFIG = {
       },
       "p03": {
         "marcador": [
-          0,
+          1,
           0
         ],
         "pasa": null,
