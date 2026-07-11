@@ -296,7 +296,6 @@ const CONFIG = {
           0,
           0
         ],
-        
         "definicion": {
           "tipo": "Tiempo Extra",
           "marcador": [
@@ -337,6 +336,13 @@ const CONFIG = {
           1,
           1
         ],
+        "definicion": {
+          "tipo": "Tiempo Extra",
+          "marcador": [
+            1,
+            0
+          ]
+        },
         "pasa": null,
         "estado": "parcial"
       },
