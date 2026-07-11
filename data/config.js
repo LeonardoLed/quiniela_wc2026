@@ -339,8 +339,8 @@ const CONFIG = {
         "definicion": {
           "tipo": "Tiempo Extra",
           "marcador": [
-            1,
-            0
+            0,
+            1
           ]
         },
         "pasa": null,
