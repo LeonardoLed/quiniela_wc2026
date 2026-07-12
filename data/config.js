@@ -348,7 +348,7 @@ const CONFIG = {
         "estado": "final"
       },
       "p04": { "marcador": [
-          0,
+          1,
           0
         ],
         "pasa": null,
