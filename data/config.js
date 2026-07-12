@@ -354,7 +354,7 @@ const CONFIG = {
         "definicion": {
           "tipo": "Tiempo Extra",
           "marcador": [
-            0,
+            1,
             0
           ], 
           "nota": "Aún sin goles en T.E."
