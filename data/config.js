@@ -349,7 +349,7 @@ const CONFIG = {
       },
       "p04": { "marcador": [
           1,
-          0
+          1
         ],
         "pasa": null,
         "estado": "parcial"
