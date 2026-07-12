@@ -351,6 +351,14 @@ const CONFIG = {
           1,
           1
         ],
+        "definicion": {
+          "tipo": "Tiempo Extra",
+          "marcador": [
+            0,
+            0
+          ], 
+          "nota": "Aún sin goles en T.E."
+        },
         "pasa": null,
         "estado": "parcial"
       }
