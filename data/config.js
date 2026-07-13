@@ -366,6 +366,7 @@ const CONFIG = {
     "semi": {
       "p01": null,
       "p02": null
+    }
     "final": {
       "p01": null,
       "p02": null
