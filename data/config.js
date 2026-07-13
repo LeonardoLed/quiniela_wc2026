@@ -364,9 +364,8 @@ const CONFIG = {
       }
       },
     "semi": {
-      "p01": {"marcador":[0,0],"pasa":null,"estado":"por_jugar"},
-      "p02": {"marcador":[0,0],"pasa":null,"estado":"por_jugar"}
-    },
+      "p01": null,
+      "p02": null
     "final": {
       "p01": null,
       "p02": null
