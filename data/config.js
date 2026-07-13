@@ -2469,18 +2469,18 @@ const CONFIG = {
     },
     "semi": {
       "p01": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
+        "local": "Francia",
+        "flagL": "fr",
+        "visita": "España",
+        "flagV": "es",
+        "fecha": "14/07 - Boston"
       },
       "p02": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
+        "local": "Inglaterra",
+        "flagL": "gb-eng",
+        "visita": "Argentina",
+        "flagV": "ar",
+        "fecha": "15/07 - Atlanta"
       }
     },
     "final": {
