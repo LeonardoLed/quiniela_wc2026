@@ -8,7 +8,7 @@
 */
 
 const CONFIG = {
-  "faseAbierta": "d4",
+  "faseAbierta": "semi",
   "reglas": {
     "exacto": 3,
     "resultado": 1,
@@ -364,8 +364,8 @@ const CONFIG = {
       }
       },
     "semi": {
-      "p01": null,
-      "p02": null
+      "p01": {"marcador":[0,0],"pasa":null,"estado":"por_jugar"},
+      "p02": {"marcador":[0,0],"pasa":null,"estado":"por_jugar"}
     },
     "final": {
       "p01": null,
