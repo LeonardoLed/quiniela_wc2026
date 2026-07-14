@@ -771,44 +771,63 @@ function nodeStatus(id){
   const n = nodes[id];
   if(!n) return 'pendiente';
   if(n.kind === 'trophy' || n.kind === 'third-trophy') return 'pendiente';
-  if(n.kind === 'team') return originalNodeStatus(n.ref,n.side);
-  if(n.kind === 'winner') return advanceNodeStatus(n.ref,false);
   if(n.kind === 'loser') return advanceNodeStatus(n.ref,true);
+  const team=resolveTeam(id);
+  if(team) return teamTournamentStatus(team);
   return 'pendiente';
 }
 
-function lineStatus(from,to,matchRef){
-  const fromNode=nodes[from];
-  const fromTeam=resolveTeam(from);
-  if(!fromNode||!fromTeam) return 'pendiente';
-  if(fromNode.kind==='winner'&&fromNode.ref.startsWith('semi-')&&matchRef==='final-p01'){
-    const [e,k]=fromNode.ref.split('-');
-    const ss=statusOf(resultados?.[e]?.[k]);
-    const fs=statusOf(resultados?.final?.p01);
-    if(ss==='parcial') return 'parcial';
-    if(ss!=='final'||!winnerTeam(e,k)) return 'pendiente';
-    if(fs==='pendiente') return 'proxima-final';
-    if(fs==='parcial') return 'parcial';
-    const gw=winnerTeam('final','p01');
-    return gw&&sameTeam(fromTeam,gw)?'final':'pendiente';
+  const team = resolveTeam(id);
+
+  if(team){
+    return teamTournamentStatus(team);
   }
-  if(fromNode.kind==='loser'&&fromNode.ref.startsWith('semi-')&&matchRef==='final-p02'){
-    const [e,k]=fromNode.ref.split('-');
-    const ss=statusOf(resultados?.[e]?.[k]);
-    const ts=statusOf(resultados?.final?.p02);
-    if(ss==='parcial') return 'parcial';
-    if(ss!=='final'||!loserTeam(e,k)) return 'pendiente';
-    if(ts==='pendiente') return 'proximo-tercer';
-    if(ts==='parcial') return 'parcial';
-    const gw=winnerTeam('final','p02');
-    return gw&&sameTeam(fromTeam,gw)?'final':'pendiente';
+
+  return 'pendiente';
+}
+
+function lineStatus(from, to, matchRef){
+  const fromNode = nodes[from];
+
+  /*
+   * Caso especial: los perdedores de semifinales avanzan
+   * al partido por el tercer lugar.
+   */
+  if(fromNode?.kind === 'loser'){
+    const [semiEt, semiKey] = fromNode.ref.split('-');
+    const semiReal = resultados?.[semiEt]?.[semiKey];
+    const semiStatus = statusOf(semiReal);
+
+    if(semiStatus === 'parcial'){
+      return 'parcial';
+    }
+
+    if(semiStatus === 'final' && loserTeam(semiEt, semiKey)){
+      return 'final';
+    }
+
+    return 'pendiente';
   }
-  const [et,key]=matchRef.split('-');
-  const rs=statusOf(resultados?.[et]?.[key]);
-  if(rs==='parcial') return 'parcial';
-  if(rs!=='final') return 'pendiente';
-  const w=winnerTeam(et,key);
-  return w&&sameTeam(fromTeam,w)?'final':'pendiente';
+
+  const [et, key] = matchRef.split('-');
+  const realSt = statusOf(resultados?.[et]?.[key]);
+
+  if(realSt === 'parcial'){
+    return 'parcial';
+  }
+
+  if(realSt !== 'final'){
+    return 'pendiente';
+  }
+
+  const fromTeam = resolveTeam(from);
+  const winner = winnerTeam(et, key);
+
+  if(winner && sameTeam(fromTeam, winner)){
+    return 'final';
+  }
+
+  return 'pendiente';
 }
 	
   function elbow(a,b){
