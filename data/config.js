@@ -369,8 +369,8 @@ const CONFIG = {
           0,
           2
         ],
-        "pasa": null,
-        "estado": "parcial"
+        "pasa": "V",
+        "estado": "final"
       },
       "p02": null
     },
