@@ -770,64 +770,81 @@ function teamTournamentStatus(team){
 function nodeStatus(id){
   const n = nodes[id];
   if(!n) return 'pendiente';
-  if(n.kind === 'trophy' || n.kind === 'third-trophy') return 'pendiente';
-  if(n.kind === 'loser') return advanceNodeStatus(n.ref,true);
-  const team=resolveTeam(id);
-  if(team) return teamTournamentStatus(team);
-  return 'pendiente';
-}
 
-  const team = resolveTeam(id);
-
-  if(team){
-    return teamTournamentStatus(team);
+  if(n.kind === 'trophy' || n.kind === 'third-trophy'){
+    return 'pendiente';
   }
+
+  // El perdedor de una semifinal sigue activo únicamente
+  // en el nodo que lo conduce al partido por tercer lugar.
+  if(n.kind === 'loser'){
+    return advanceNodeStatus(n.ref, true);
+  }
+
+  // Los demás nodos reflejan el estado actual del equipo.
+  // Si fue eliminado en una ronda posterior, se apaga también
+  // su bandera en el camino previo.
+  const team = resolveTeam(id);
+  if(team) return teamTournamentStatus(team);
 
   return 'pendiente';
 }
 
 function lineStatus(from, to, matchRef){
   const fromNode = nodes[from];
+  const fromTeam = resolveTeam(from);
 
-  /*
-   * Caso especial: los perdedores de semifinales avanzan
-   * al partido por el tercer lugar.
-   */
-  if(fromNode?.kind === 'loser'){
+  if(!fromNode || !fromTeam) return 'pendiente';
+
+  // Ganador de semifinal rumbo a la gran final.
+  if(
+    fromNode.kind === 'winner' &&
+    fromNode.ref.startsWith('semi-') &&
+    matchRef === 'final-p01'
+  ){
     const [semiEt, semiKey] = fromNode.ref.split('-');
-    const semiReal = resultados?.[semiEt]?.[semiKey];
-    const semiStatus = statusOf(semiReal);
+    const semiSt = statusOf(resultados?.[semiEt]?.[semiKey]);
+    const finalSt = statusOf(resultados?.final?.p01);
 
-    if(semiStatus === 'parcial'){
-      return 'parcial';
-    }
+    if(semiSt === 'parcial') return 'parcial';
+    if(semiSt !== 'final' || !winnerTeam(semiEt, semiKey)) return 'pendiente';
+    if(finalSt === 'pendiente') return 'proxima-final';
+    if(finalSt === 'parcial') return 'parcial';
 
-    if(semiStatus === 'final' && loserTeam(semiEt, semiKey)){
-      return 'final';
-    }
-
-    return 'pendiente';
+    const ganadorFinal = winnerTeam('final', 'p01');
+    return ganadorFinal && sameTeam(fromTeam, ganadorFinal) ? 'final' : 'pendiente';
   }
+
+  // Perdedor de semifinal rumbo al partido por tercer lugar.
+  if(
+    fromNode.kind === 'loser' &&
+    fromNode.ref.startsWith('semi-') &&
+    matchRef === 'final-p02'
+  ){
+    const [semiEt, semiKey] = fromNode.ref.split('-');
+    const semiSt = statusOf(resultados?.[semiEt]?.[semiKey]);
+    const tercerSt = statusOf(resultados?.final?.p02);
+
+    if(semiSt === 'parcial') return 'parcial';
+    if(semiSt !== 'final' || !loserTeam(semiEt, semiKey)) return 'pendiente';
+    if(tercerSt === 'pendiente') return 'proximo-tercer';
+    if(tercerSt === 'parcial') return 'parcial';
+
+    const ganadorTercero = winnerTeam('final', 'p02');
+    return ganadorTercero && sameTeam(fromTeam, ganadorTercero) ? 'final' : 'pendiente';
+  }
+
+  // Un equipo eliminado no conserva líneas verdes históricas.
+  if(teamTournamentStatus(fromTeam) === 'eliminado') return 'pendiente';
 
   const [et, key] = matchRef.split('-');
   const realSt = statusOf(resultados?.[et]?.[key]);
 
-  if(realSt === 'parcial'){
-    return 'parcial';
-  }
+  if(realSt === 'parcial') return 'parcial';
+  if(realSt !== 'final') return 'pendiente';
 
-  if(realSt !== 'final'){
-    return 'pendiente';
-  }
-
-  const fromTeam = resolveTeam(from);
   const winner = winnerTeam(et, key);
-
-  if(winner && sameTeam(fromTeam, winner)){
-    return 'final';
-  }
-
-  return 'pendiente';
+  return winner && sameTeam(fromTeam, winner) ? 'final' : 'pendiente';
 }
 	
   function elbow(a,b){

@@ -2181,3 +2181,39 @@ body.theme-dark .wc-svg-node.pendiente{opacity:.48;}
 .flag-square,.flag-bubble,.flag-frame{overflow:hidden!important;}
 .flag-square .team-flag,.flag-bubble .team-flag,.flag-frame .team-flag,.team-flag{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center center!important;display:block!important;}
 @media(max-width:980px){.camino-svg-stage{min-height:420px;overflow-x:auto;justify-content:flex-start}.wc-svg-bracket{min-width:980px}}
+
+
+/* Animación de próximos partidos: final y tercer lugar */
+.wc-svg-line.proxima-final{
+  stroke:#17b86b;
+  stroke-width:3.4;
+  stroke-dasharray:10 7;
+  animation:wcNextLine 1s linear infinite, wcNextFinalPulse 1.8s ease-in-out infinite;
+}
+.wc-svg-line.proximo-tercer{
+  stroke:#f0a000;
+  stroke-width:3.4;
+  stroke-dasharray:10 7;
+  animation:wcNextLine 1s linear infinite, wcNextThirdPulse 1.8s ease-in-out infinite;
+}
+@keyframes wcNextLine{
+  from{stroke-dashoffset:17;}
+  to{stroke-dashoffset:0;}
+}
+@keyframes wcNextFinalPulse{
+  0%,100%{stroke-opacity:.65;filter:drop-shadow(0 0 1px rgba(23,184,107,.2));}
+  50%{stroke-opacity:1;filter:drop-shadow(0 0 5px rgba(23,184,107,.65));}
+}
+@keyframes wcNextThirdPulse{
+  0%,100%{stroke-opacity:.65;filter:drop-shadow(0 0 1px rgba(240,160,0,.2));}
+  50%{stroke-opacity:1;filter:drop-shadow(0 0 5px rgba(240,160,0,.65));}
+}
+body.theme-dark .wc-svg-line.proxima-final{stroke:#22c77a;}
+body.theme-dark .wc-svg-line.proximo-tercer{stroke:#fbbf24;}
+@media (prefers-reduced-motion:reduce){
+  .wc-svg-line.proxima-final,
+  .wc-svg-line.proximo-tercer{
+    animation:none;
+    stroke-dasharray:none;
+  }
+}
