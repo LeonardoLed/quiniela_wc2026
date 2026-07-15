@@ -375,7 +375,7 @@ const CONFIG = {
       "p02": {
         "marcador": [
           1,
-          1
+          2
         ],
         "pasa": null,
         "estado": "parcial"
