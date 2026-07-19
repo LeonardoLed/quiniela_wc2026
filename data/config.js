@@ -383,15 +383,11 @@ const CONFIG = {
       "p01": null,
       "p02": {
         "marcador": [
-          0,
-          0
-        ],
-        "pasa": "V",
-        "estado": "final",
-        "penales": [
           4,
           6
-        ]
+        ],
+        "pasa": "V",
+        "estado": "final"
       }
     }
   },
@@ -2664,7 +2660,7 @@ const CONFIG = {
         "flagL": "fr",
         "visita": "España",
         "flagV": "es",
-        "fecha": "14/07 - Boston"
+        "fecha": "14/07 - Dallas"
       },
       "p02": {
         "local": "Inglaterra",
