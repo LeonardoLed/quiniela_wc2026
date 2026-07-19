@@ -1,14 +1,13 @@
 /*
   CONFIGURACIÓN MANUAL DE LA QUINIELA
 
-  Archivo actualizado con pronósticos de Octavos de Final.
-  Nota: el campo original argVsAus se interpretó como Argentina vs Egipto.
-  Se omitieron los registros "Prueba" y la quiniela vacía #12.
-  Ajuste: Canadá 0-3 Marruecos y p01 de Christian Zugaide no cuenta por entrega fuera de tiempo.
+  Archivo actualizado hasta la fase final.
+  Ajuste: tercer lugar Francia vs Inglaterra finalizado 0-0; Inglaterra ganó 6-4 en penales.
+  Pronósticos de la final y tercer lugar cargados únicamente para los participantes indicados.
 */
 
 const CONFIG = {
-  "faseAbierta": "d8",
+  "faseAbierta": "final",
   "reglas": {
     "exacto": 3,
     "resultado": 1,
@@ -243,27 +242,167 @@ const CONFIG = {
         "pasa": "V",
         "estado": "final"
       },
-      "p02": null,
-      "p03": null,
-      "p04": null,
-      "p05": null,
-      "p06": null,
-      "p07": null,
-      "p08": null
+      "p02": {
+        "marcador": [
+          0,
+          1
+        ],
+        "pasa": "V",
+        "estado": "final"
+      },
+      "p03": {
+        "marcador": [
+          0,
+          1
+        ],
+        "pasa": "V",
+        "estado": "final"
+      },
+      "p04": {
+        "marcador": [
+          1,
+          4
+        ],
+        "pasa": "V",
+        "estado": "final"
+      },
+      "p05": {
+        "marcador": [
+          1,
+          2
+        ],
+        "pasa": "V",
+        "estado": "final"
+      },
+      "p06": {
+        "marcador": [
+          2,
+          3
+        ],
+        "pasa": "V",
+        "estado": "final"
+      },
+      "p07": {
+        "marcador": [
+          3,
+          2
+        ],
+        "pasa": "L",
+        "estado": "final"
+      },
+      "p08": {
+        "marcador": [
+          0,
+          0
+        ],
+        "definicion": {
+          "tipo": "Tiempo Extra",
+          "marcador": [
+            0,
+            0
+          ],
+          "nota": "Sin goles en T.E."
+        },
+        "penales": [
+          4,
+          3
+        ],
+        "pasa": "L",
+        "estado": "final"
+      }
     },
     "d4": {
-      "p01": null,
-      "p02": null,
-      "p03": null,
-      "p04": null
+      "p01": {
+        "marcador": [
+          2,
+          0
+        ],
+        "pasa": "L",
+        "estado": "final"
+      },
+      "p02": {
+        "marcador": [
+          2,
+          1
+        ],
+        "pasa": "L",
+        "estado": "final"
+      },
+      "p03": {
+        "marcador": [
+          1,
+          1
+        ],
+        "definicion": {
+          "tipo": "Tiempo Extra",
+          "marcador": [
+            0,
+            1
+          ],
+          "nota": "Marcador Final: 1-2"
+        },
+        "pasa": "V",
+        "estado": "final"
+      },
+      "p04": {
+        "marcador": [
+          1,
+          1
+        ],
+        "definicion": {
+          "tipo": "Tiempo Extra",
+          "marcador": [
+            2,
+            0
+          ],
+          "nota": "Marcador Final: 3-1"
+        },
+        "pasa": "L",
+        "estado": "final"
+      }
     },
     "semi": {
-      "p01": null,
-      "p02": null
+      "p01": {
+        "marcador": [
+          0,
+          2
+        ],
+        "pasa": "V",
+        "estado": "final"
+      },
+      "p02": {
+        "marcador": [
+          1,
+          2
+        ],
+        "pasa": "V",
+        "estado": "final"
+      }
     },
     "final": {
-      "p01": null,
-      "p02": null
+      "p01": {
+        "marcador": [
+          0,
+          0
+        ],"definicion": {
+          "tipo": "Tiempo Extra",
+          "marcador": [
+            0,
+            0
+          ],
+          "nota": "sin goles aún en T.E."
+        },
+        "pasa": null,
+        "estado": "parcial"
+      },
+      "p02": {
+        "marcador": [
+          4,
+          6
+        ],
+        "pasa": "V",
+        "estado": "final"
+      }
     }
   },
   "pronosticos": [
@@ -441,18 +580,66 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "semi": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        }
       },
       "final": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       }
     },
     {
@@ -629,14 +816,50 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "semi": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        }
       },
       "final": {
         "p01": null,
@@ -817,18 +1040,66 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            3,
+            0
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "semi": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            0,
+            1
+          ],
+          "pasa": null
+        }
       },
       "final": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       }
     },
     {
@@ -999,18 +1270,66 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        },
+        "p02": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "semi": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       },
       "final": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       }
     },
     {
@@ -1188,13 +1507,43 @@ const CONFIG = {
       },
       "d4": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            0,
+            1
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        }
       },
       "semi": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            3,
+            2
+          ],
+          "pasa": null
+        }
       },
       "final": {
         "p01": null,
@@ -1375,18 +1724,66 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        },
+        "p02": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "V"
+        }
       },
       "semi": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p02": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        }
       },
       "final": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p02": {
+          "marcador": [
+            3,
+            1
+          ],
+          "pasa": null
+        }
       }
     },
     {
@@ -1563,14 +1960,50 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p03": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "V"
+        },
+        "p04": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       },
       "semi": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "V"
+        }
       },
       "final": {
         "p01": null,
@@ -1751,18 +2184,66 @@ const CONFIG = {
         }
       },
       "d4": {
-        "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       },
       "semi": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        }
       },
       "final": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       }
     },
     {
@@ -1940,13 +2421,43 @@ const CONFIG = {
       },
       "d4": {
         "p01": null,
-        "p02": null,
-        "p03": null,
-        "p04": null
+        "p02": {
+          "marcador": [
+            1,
+            0
+          ],
+          "pasa": null
+        },
+        "p03": {
+          "marcador": [
+            3,
+            2
+          ],
+          "pasa": null
+        },
+        "p04": {
+          "marcador": [
+            2,
+            0
+          ],
+          "pasa": null
+        }
       },
       "semi": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            3,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       },
       "final": {
         "p01": null,
@@ -2129,65 +2640,65 @@ const CONFIG = {
     },
     "d4": {
       "p01": {
-        "local": "Ganador Canadá/Marruecos",
-        "flagL": "",
-        "visita": "Ganador Paraguay/Francia",
-        "flagV": "",
-        "fecha": "09/07"
+        "local": "Francia",
+        "flagL": "fr",
+        "visita": "Marruecos",
+        "flagV": "ma",
+        "fecha": "09/07 — Boston"
       },
       "p02": {
-        "local": "Ganador Portugal/España",
-        "flagL": "",
-        "visita": "Ganador EE.UU./Bélgica",
-        "flagV": "",
-        "fecha": "10/07"
+        "local": "España",
+        "flagL": "es",
+        "visita": "Bélgica",
+        "flagV": "be",
+        "fecha": "10/07 — Los Ángeles"
       },
       "p03": {
-        "local": "Ganador Brasil/Noruega",
-        "flagL": "",
-        "visita": "Ganador México/Inglaterra",
-        "flagV": "",
-        "fecha": "11/07"
+        "local": "Noruega",
+        "flagL": "no",
+        "visita": "Inglaterra",
+        "flagV": "gb-eng",
+        "fecha": "11/07 — Miami"
       },
       "p04": {
-        "local": "Ganador Argentina/Egipto",
-        "flagL": "",
-        "visita": "Ganador Suiza/Colombia",
-        "flagV": "",
-        "fecha": "11/07"
+        "local": "Argentina",
+        "flagL": "ar",
+        "visita": "Suiza",
+        "flagV": "ch",
+        "fecha": "11/07 — Kansas City"
       }
     },
     "semi": {
       "p01": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
+        "local": "Francia",
+        "flagL": "fr",
+        "visita": "España",
+        "flagV": "es",
+        "fecha": "14/07 - Dallas"
       },
       "p02": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": ""
+        "local": "Inglaterra",
+        "flagL": "gb-eng",
+        "visita": "Argentina",
+        "flagV": "ar",
+        "fecha": "15/07 - Atlanta"
       }
     },
     "final": {
       "p01": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": "",
+        "local": "España",
+        "flagL": "es",
+        "visita": "Argentina",
+        "flagV": "ar",
+        "fecha": "19/07 — Nueva York/Nueva Jersey",
         "nota": "Gran final"
       },
       "p02": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": "",
+        "local": "Francia",
+        "flagL": "fr",
+        "visita": "Inglaterra",
+        "flagV": "gb-eng",
+        "fecha": "18/07 — Miami",
         "nota": "Partido por tercer lugar"
       }
     }
