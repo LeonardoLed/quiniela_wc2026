@@ -387,13 +387,13 @@ const CONFIG = {
         ],"definicion": {
           "tipo": "Tiempo Extra",
           "marcador": [
-            0,
+            1,
             0
           ],
-          "nota": "sin goles aún en T.E."
+          "nota": "Campeón España"
         },
-        "pasa": null,
-        "estado": "parcial"
+        "pasa": "L",
+        "estado": "final"
       },
       "p02": {
         "marcador": [
