@@ -380,7 +380,14 @@ const CONFIG = {
       }
     },
     "final": {
-      "p01": null,
+      "p01": {
+        "marcador": [
+          0,
+          0
+        ],
+        "pasa": null,
+        "estado": "parcial"
+      },
       "p02": {
         "marcador": [
           4,
