@@ -1,14 +1,13 @@
 /*
   CONFIGURACIÓN MANUAL DE LA QUINIELA
 
-  Archivo actualizado con pronósticos de Octavos de Final.
-  Nota: el campo original argVsAus se interpretó como Argentina vs Egipto.
-  Se omitieron los registros "Prueba" y la quiniela vacía #12.
-  Ajuste: pronósticos de Cuartos cargados. Mario Morales y Eduardo Sandoval no cuentan p01 por entrega fuera de tiempo.
+  Archivo actualizado hasta la fase final.
+  Ajuste: tercer lugar Francia vs Inglaterra finalizado 0-0; Inglaterra ganó 6-4 en penales.
+  Pronósticos de la final y tercer lugar cargados únicamente para los participantes indicados.
 */
 
 const CONFIG = {
-  "faseAbierta": "semi",
+  "faseAbierta": "final",
   "reglas": {
     "exacto": 3,
     "resultado": 1,
@@ -275,7 +274,7 @@ const CONFIG = {
         "pasa": "V",
         "estado": "final"
       },
-      "p06":  {
+      "p06": {
         "marcador": [
           2,
           3
@@ -302,17 +301,15 @@ const CONFIG = {
             0,
             0
           ],
-        "nota": "Sin goles en T.E."
+          "nota": "Sin goles en T.E."
         },
-          "penales": [
+        "penales": [
           4,
           3
         ],
         "pasa": "L",
         "estado": "final"
-      
       }
-        
     },
     "d4": {
       "p01": {
@@ -341,13 +338,14 @@ const CONFIG = {
           "marcador": [
             0,
             1
-          ], 
+          ],
           "nota": "Marcador Final: 1-2"
         },
         "pasa": "V",
         "estado": "final"
       },
-      "p04": { "marcador": [
+      "p04": {
+        "marcador": [
           1,
           1
         ],
@@ -356,13 +354,13 @@ const CONFIG = {
           "marcador": [
             2,
             0
-          ], 
+          ],
           "nota": "Marcador Final: 3-1"
         },
         "pasa": "L",
         "estado": "final"
       }
-      },
+    },
     "semi": {
       "p01": {
         "marcador": [
@@ -383,7 +381,18 @@ const CONFIG = {
     },
     "final": {
       "p01": null,
-      "p02": null
+      "p02": {
+        "marcador": [
+          0,
+          0
+        ],
+        "pasa": "V",
+        "estado": "final",
+        "penales": [
+          4,
+          6
+        ]
+      }
     }
   },
   "pronosticos": [
@@ -607,8 +616,20 @@ const CONFIG = {
         }
       },
       "final": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            2,
+            2
+          ],
+          "pasa": "L"
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       }
     },
     {
@@ -1055,8 +1076,20 @@ const CONFIG = {
         }
       },
       "final": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       }
     },
     {
@@ -1273,8 +1306,20 @@ const CONFIG = {
         }
       },
       "final": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            1,
+            2
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       }
     },
     {
@@ -1715,8 +1760,20 @@ const CONFIG = {
         }
       },
       "final": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            1,
+            1
+          ],
+          "pasa": "L"
+        },
+        "p02": {
+          "marcador": [
+            3,
+            1
+          ],
+          "pasa": null
+        }
       }
     },
     {
@@ -2163,8 +2220,20 @@ const CONFIG = {
         }
       },
       "final": {
-        "p01": null,
-        "p02": null
+        "p01": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        },
+        "p02": {
+          "marcador": [
+            2,
+            1
+          ],
+          "pasa": null
+        }
       }
     },
     {
@@ -2607,19 +2676,19 @@ const CONFIG = {
     },
     "final": {
       "p01": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": "",
+        "local": "España",
+        "flagL": "es",
+        "visita": "Argentina",
+        "flagV": "ar",
+        "fecha": "19/07 — Nueva York/Nueva Jersey",
         "nota": "Gran final"
       },
       "p02": {
-        "local": "Por definir",
-        "flagL": "",
-        "visita": "Por definir",
-        "flagV": "",
-        "fecha": "",
+        "local": "Francia",
+        "flagL": "fr",
+        "visita": "Inglaterra",
+        "flagV": "gb-eng",
+        "fecha": "18/07 — Miami",
         "nota": "Partido por tercer lugar"
       }
     }
